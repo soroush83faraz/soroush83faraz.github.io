@@ -1,0 +1,96 @@
+1:"$Sreact.fragment"
+3:I[8500,["500","static/chunks/500-c99b8dfd3de17c86.js","972","static/chunks/app/(public)/blog/%5Bslug%5D/page-afd3e00789ab22b8.js"],""]
+4:I[1265,["500","static/chunks/500-c99b8dfd3de17c86.js","972","static/chunks/app/(public)/blog/%5Bslug%5D/page-afd3e00789ab22b8.js"],"default"]
+8:I[484,[],"OutletBoundary"]
+9:"$Sreact.suspense"
+:HL["/media/blog/irtc_corona_3.jpg","image"]
+2:T731,{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://fmg-tech.ir/blog/%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C-%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA-%DA%A9%D8%A7%D8%A8%D9%84-%D9%87%D8%A7%DB%8C-%D9%81%D8%B4%D8%A7%D8%B1-%D9%82%D9%88%DB%8C/#article","headline":"بررسی مشکلات کابل های فشار قوی","description":"کابل فشار قوی (HV): قلب تپنده شبکه‌های انتقال انرژی مدرن کشف فناوری پیشرفته کابل‌های فشار قوی با عایق XLPE - راه‌حلی مطمئن برای پروژه‌های صنعتی و ملی انقلابی در انتقال انرژی: کابل فشار قوی چه ویژگی‌ها","image":"/media/blog/irtc_corona_3.jpg","datePublished":"2022-12-12T15:58:17+03:30","dateModified":"2022-12-12T15:58:17+03:30","inLanguage":"fa-IR","mainEntityOfPage":"https://fmg-tech.ir/blog/%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C-%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA-%DA%A9%D8%A7%D8%A8%D9%84-%D9%87%D8%A7%DB%8C-%D9%81%D8%B4%D8%A7%D8%B1-%D9%82%D9%88%DB%8C/","author":{"@type":"Organization","name":"فن آوران مادون قرمز","url":"https://fmg-tech.ir/"},"publisher":{"@type":"Organization","name":"فن آوران مادون قرمز","logo":{"@type":"ImageObject","url":"https://fmg-tech.ir/brand/logo-wide.png"}}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"خانه","item":"https://fmg-tech.ir/"},{"@type":"ListItem","position":2,"name":"مقالات","item":"https://fmg-tech.ir/blog/"},{"@type":"ListItem","position":3,"name":"بررسی مشکلات کابل های فشار قوی","item":"https://fmg-tech.ir/blog/%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C-%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA-%DA%A9%D8%A7%D8%A8%D9%84-%D9%87%D8%A7%DB%8C-%D9%81%D8%B4%D8%A7%D8%B1-%D9%82%D9%88%DB%8C/"}]}]}5:T4144,<p> </p><article><!-- هدر اصلی --><header><h1>کابل فشار قوی (HV): قلب تپنده شبکه‌های انتقال انرژی مدرن</h1><p><strong>کشف فناوری پیشرفته کابل‌های فشار قوی با عایق XLPE - راه‌حلی مطمئن برای پروژه‌های صنعتی و ملی</strong></p></header><p><!-- بخش معرفی --></p><section><h2>انقلابی در انتقال انرژی: کابل فشار قوی چه ویژگی‌های منحصر بفردی دارد؟</h2><p>کابل فشار قوی <strong>(High Voltage Cable)</strong> با هادی <strong>مس و آلومینیوم</strong> و عایق <strong>XLPE</strong>، امروزه به عنوان استاندارد طلایی در انتقال انرژی با ولتاژهای بالای 36 کیلوولت شناخته می‌شود. این کابل‌ها که با نام <strong>کابل قدرت</strong> نیز شناخته می‌شوند، قادر به انتقال جریان‌های الکتریکی فوق‌العاده قوی (بیش از 30 کیلووات) هستند.</p></section><p><!-- بخش آمار و فکت‌های جهانی --></p><section><h2>ارقام حیرت‌انگیز: بازار جهانی کابل‌های فشار قوی در 2024</h2><p>طبق گزارش <strong>Global Market Insights</strong>، بازار کابل‌های فشار قوی تا سال 2027 به <strong>52.8 میلیارد دلار</strong> خواهد رسید که رشد 6.5% سالانه را نشان می‌دهد.</p><ul><li>✅ <strong>افزایش راندمان:</strong> کاهش تلفات انرژی تا 40% نسبت به کابل‌های معمولی</li><li>✅ <strong>طول عمر استثنایی:</strong> عمر مفید 30 تا 40 سال در شرایط استاندارد</li><li>✅ <strong>قابلیت اطمینان:</strong> ضریب اطمینان 99.8% در شبکه‌های حیاتی</li><li>✅ <strong>تحمل دمایی:</strong> عملکرد پایدار در دمای 90- تا 250+ درجه سانتی‌گراد</li></ul></section><p><!-- بخش مزایای فنی --></p><section><h2>برتری فناوری XLPE: چرا مهندسان جهانی این عایق را ترجیح می‌دهند؟</h2><p>عایق <strong>XLPE (Cross-linked Polyethylene)</strong> تحولی در صنعت کابل‌سازی ایجاد کرده است:</p><ul><li><strong>مقاومت در برابر رطوبت:</strong> جذب رطوبت نزدیک به صفر حتی در محیط‌های مرطوب</li><li><strong>استحکام مکانیکی:</strong> مقاومت در برابر فشارهای فیزیکی و تنش‌های نصب</li><li><strong>انعطاف‌پذیری:</strong> نصب آسان‌تر در پروژه‌های پیچیده</li><li><strong>مقاومت حرارتی:</strong> حفظ خواص عایقی در دمای بالا</li></ul></section><p><!-- بخش کاربردها --></p><section><h2>کاربردهای استراتژیک: از نیروگاه‌ها تا شهرهای هوشمند</h2><p>کابل‌های فشار قوی در پروژه‌های حیاتی و زیرساختی استفاده می‌شوند:</p><ul><li><strong>شبکه‌های انتقال نیرو:</strong> اتصال نیروگاه‌ها به پست‌های اصلی</li><li><strong>صنایع نفت و گاز:</strong> تأمین انرژی پالایشگاه‌ها و پتروشیمی‌ها</li><li><strong>سیستم‌های ریلی:</strong> برق‌رسانی به خطوط مترو و قطارهای پرسرعت</li><li><strong>مراکز داده:</strong> تأمین برق پایدار برای سرورهای حساس</li><li><strong>پروژه‌های انرژی تجدیدپذیر:</strong> اتصال مزارع بادی و خورشیدی</li></ul></section><p><!-- بخش استانداردها --></p><section><h2>استانداردهای بین‌المللی: تضمین کیفیت و ایمنی</h2><p>کابل‌های فشار قوی مطابق با سخت‌گیرانه‌ترین استانداردهای جهانی تولید می‌شوند:</p><ul><li>✅ استاندارد IEC 60502-2 (ولتاژهای 30kV تا 150kV)</li><li>✅ استاندارد IEEE 404 (اتصالات کابل فشار قوی)</li><li>✅ استاندارد ملی ایران ISIRI 3562</li><li>✅ استاندارد VDE آلمان برای پروژه‌های اروپایی</li></ul></section><p><!-- بخش نوآوری‌ها --></p><section><h2>آینده صنعت: نوآوری‌های شگفت‌انگیز در <a href="https://fmg-tech.ir/product-category/cable_fault_detection/">عیب یابی کابل‌های فشار قوی</a></h2><p>تکنولوژی‌های جدید در حال متحول کردن این صنعت هستند:</p><ul><li><strong>کابل‌های HVDC:</strong> انتقال انرژی تا فاصله 3000 کیلومتر با تلفات کمتر</li><li><strong>سیستم‌های مانیتورینگ هوشمند:</strong> نظارت لحظه‌ای بر سلامت کابل</li><li><strong>مواد نانوکامپوزیت:</strong> افزایش استحکام و عمر مفید</li><li><strong>کابل‌های ابررسانا:</strong> انتقال انرژی با تلفات نزدیک به صفر</li></ul></section><p><!-- بخش نتیجه‌گیری --></p><section><h2>سخن پایانی: انتخاب هوشمند برای پروژه‌های کلان</h2><p>کابل فشار قوی با عایق <strong>XLPE</strong> نه تنها یک محصول، بلکه یک <strong>راه‌حل مهندسی کامل</strong> برای چالش‌های انتقال انرژی در قرن 21 است. با بهره‌گیری از این فناوری، می‌توانید ضریب اطمینان پروژه‌های خود را به سطح جهانی برسانید و در بلندمدت تا 50% در هزینه‌های نگهداری صرفه‌جویی کنید.</p><p><strong>برای مشاوره رایگان و انتخاب بهترین کابل فشار قوی برای پروژه خود، با متخصصان ما تماس بگیرید.</strong></p></section></article>
+			<a  href="https://fmg-tech.ir/wp-content/uploads/2025/11/UC-XLPE-Catalogue.pdf">
+					دانلود مقاله				
+							</a>
+								<img width="371" height="297" src="https://fmg-tech.ir/wp-content/uploads/2024/06/irtc_corona_3.jpg" alt="تشخیص نقطه تخلیه کرونا در بوشینگ مقره فشار قوی، بازرسی با دوربین فرابنفش." decoding="async" srcset="https://fmg-tech.ir/wp-content/uploads/2024/06/irtc_corona_3.jpg 371w, https://fmg-tech.ir/wp-content/uploads/2024/06/irtc_corona_3-150x120.jpg 150w, https://fmg-tech.ir/wp-content/uploads/2024/06/irtc_corona_3-300x240.jpg 300w" sizes="(max-width: 371px) 100vw, 371px" />					
+			<b>کابل فشار قوی</b> (HV) نوعی <b>کابل</b> با هادي مس يا آلومينيومي است که عايق آن از نوع XLPE می باشد و ظرفیت ولتاژي بالاتر از 36 كيلو ولت دارند. <b>کابل‌های</b> ولتاژ بالا (High-voltage) توانایی عبور جریان‌های بیشتر از ۳۰ کیلو وات را در خود دارندکه نام دیگر آن <b>کابل</b> قدرت است. 
+								<img width="32" height="32" src="https://fmg-tech.ir/wp-content/uploads/2022/12/cameron-williamson-pic-1-32x32.png" alt="" decoding="async" />					
+			<p>مدیر عامل مادون قرمز</p>
+			<b>کابل فشار قوی</b> (HV) نوعی <b>کابل</b> با هادي مس يا آلومينيومي است که عايق آن از نوع XLPE می باشد و ظرفیت ولتاژي بالاتر از 36 كيلو ولت دارند. <b>کابل‌های</b> ولتاژ بالا (High-voltage) توانایی عبور جریان‌های بیشتر از ۳۰ کیلو وات را در خود دارندکه نام دیگر آن <a href="https://fmg-tech.ir/product-category/cable_fault_detection/"><b>کابل</b> </a>قدرت است. 
+				<h4>محصولات مادون قرمز جهت عیب یابی کابل</h4> 
+			<b>کابل فشار قوی</b> (HV) نوعی <b>کابل</b> با هادي مس يا آلومينيومي است که عايق آن از نوع XLPE می باشد و ظرفیت ولتاژي بالاتر از 36 كيلو ولت دارند. <b>کابل‌های</b> ولتاژ بالا (High-voltage) توانایی عبور جریان‌های بیشتر از ۳۰ کیلو وات را در خود دارندکه نام دیگر آن <b>کابل</b> قدرت است. 
+		<a href="https://fmg-tech.ir/product/%d8%b9%db%8c%d8%a8-%da%a9%d8%a7%d8%a8%d9%84-ferrolux-flg-50/" tabindex="-1" aria-label="عیب کابل FLG 50">
+						<img width="700" height="700" src="https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w.jpg" alt="ژنراتور فرکانس صوتی Ferrolux FLG 12-50 به همراه گیرنده (ردیاب کابل)" decoding="async" srcset="https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w.jpg 700w, https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w-600x600.jpg 600w, https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w-150x150.jpg 150w, https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w-300x300.jpg 300w, https://fmg-tech.ir/wp-content/uploads/2024/08/megger-flg-12-50-ferrolux-audio-frequency-generator-12-or-50w-64x64.jpg 64w" sizes="(max-width: 700px) 100vw, 700px" />		</a>
+			<a href="https://fmg-tech.ir/compare/?product_id=11768" data-id="11768" rel="nofollow" data-added-text="مقایسه محصولات">
+				Add to compare
+			</a>
+			<a
+				href="https://fmg-tech.ir/product/%d8%b9%db%8c%d8%a8-%da%a9%d8%a7%d8%a8%d9%84-ferrolux-flg-50/"
+				class="open-quick-view quick-view-button"
+				rel="nofollow"
+				data-id="11768"
+				>مشاهده سریع</a>
+				<a href="https://fmg-tech.ir/wishlist/" data-key="54b584e07e" data-product-id="11768" rel="nofollow" data-added-text="مرور فهرست علاقمندی">
+					فهرست علاقه مندی ها
+				</a>
+		<h3><a href="https://fmg-tech.ir/product/%d8%b9%db%8c%d8%a8-%da%a9%d8%a7%d8%a8%d9%84-ferrolux-flg-50/">عیب کابل FLG 50</a></h3>
+			نمره <strong>0</strong> از 5		
+					<p>موجود در انبار</p>
+<p>با قابلیت انتقال همزمان سه فرکانس و سیستم تطبیق امپدانس خودکار، ژنراتور فرکانس صوتی FLG 50 راه‌حلی پیشرفته برای مکان‌یابی دقیق کابل‌ها، لوله‌ها و شناسایی خطاهای زیرزمینی ارائه می‌دهد.</p>
+						<a href="#" rel="nofollow" aria-label="توضیحات بیشتر را بخوانید"></a>
+		<a href="https://fmg-tech.ir/product/baur-ksg-200/" tabindex="-1" aria-label="تعیین کابل KSG 200">
+						<img width="374" height="338" src="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-155302.png" alt="پکیج کامل سیستم شناسایی کابل KSG 200 شامل سنسور، کابل‌ها و دستگاه اصلی" decoding="async" srcset="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-155302.png 374w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-155302-150x136.png 150w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-155302-300x271.png 300w" sizes="(max-width: 374px) 100vw, 374px" />		</a>
+			<a href="https://fmg-tech.ir/compare/?product_id=11762" data-id="11762" rel="nofollow" data-added-text="مقایسه محصولات">
+				Add to compare
+			</a>
+			<a
+				href="https://fmg-tech.ir/product/baur-ksg-200/"
+				class="open-quick-view quick-view-button"
+				rel="nofollow"
+				data-id="11762"
+				>مشاهده سریع</a>
+				<a href="https://fmg-tech.ir/wishlist/" data-key="54b584e07e" data-product-id="11762" rel="nofollow" data-added-text="مرور فهرست علاقمندی">
+					فهرست علاقه مندی ها
+				</a>
+		<h3><a href="https://fmg-tech.ir/product/baur-ksg-200/">تعیین کابل KSG 200</a></h3>
+			نمره <strong>0</strong> از 5		
+					<p>موجود در انبار</p>
+<p>با فناوری پیشرفته ATP و قابلیت تولید جریان پالس تا ۱۸۰ آمپر، تعیین کابل BAUR KSG 200 راه‌حلی ایمن و دقیق برای تشخیص رشته‌های کابل تک‌فاز و سه‌فاز تا ولتاژ ۴۰۰ ولت ارائه می‌دهد.</p>
+						<a href="#" rel="nofollow" aria-label="توضیحات بیشتر را بخوانید"></a>
+		<a href="https://fmg-tech.ir/product/stx-40/" tabindex="-1" aria-label="عیب یاب کابل MEGGER STX 40">
+						<img width="347" height="447" src="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-150348.png" alt="سیستم عیب یاب کابل Megger STX40-2000 با صفحه نمایش لمسی" decoding="async" srcset="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-150348.png 347w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-150348-150x193.png 150w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-150348-233x300.png 233w" sizes="(max-width: 347px) 100vw, 347px" />		</a>
+			<a href="https://fmg-tech.ir/compare/?product_id=11751" data-id="11751" rel="nofollow" data-added-text="مقایسه محصولات">
+				Add to compare
+			</a>
+			<a
+				href="https://fmg-tech.ir/product/stx-40/"
+				class="open-quick-view quick-view-button"
+				rel="nofollow"
+				data-id="11751"
+				>مشاهده سریع</a>
+				<a href="https://fmg-tech.ir/wishlist/" data-key="54b584e07e" data-product-id="11751" rel="nofollow" data-added-text="مرور فهرست علاقمندی">
+					فهرست علاقه مندی ها
+				</a>
+		<h3><a href="https://fmg-tech.ir/product/stx-40/">عیب یاب کابل MEGGER STX 40</a></h3>
+			نمره <strong>0</strong> از 5		
+					<p>موجود در انبار</p>
+<p>عیب یاب کابل STX 40 با قابلیت تولید ولتاژ ۴۰ کیلوولت DC و صفحه نمایش لمسی ۱۰.۱ اینچی، عیب‌یاب کابل MEGGER STX 40 راه‌حلی جامع برای تست عایق، آنالیز و مکان‌یابی عیوب در کابل‌های ولتاژ متوسط و پایین ارائه می‌دهد.</p>
+						<a href="#" rel="nofollow" aria-label="توضیحات بیشتر را بخوانید"></a>
+		<a href="https://fmg-tech.ir/product/protrac/" tabindex="-1" aria-label="عیب یاب کابل protrac">
+						<img width="650" height="490" src="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-142627.png" alt="اجزا و ابزارهای تخصصی داخل جعبه سیستم ردیابی کابل و پوشش عیب Protrac برای عملیات عیب‌یابی میدانی" decoding="async" srcset="https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-142627.png 650w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-142627-150x113.png 150w, https://fmg-tech.ir/wp-content/uploads/2024/08/Screenshot-2024-08-26-142627-300x226.png 300w" sizes="(max-width: 650px) 100vw, 650px" />		</a>
+			<a href="https://fmg-tech.ir/compare/?product_id=11730" data-id="11730" rel="nofollow" data-added-text="مقایسه محصولات">
+				Add to compare
+			</a>
+			<a
+				href="https://fmg-tech.ir/product/protrac/"
+				class="open-quick-view quick-view-button"
+				rel="nofollow"
+				data-id="11730"
+				>مشاهده سریع</a>
+				<a href="https://fmg-tech.ir/wishlist/" data-key="54b584e07e" data-product-id="11730" rel="nofollow" data-added-text="مرور فهرست علاقمندی">
+					فهرست علاقه مندی ها
+				</a>
+		<h3><a href="https://fmg-tech.ir/product/protrac/">عیب یاب کابل protrac</a></h3>
+			نمره <strong>0</strong> از 5		
+					<p>موجود در انبار</p>
+<p>با ترکیب فناوری‌های آکوستیک، مغناطیسی و ولتاژ گام، عیب‌یاب کابل Protrac قادر به تشخیص و مکان‌یابی دقیق عیوب در کابل‌های زیرزمینی با دقت سانتی‌متری است و زمان تعمیرات را تا ۷۰٪ کاهش می‌دهد.</p>
+						<a href="#" rel="nofollow" aria-label="توضیحات بیشتر را بخوانید"></a>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"className":"mx-auto max-w-3xl px-6 py-12","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$2"}}],["$","nav",null,{"className":"flex flex-wrap items-center gap-2 text-sm text-muted mb-6","aria-label":"مسیر","children":[["$","$1","خانه-0",{"children":[false,["$","$L3",null,{"href":"/","className":"transition-colors hover:text-brand","children":"خانه"}]]}],["$","$1","مقالات-1",{"children":[["$","span",null,{"aria-hidden":true,"className":"text-line","children":"/"}],["$","$L3",null,{"href":"/blog","className":"transition-colors hover:text-brand","children":"مقالات"}]]}]]}],["$","h1",null,{"className":"text-3xl font-black leading-snug text-ink","children":"بررسی مشکلات کابل های فشار قوی"}],["$","p",null,{"className":"mt-3 flex items-center gap-2 text-sm text-muted","children":[["$","$L4",null,{"iconNode":[["path",{"d":"M8 2v4","key":"1cmpym"}],["path",{"d":"M16 2v4","key":"4m81vk"}],["rect",{"width":"18","height":"18","x":"3","y":"4","rx":"2","key":"1hopcy"}],["path",{"d":"M3 10h18","key":"8toen8"}]],"className":"lucide-calendar","size":15}]," ","۲۱ آذر ۱۴۰۱"]}],["$","div",null,{"className":"thermal-bar thermal-rule mt-5"}],["$","div",null,{"className":"relative mt-6 aspect-video w-full overflow-hidden rounded-lg bg-surface","children":["$","img",null,{"src":"/media/blog/irtc_corona_3.jpg","alt":"بررسی مشکلات کابل های فشار قوی","decoding":"async","className":"absolute inset-0 h-full w-full object-cover"}]}],["$","div",null,{"className":"article-body mt-8","dangerouslySetInnerHTML":{"__html":"$5"}}],"$L6"]}],null,"$L7"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"qmhu4atkKobnDO6vjPB94"}
+6:["$","div",null,{"className":"mt-12","children":["$","$L3",null,{"href":"/blog","className":"inline-flex items-center gap-1 text-sm text-brand hover:underline","children":[["$","$L4",null,{"iconNode":[["path",{"d":"m15 18-6-6 6-6","key":"1wnfg3"}]],"className":"lucide-chevron-left","size":16}]," بازگشت به مقالات"]}]}]
+7:["$","$L8",null,{"children":["$","$9",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]
+a:null

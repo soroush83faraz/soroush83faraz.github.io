@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[8500,["500","static/chunks/500-c99b8dfd3de17c86.js","879","static/chunks/879-06b0380c0ce981da.js","434","static/chunks/434-c927d9365113a9db.js","359","static/chunks/app/(public)/page-2521937458115526.js"],""]
+3:I[484,[],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex min-h-[60vh] flex-col items-center justify-center px-6 text-center","children":[["$","h2",null,{"className":"text-xl font-bold text-ink","children":"صفحه یافت نشد"}],["$","p",null,{"className":"mt-2 text-muted","children":"صفحه مورد نظر وجود ندارد."}],["$","$L2",null,{"href":"/","className":"inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors disabled:opacity-60 disabled:pointer-events-none bg-brand text-white hover:bg-brand-dark px-6 py-3 mt-5","children":"بازگشت به صفحه اصلی"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"qmhu4atkKobnDO6vjPB94"}
+5:null

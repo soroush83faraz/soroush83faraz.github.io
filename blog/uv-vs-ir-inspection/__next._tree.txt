@@ -1,0 +1,4 @@
+:HL["/_next/static/css/9ee46aee55913e16.css","style"]
+:HL["/brand/logo-dark.webp","image"]
+:HL["/media/products/irtc_thermovision_satir-g96_2.jpg","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":20,"slots":{"children":{"name":"(public)","param":null,"prefetchHints":0,"slots":{"children":{"name":"blog","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"uv-vs-ir-inspection","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"qmhu4atkKobnDO6vjPB94"}

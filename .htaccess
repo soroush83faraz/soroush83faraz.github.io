@@ -1,0 +1,53 @@
+# === FMG migration redirects: old WooCommerce/WordPress URLs → new static site ===
+#
+# Static export served by Apache at the document root. Next.js does NOT copy dotfiles into
+# out/, so scripts/postbuild.mjs copies public/.htaccess → out/.htaccess after every build.
+#
+# IMPORTANT: if the Plesk host already has an .htaccess (SSL / clean-URL rules), MERGE these
+# RewriteRules into it instead of overwriting that file.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- WooCommerce product categories: /product-category/<slug>/ → /products/<slug>/ ---
+  RewriteRule ^product-category/thermography/?$                /products/thermography/          [R=301,L,NC]
+  RewriteRule ^product-category/corona[_-]ultrasonic/?$        /products/corona-ultrasonic/     [R=301,L,NC]
+  RewriteRule ^product-category/partial[_-]discharge/?$        /products/partial-discharge/     [R=301,L,NC]
+  RewriteRule ^product-category/cable[_-]fault[_-]detection/?$ /products/cable-fault-detection/ [R=301,L,NC]
+  RewriteRule ^product-category/hot[_-]?line[_-]equipment/?$   /products/hotline-equipment/     [R=301,L,NC]
+  RewriteRule ^product-category/other[_-]equipment/?$          /products/other-equipment/       [R=301,L,NC]
+  RewriteRule ^product-category/                               /products/                       [R=301,L,NC]
+  RewriteRule ^product-tag/                                    /products/                       [R=301,L,NC]
+
+  # --- Legacy /category/<slug>/ base (older, shorter slugs) → new product categories ---
+  RewriteRule ^category/(corona|ultrasonic|corona[_-]?ultrasonic)/?$    /products/corona-ultrasonic/     [R=301,L,NC]
+  RewriteRule ^category/(thermo|thermography|thermovision)/?$           /products/thermography/          [R=301,L,NC]
+  RewriteRule ^category/(pd|partial[_-]?discharge)/?$                   /products/partial-discharge/     [R=301,L,NC]
+  RewriteRule ^category/(cable|cable[_-]?fault[_-]?detection)/?$        /products/cable-fault-detection/ [R=301,L,NC]
+  RewriteRule ^category/(hotline|hot[_-]?line|hotline[_-]?equipment)/?$ /products/hotline-equipment/     [R=301,L,NC]
+  # Any other legacy /category/ archive → products listing (no hard 404s)
+  RewriteRule ^category/                                                /products/                       [R=301,L,NC]
+
+  # --- English pages (the new site is Persian-only) → Persian equivalents ---
+  RewriteRule ^en/about-us/?$    /about/    [R=301,L,NC]
+  RewriteRule ^en/contact.*$     /contact/  [R=301,L,NC]
+  RewriteRule ^en/?$             /          [R=301,L,NC]
+  RewriteRule ^en/               /          [R=301,L,NC]
+
+  # --- Removed WooCommerce shop/account pages → relevant new pages ---
+  RewriteRule ^shop/?$                           /products/ [R=301,L,NC]
+  RewriteRule ^(cart|checkout|my-account)(/.*)?$ /          [R=301,L,NC]
+  RewriteRule ^refund[_-]returns/?$              /          [R=301,L,NC]
+
+  # --- Renamed article slugs: old Persian URL → new English URL (mod_rewrite matches the
+  #     percent-decoded UTF-8 path, so the Persian literal below is correct) ---
+  RewriteRule ^blog/تخلیه-جزئی-چیست/?$ /blog/what-is-partial-discharge/ [R=301,L]
+
+  # --- Safety net: old product URLs that no longer exist → products listing ---
+  # Fires ONLY when the requested path is not a real file/dir, so valid new /product/<slug>/
+  # pages are served normally and never redirected. Replace with exact per-product 301s once
+  # the 404 list is known (Search Console → Pages → "Not found (404)").
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^product/.+ /products/ [R=301,L,NC]
+</IfModule>
