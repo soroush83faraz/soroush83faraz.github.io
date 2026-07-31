@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soroush Faraz — Software Developer</title>
-<meta name="description" content="Portfolio of Soroush Faraz — Flutter, Next.js/TypeScript, Go and Python projects: Rehash (Joino), LANLink, hospital-sim, CPPiler and more.">
+<meta name="description" content="Portfolio of Soroush Faraz — live products (Joino, FMG Tech), web design samples, and engineering projects in Go, Python, Flutter and Next.js.">
 <meta property="og:title" content="Soroush Faraz — Software Developer">
 <meta property="og:description" content="Mobile apps with Flutter, web apps with Next.js, systems tools in Go & Python.">
 <meta property="og:type" content="website">
@@ -13,13 +13,13 @@
 <style>
 :root{
   --bg:#f8fafc; --panel:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0;
-  --accent:#2563eb; --accent2:#0891b2; --chipbg:#eff6ff; --chiptx:#1d4ed8;
+  --accent:#2563eb; --accent2:#C08A2D; --chipbg:#eff6ff; --chiptx:#1d4ed8;
   --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px -12px rgba(15,23,42,.18);
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#0b1220; --panel:#111a2c; --text:#e2e8f0; --muted:#94a3b8; --line:#1e293b;
-    --accent:#60a5fa; --accent2:#22d3ee; --chipbg:#172554; --chiptx:#93c5fd;
+    --accent:#60a5fa; --accent2:#E8B54D; --chipbg:#172554; --chiptx:#93c5fd;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -14px rgba(0,0,0,.6);
   }
 }
@@ -32,11 +32,11 @@ a:hover{text-decoration:underline}
 header{padding:18px 0;border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .brand{font-weight:700;font-size:1.05rem;color:var(--text)}
-nav{display:flex;gap:18px;font-size:.95rem}
+nav{display:flex;gap:18px;font-size:.95rem;flex-wrap:wrap}
 .hero{padding:72px 0 56px;background:
   radial-gradient(600px 280px at 12% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent),
   radial-gradient(600px 280px at 88% -20%, color-mix(in srgb, var(--accent2) 12%, transparent), transparent)}
-.hero h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.02em;line-height:1.15}
+.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.02em;line-height:1.15}
 .hero .tag{margin-top:14px;font-size:1.15rem;color:var(--muted);max-width:640px}
 .hero .tag b{color:var(--text)}
 .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
@@ -46,7 +46,7 @@ nav{display:flex;gap:18px;font-size:.95rem}
 .chips{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap}
 .chip{font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--chipbg);color:var(--chiptx)}
 section{padding:52px 0}
-h2{font-size:1.5rem;letter-spacing:-.01em;margin-bottom:8px}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;letter-spacing:-.01em;margin-bottom:8px}
 .sub{color:var(--muted);margin-bottom:28px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:transform .15s ease}
@@ -63,7 +63,6 @@ h2{font-size:1.5rem;letter-spacing:-.01em;margin-bottom:8px}
 .row .name{font-weight:700;min-width:150px}
 .row .desc{color:var(--muted);font-size:.92rem;flex:1;min-width:220px}
 .row .lang{font-size:.78rem;font-weight:600;color:var(--chiptx);background:var(--chipbg);padding:2px 10px;border-radius:999px}
-.work{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
 footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.9rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
@@ -74,9 +73,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="wrap">
     <span class="brand">Soroush Faraz</span>
     <nav>
-      <a href="#featured">Projects</a>
+      <a href="#live">Live</a>
+      <a href="#design">Design</a>
+      <a href="#engineering">Engineering</a>
       <a href="#more">More</a>
-      <a href="#work">Work</a>
+      <!-- <a href="#honors">Honors</a> -->
       <a href="https://github.com/soroush83faraz">GitHub</a>
     </nav>
   </div>
@@ -85,34 +86,76 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <div class="hero">
   <div class="wrap">
     <h1>Hi, I'm Soroush 👋</h1>
-    <p class="tag">Software developer building <b>mobile apps with Flutter</b>, <b>web apps with Next.js / TypeScript</b>, and <b>systems tools in Go &amp; Python</b>.</p>
+    <p class="tag">Software developer building <b>mobile apps with Flutter</b>, <b>web apps with Next.js / TypeScript</b>, and <b>systems tools in Go &amp; Python</b> — I like shipping things people can actually open.</p>
     <div class="cta">
       <a class="btn primary" href="https://github.com/soroush83faraz">View my GitHub</a>
       <a class="btn" href="mailto:soroush.faraz83@gmail.com">Email me</a>
       <a class="btn" href="https://fmg-tech.ir">fmg-tech.ir</a>
     </div>
     <div class="chips">
-      <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">TypeScript</span><span class="chip">Next.js</span><span class="chip">Go</span><span class="chip">Python</span><span class="chip">C#</span><span class="chip">Unity</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span>
+      <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">TypeScript</span><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Go</span><span class="chip">Python</span><span class="chip">C#</span><span class="chip">Unity</span><span class="chip">Docker</span><span class="chip">PostgreSQL</span><span class="chip">n8n</span><span class="chip">GitHub Actions</span>
     </div>
   </div>
 </div>
 
-<section id="featured">
+<section id="live">
   <div class="wrap">
-    <h2>Featured projects</h2>
-    <p class="sub">The work I'm most proud of — several with live demos you can open right now.</p>
+    <h2>🟢 Live in production</h2>
+    <p class="sub">Real products with real users, running right now.</p>
     <div class="grid">
       <div class="card">
-        <h3>Rehash — "Joino"</h3>
+        <h3>Joino (Rehash)</h3>
         <p>Outdoor-activities platform: find and join nearby events on a map — geospatial search with PostGIS, OTP signup, JWT refresh-token rotation, S3 avatar uploads, real-time group chat with Socket.IO, Dockerized deploy behind Caddy. Group project, live in production.</p>
         <div class="tags"><span>Node.js</span><span>Next.js</span><span>PostGIS</span><span>Socket.IO</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/rehash-proj">GitHub</a><a class="live" href="https://joinoo.ir">Live site</a></div>
+        <div class="links"><a href="https://github.com/soroush83faraz/rehash-proj">GitHub</a><a class="live" href="https://joinoo.ir">joinoo.ir</a></div>
       </div>
+      <div class="card">
+        <h3>FMG Tech</h3>
+        <p>Industrial-equipment company website — rebuilt the frontend with Next.js static export, automated SEO tooling and a CI preview/release pipeline with Telegram reporting. Client work, private repo.</p>
+        <div class="tags"><span>Next.js</span><span>SEO</span><span>CI/CD</span></div>
+        <div class="links"><a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="design">
+  <div class="wrap">
+    <h2>🎨 Web design &amp; client sites</h2>
+    <p class="sub">Site design samples — Persian RTL, built with Next.js.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>consult-center-design — "Aram"</h3>
+        <p>Mental-health clinic prototype: Persian RTL marketing page plus a full mock admin dashboard — patients, consultants, sessions, follow-ups and SVG-chart reports. 50 statically exported pages.</p>
+        <div class="tags"><span>Next.js 15</span><span>React 19</span><span>Tailwind</span></div>
+        <div class="links"><a href="https://github.com/soroush83faraz/consult-center-design">GitHub</a><a class="live" href="https://soroush83faraz.github.io/consult-center-design/">Live demo</a></div>
+      </div>
+      <div class="card">
+        <h3>moshavare-design-sample</h3>
+        <p>Design sample for a counseling-services website — Persian RTL landing page built with Next.js, TypeScript, Tailwind CSS and Framer Motion.</p>
+        <div class="tags"><span>Next.js</span><span>TypeScript</span><span>Tailwind</span></div>
+        <div class="links"><a href="https://github.com/soroush83faraz/moshavare-design-sample">GitHub</a><a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">Live demo</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="engineering">
+  <div class="wrap">
+    <h2>⚙️ Engineering &amp; CS projects</h2>
+    <p class="sub">Systems, compilers, simulation and tools — most open right in the browser.</p>
+    <div class="grid">
       <div class="card">
         <h3>LANLink</h3>
         <p>Local-network file transfer &amp; communication system. Trusted devices pair and transfer files over LAN, Wi-Fi or hotspot — WebSocket control plane, HTTP data plane. No cloud, no accounts.</p>
         <div class="tags"><span>Go</span><span>WebSocket</span><span>Networking</span></div>
         <div class="links"><a href="https://github.com/soroush83faraz/LANLink">GitHub</a></div>
+      </div>
+      <div class="card">
+        <h3>CPPiler</h3>
+        <p>Compiler front-end for a C++ subset written in Python — lexical analyzer, LL(1) non-recursive predictive parser and parse-tree construction with declaration search.</p>
+        <div class="tags"><span>Python</span><span>Compilers</span></div>
+        <div class="links"><a href="https://github.com/soroush83faraz/CPPiler">GitHub</a><a class="live" href="https://soroush83faraz.github.io/CPPiler/">Try in browser</a></div>
       </div>
       <div class="card">
         <h3>hospital-sim</h3>
@@ -121,46 +164,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <div class="links"><a href="https://github.com/soroush83faraz/hospital-sim">GitHub</a><a class="live" href="https://soroush83faraz.github.io/hospital-sim/">Live report</a></div>
       </div>
       <div class="card">
-        <h3>mycalender</h3>
-        <p>Persian (Jalali) calendar app built with Flutter — Gregorian⇄Jalali conversion, month navigation, day selection, Persian numerals. Runs on the web too.</p>
-        <div class="tags"><span>Flutter</span><span>Dart</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/mycalender">GitHub</a><a class="live" href="https://soroush83faraz.github.io/mycalender/">Live demo</a></div>
-      </div>
-      <div class="card">
-        <h3>CPPiler</h3>
-        <p>Compiler front-end for a C++ subset written in Python — lexical analyzer, LL(1) non-recursive predictive parser and parse-tree construction with declaration search.</p>
-        <div class="tags"><span>Python</span><span>Compilers</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/CPPiler">GitHub</a><a href="https://github.com/soroush83faraz/CPP-compiler">single-file version</a></div>
-      </div>
-      <div class="card">
-        <h3>trellomize</h3>
-        <p>Trello-style team task manager in Python — authentication with bcrypt, projects and boards, leader/member roles, comments, per-task history, logging and JSON persistence.</p>
-        <div class="tags"><span>Python</span><span>CLI</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/trellomize">GitHub</a></div>
-      </div>
-      <div class="card">
-        <h3>moshavare-design-sample</h3>
-        <p>Design sample for a counseling-services website — Persian RTL landing page built with Next.js, TypeScript, Tailwind CSS and Framer Motion.</p>
-        <div class="tags"><span>Next.js</span><span>TypeScript</span><span>Tailwind</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/moshavare-design-sample">GitHub</a><a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">Live demo</a></div>
-      </div>
-      <div class="card">
-        <h3>consult-center-design — "Aram"</h3>
-        <p>Mental-health clinic prototype: Persian RTL marketing page plus a full mock admin dashboard — patients, consultants, sessions, follow-ups and SVG-chart reports. 50 statically exported pages.</p>
-        <div class="tags"><span>Next.js 15</span><span>React 19</span><span>Tailwind</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/consult-center-design">GitHub</a><a class="live" href="https://soroush83faraz.github.io/consult-center-design/">Live demo</a></div>
-      </div>
-      <div class="card">
-        <h3>iustZ</h3>
-        <p>Text-based post-apocalyptic RPG in C++ — up to 4 players hot-seat, six weapon classes, scaling enemies, shops and a JSON save system. Group university project, compiled to WebAssembly.</p>
-        <div class="tags"><span>C++</span><span>WebAssembly</span><span>Game</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/iustZ">GitHub</a><a class="live" href="https://soroush83faraz.github.io/iustZ/">Play in browser</a></div>
-      </div>
-      <div class="card">
         <h3>L-system</h3>
         <p>L-system fractals — Python turtle scripts plus an interactive browser explorer: dragon curve, Koch, Sierpiński, fractal plant &amp; tree with animated progressive drawing.</p>
         <div class="tags"><span>Python</span><span>Canvas</span><span>Generative</span></div>
         <div class="links"><a href="https://github.com/soroush83faraz/L-system">GitHub</a><a class="live" href="https://soroush83faraz.github.io/L-system/">Live explorer</a></div>
+      </div>
+      <div class="card">
+        <h3>mycalender</h3>
+        <p>Persian (Jalali) calendar app built with Flutter — Gregorian⇄Jalali conversion, month navigation, day selection, Persian numerals. Runs on the web too.</p>
+        <div class="tags"><span>Flutter</span><span>Dart</span></div>
+        <div class="links"><a href="https://github.com/soroush83faraz/mycalender">GitHub</a><a class="live" href="https://soroush83faraz.github.io/mycalender/">Live demo</a></div>
       </div>
     </div>
   </div>
@@ -168,27 +181,34 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <section id="more">
   <div class="wrap">
-    <h2>More projects</h2>
-    <p class="sub">Games, tooling and group work.</p>
+    <h2>🗂 More projects</h2>
+    <p class="sub">Games, apps, packages and experiments.</p>
     <div class="rows">
+      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/trellomize">trellomize</a></span><span class="desc">Trello-style team task manager in Python — bcrypt auth, projects and boards, leader/member roles, comments, per-task history, logging. <a class="live" href="https://soroush83faraz.github.io/trellomize/">Live demo</a></span><span class="lang">Python</span></div>
+      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/iustZ">iustZ</a></span><span class="desc">Text-based post-apocalyptic RPG in C++ — 4-player hot-seat, six weapon classes, scaling enemies, JSON saves. Group university project, compiled to WebAssembly. <a class="live" href="https://soroush83faraz.github.io/iustZ/">Play in browser</a></span><span class="lang">C++ / WASM</span></div>
+      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/flutter_persian_calendar">flutter_persian_calendar</a></span><span class="desc">Flutter package for Persian (Jalali) calendar integration — customizable appearance, date filtering. <a class="live" href="https://pub.dev/packages/flutter_persian_calendar">pub.dev</a></span><span class="lang">Dart</span></div>
+      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/zohal">zohal</a></span><span class="desc">Front-desk time manager for a kids' playhouse — Persian RTL UI, live countdown cards. Group project. <a class="live" href="https://soroush83faraz.github.io/zohal/">Live demo</a></span><span class="lang">Flutter</span></div>
+      <div class="row"><span class="name">TE_Commerce</span><span class="desc">Full e-commerce mobile app built with Flutter. Private repo.</span><span class="lang">Flutter</span></div>
+      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/E-commerce">E-commerce</a></span><span class="desc">Flutter shop app built on the FlutterShop template — study and adaptation. <a class="live" href="https://soroush83faraz.github.io/E-commerce/">Live demo</a></span><span class="lang">Flutter</span></div>
       <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/Lonely-Boss">Lonely-Boss</a></span><span class="desc">2D boss-fight prototype in Unity — FSM-driven boss AI with multi-phase attacks.</span><span class="lang">Unity / C#</span></div>
       <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/maze-maverick">maze-maverick</a></span><span class="desc">Terminal maze game — maze creation, auto-solver, playground mode with timer, stats and leaderboard.</span><span class="lang">C++</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/E-commerce">E-commerce</a></span><span class="desc">Flutter shop app built on the FlutterShop template — study and adaptation. <a class="live" href="https://soroush83faraz.github.io/E-commerce/">Live demo</a></span><span class="lang">Flutter</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/zohal">zohal</a></span><span class="desc">Front-desk time manager for a kids' playhouse — Persian RTL UI, live countdown cards. Group project. <a class="live" href="https://soroush83faraz.github.io/zohal/">Live demo</a></span><span class="lang">Flutter</span></div>
       <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/CPP-compiler">CPP-compiler</a></span><span class="desc">The compact single-file sibling of CPPiler — tokenizer to parse-tree in one Python file.</span><span class="lang">Python</span></div>
       <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/n8n-ffmpeg">n8n-ffmpeg</a></span><span class="desc">n8n Docker image with ffmpeg and yt-dlp preinstalled for media-processing workflows.</span><span class="lang">Docker</span></div>
     </div>
   </div>
 </section>
 
-<section id="work">
+<!-- Honors & awards — uncomment and fill in when ready (also uncomment the nav link above)
+<section id="honors">
   <div class="wrap">
-    <h2>Current work</h2>
-    <div class="work">
-      <p><b><a href="https://fmg-tech.ir">FMG Tech</a></b> — industrial equipment company website: rebuilt the frontend with Next.js static export, automated SEO tooling and a CI preview/release pipeline with Telegram reporting.</p>
+    <h2>🏆 Honors &amp; awards</h2>
+    <div class="rows">
+      <div class="row"><span class="name">20XX</span><span class="desc">…</span></div>
+      <div class="row"><span class="name">20XX</span><span class="desc">…</span></div>
     </div>
   </div>
 </section>
+-->
 
 <footer>
   <div class="wrap">
