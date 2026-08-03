@@ -1,222 +1,592 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-path="gate">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Soroush Faraz — Software Developer</title>
-<meta name="description" content="Portfolio of Soroush Faraz — live products (Joino, FMG Tech), web design samples, and engineering projects in Go, Python, Flutter and Next.js.">
-<meta property="og:title" content="Soroush Faraz — Software Developer">
-<meta property="og:description" content="Mobile apps with Flutter, web apps with Next.js, systems tools in Go & Python.">
+<title>Soroush Faraz — سروش فراز</title>
+<meta name="description" content="Portfolio of Soroush Faraz — live products (Joino, FMG Tech), Persian RTL web design, and engineering projects in Go, Python, Flutter and Next.js.">
+<meta property="og:title" content="Soroush Faraz — سروش فراز">
+<meta property="og:description" content="Two doors: Persian web design for clients, engineering & live products for employers.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://soroush83faraz.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232D4F9E'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23FBFAF7' font-family='sans-serif'%3E%D8%B3%3C/text%3E%3C/svg%3E">
+
 <style>
+/* ---------- fonts ---------- */
+@font-face{font-family:"Estedad";src:url("assets/fonts/Estedad-VF.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("assets/fonts/PlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/PlexSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("assets/fonts/PlexSans-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url("assets/fonts/PlexMono-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+
+/* ---------- tokens ---------- */
 :root{
-  --bg:#f8fafc; --panel:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0;
-  --accent:#2563eb; --accent2:#C08A2D; --chipbg:#eff6ff; --chiptx:#1d4ed8;
-  --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px -12px rgba(15,23,42,.18);
+  --bg:#FBFAF7; --panel:#FFFFFF; --ink:#14181D; --muted:#5A6472; --line:#E5E2DA;
+  --turquoise:#157F82; --lapis:#2D4F9E; --saffron:#B9800A; --saffron-dot:#D99A2B;
+  --frame-bar:#F0EEE7;
+  --shadow:0 1px 2px rgba(20,24,29,.05),0 14px 34px -18px rgba(20,24,29,.22);
+  --fa:"Estedad","Plex Sans",system-ui,sans-serif;
+  --serif:"Plex Serif",Georgia,serif;
+  --sans:"Plex Sans",system-ui,sans-serif;
+  --mono:"Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0b1220; --panel:#111a2c; --text:#e2e8f0; --muted:#94a3b8; --line:#1e293b;
-    --accent:#60a5fa; --accent2:#E8B54D; --chipbg:#172554; --chiptx:#93c5fd;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 28px -14px rgba(0,0,0,.6);
+    --bg:#10151B; --panel:#171E26; --ink:#E8E6DF; --muted:#9AA3AD; --line:#242D38;
+    --turquoise:#3DB8BA; --lapis:#7D9FE8; --saffron:#E0AA4E; --saffron-dot:#E0AA4E;
+    --frame-bar:#1D2530;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 36px -18px rgba(0,0,0,.65);
   }
 }
+
+/* ---------- base ---------- */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-header{padding:18px 0;border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{font-weight:700;font-size:1.05rem;color:var(--text)}
-nav{display:flex;gap:18px;font-size:.95rem;flex-wrap:wrap}
-.hero{padding:72px 0 56px;background:
-  radial-gradient(600px 280px at 12% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent),
-  radial-gradient(600px 280px at 88% -20%, color-mix(in srgb, var(--accent2) 12%, transparent), transparent)}
-.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.02em;line-height:1.15}
-.hero .tag{margin-top:14px;font-size:1.15rem;color:var(--muted);max-width:640px}
-.hero .tag b{color:var(--text)}
-.cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:.95rem;border:1px solid var(--line);background:var(--panel);color:var(--text);box-shadow:var(--shadow)}
-.btn.primary{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#fff;border:none}
-.btn:hover{text-decoration:none;transform:translateY(-1px)}
-.chips{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap}
-.chip{font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--chipbg);color:var(--chiptx)}
-section{padding:52px 0}
-h2{font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;letter-spacing:-.01em;margin-bottom:8px}
-h3{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;margin:26px 0 12px}
-.sub{color:var(--muted);margin-bottom:28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:transform .15s ease}
-.card:hover{transform:translateY(-3px)}
-.card h3{font-size:1.08rem}
-.card p{color:var(--muted);font-size:.93rem;flex:1}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
-.tags span{font-size:.75rem;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
-.links{display:flex;gap:14px;margin-top:4px;font-size:.9rem;font-weight:600}
-.live{color:var(--accent2)}
-.live::before{content:"● ";font-size:.7em;vertical-align:2px}
-.rows{display:flex;flex-direction:column;gap:10px}
-.row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
-.row .name{font-weight:700;min-width:150px}
-.row .desc{color:var(--muted);font-size:.92rem;flex:1;min-width:220px}
-.row .lang{font-size:.78rem;font-weight:600;color:var(--chiptx);background:var(--chipbg);padding:2px 10px;border-radius:999px}
-footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:1rem}
+[lang="fa"]{font-family:var(--fa)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--turquoise);outline-offset:3px;border-radius:2px}
+::selection{background:var(--turquoise);color:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- the mark ---------- */
+.mark{display:inline-grid;place-items:center;inline-size:2.4rem;block-size:2.4rem;border:1.5px solid currentColor;border-radius:8px;font-family:var(--fa);font-weight:800;font-size:1.35rem;line-height:1;user-select:none}
+.mark span{transform:translateY(-.12em)}
+
+/* ---------- gate ---------- */
+#gate{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;background:var(--bg);transition:transform .65s cubic-bezier(.7,0,.25,1),opacity .65s ease}
+#gate .gate-top{display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--line)}
+#gate .gate-top .mark{color:var(--ink)}
+.gate-name{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;color:var(--muted)}
+.doors{flex:1;display:flex;min-height:0}
+.door{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:8vh 6vw;cursor:pointer;border:0;background:none;text-align:start;color:var(--ink);transition:flex .55s cubic-bezier(.6,0,.3,1);position:relative}
+.door + .door{border-inline-start:1px solid var(--line)}
+.door:hover,.door:focus-visible{flex:1.45}
+.door .eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono)}
+.door[lang="fa"] .eyebrow{font-family:var(--fa);letter-spacing:0;font-weight:600;font-size:.9rem;text-transform:none}
+.door h2{font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+#door-work h2{font-family:var(--serif);font-weight:600}
+#door-client h2{font-weight:800}
+.door p{color:var(--muted);max-width:44ch;font-size:1.02rem}
+.door .go{font-weight:500;display:inline-flex;align-items:center;gap:8px;margin-top:6px}
+#door-client .eyebrow,#door-client .go{color:var(--turquoise)}
+#door-work .eyebrow,#door-work .go{color:var(--lapis)}
+.door:hover h2{color:var(--turquoise)}
+#door-work:hover h2{color:var(--lapis)}
+#gate.leaving{transform:translateY(-100%);opacity:.4}
+html[data-path="client"] #gate,html[data-path="work"] #gate{display:none}
+html[data-path="gate"] body{overflow:hidden}
+@media (max-width:720px){
+  .doors{flex-direction:column}
+  .door + .door{border-inline-start:0;border-top:1px solid var(--line)}
+  .door{padding:7vh 8vw;gap:10px}
+}
+
+/* ---------- topbar ---------- */
+#topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+html[data-path="gate"] #topbar{display:none}
+#topbar .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px}
+#topbar .mark{inline-size:2rem;block-size:2rem;font-size:1.1rem;cursor:pointer;background:none;color:var(--ink)}
+#topbar .who{font-weight:500;font-size:.95rem}
+#topbar .spacer{flex:1}
+.switch{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.switch button{border:0;background:none;color:var(--muted);font-family:var(--fa);font-size:.85rem;padding:5px 14px;cursor:pointer}
+.switch button.en{font-family:var(--mono);font-size:.78rem}
+html[data-path="client"] .switch button.fa,html[data-path="work"] .switch button.en{background:var(--ink);color:var(--bg)}
+#topbar a.gh{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+#topbar a.gh:hover{color:var(--ink)}
+@media (max-width:720px){ #topbar a.gh{display:none} }
+
+/* ---------- worlds ---------- */
+main{display:none}
+html[data-path="client"] #client{display:block}
+html[data-path="work"] #work{display:block}
+#client{--accent:var(--turquoise)}
+#work{--accent:var(--lapis)}
+
+.intro{padding:88px 0 40px}
+.intro h1{font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:1.14;letter-spacing:-.015em;max-width:22ch;text-wrap:balance}
+#work .intro h1{font-family:var(--serif);font-weight:600}
+#client .intro h1{font-weight:800}
+.intro .lede{margin-top:20px;color:var(--muted);font-size:1.12rem;max-width:62ch}
+.intro .lede b{color:var(--ink);font-weight:500}
+.intro .quick{margin-top:28px;display:flex;gap:20px;flex-wrap:wrap;font-size:.95rem;font-weight:500}
+.intro .quick a{color:var(--accent)}
+.intro .quick a:hover{text-decoration:underline}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+[lang="fa"] .eyebrow{font-family:var(--fa);letter-spacing:0;font-size:.88rem;font-weight:600;text-transform:none}
+section h2{font-size:1.7rem;letter-spacing:-.01em;text-wrap:balance}
+#work section h2{font-family:var(--serif);font-weight:600}
+#client section h2{font-weight:800}
+.sub{color:var(--muted);margin-top:6px;margin-bottom:34px;max-width:64ch}
+
+/* live dot */
+.live{color:var(--saffron);font-weight:500;white-space:nowrap}
+.live::before{content:"●";color:var(--saffron-dot);font-size:.62em;vertical-align:.22em;margin-inline-end:6px}
+
+/* ---------- browser frame ---------- */
+.frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow);display:block}
+.frame .bar{direction:ltr;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--frame-bar);border-bottom:1px solid var(--line)}
+.frame .bar i{inline-size:8px;block-size:8px;border-radius:50%;background:var(--line);flex:none}
+.frame .bar .url{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-inline-start:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frame img{width:100%;height:auto}
+
+/* ---------- featured cards ---------- */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:26px 0}
+.feature + .feature{border-top:1px dashed var(--line)}
+.feature .txt h3{font-size:1.3rem;letter-spacing:-.01em}
+#work .feature .txt h3{font-family:var(--serif);font-weight:600}
+#client .feature .txt h3{font-weight:800}
+.feature .txt p{color:var(--muted);margin-top:10px;max-width:52ch}
+.meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.04em;margin-top:14px;direction:ltr;text-align:left}
+[lang="fa"] .meta{text-align:right}
+.plinks{display:flex;gap:18px;margin-top:14px;font-size:.93rem;font-weight:500;flex-wrap:wrap}
+.plinks a{color:var(--accent)}
+.plinks a:hover{text-decoration:underline}
+.plinks a.live{color:var(--saffron)}
+@media (max-width:820px){ .feature{grid-template-columns:1fr;gap:18px} }
+
+/* ---------- design gallery ---------- */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+.shot-card{display:flex;flex-direction:column;gap:14px}
+.shot-card .frame{transition:transform .25s ease}
+.shot-card:hover .frame{transform:translateY(-4px)}
+.shot-card h3{font-size:1.12rem}
+#client .shot-card h3{font-weight:800}
+#work .shot-card h3{font-family:var(--serif);font-weight:600}
+.shot-card p{color:var(--muted);font-size:.94rem;max-width:48ch}
+.shot-card .plinks{margin-top:0}
+
+/* ---------- engineering rows ---------- */
+.bench{display:flex;flex-direction:column}
+.bench-row{display:grid;grid-template-columns:190px 1fr auto;gap:18px;align-items:baseline;padding:18px 0;border-top:1px dashed var(--line)}
+.bench-row:first-child{border-top:0}
+.bench-row .name{font-weight:500;font-size:1.02rem}
+.bench-row .name a:hover{color:var(--accent)}
+.bench-row .desc{color:var(--muted);font-size:.95rem}
+.bench-row .desc a.live:hover{text-decoration:underline}
+.bench-row .tag{font-family:var(--mono);font-size:.72rem;color:var(--muted);white-space:nowrap;direction:ltr}
+@media (max-width:720px){ .bench-row{grid-template-columns:1fr;gap:4px} }
+
+/* ---------- archive ---------- */
+.archive{display:flex;flex-direction:column;font-size:.92rem}
+.arch-row{display:grid;grid-template-columns:190px 1fr auto;gap:14px;align-items:baseline;padding:10px 0;border-top:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+.arch-row .name{font-weight:500}
+.arch-row .name a:hover{color:var(--accent)}
+.arch-row .desc{color:var(--muted)}
+.arch-row .desc a{color:var(--accent)}
+.arch-row .desc a:hover{text-decoration:underline}
+.arch-row .desc a.live{color:var(--saffron)}
+.arch-row .tag{font-family:var(--mono);font-size:.7rem;color:var(--muted);white-space:nowrap;direction:ltr}
+@media (max-width:720px){ .arch-row{grid-template-columns:1fr;gap:2px;padding:12px 0} }
+
+/* ---------- contact ---------- */
+.contact{padding:72px 0 30px;border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(1.7rem,3.6vw,2.4rem);letter-spacing:-.01em}
+#work .contact h2{font-family:var(--serif);font-weight:600}
+#client .contact h2{font-weight:800}
+.contact .ways{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;font-weight:500;font-size:.97rem;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);transition:transform .15s ease}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#FBFAF7}
+@media (prefers-color-scheme: dark){ .btn.primary{color:#10151B} }
+.btn:hover{transform:translateY(-1px)}
+footer{padding:26px 0 46px;color:var(--muted);font-size:.86rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+
+@media (prefers-reduced-motion: reduce){
+  #gate,.door,.shot-card .frame,.btn{transition:none}
+}
 </style>
+<noscript><style>
+  #gate{display:none}
+  main{display:block !important}
+  #topbar{display:block !important}
+  #topbar .switch{display:none}
+  #work{border-top:6px solid var(--lapis)}
+</style></noscript>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <span class="brand">Soroush Faraz</span>
-    <nav>
-      <a href="#live">Live</a>
-      <a href="#design">Design</a>
-      <a href="#engineering">Engineering</a>
-      <a href="#more">More</a>
-      <a href="honors.html">Honors</a>
-      <a href="https://github.com/soroush83faraz">GitHub</a>
-    </nav>
+<!-- ================= GATE ================= -->
+<div id="gate">
+  <div class="gate-top">
+    <span class="mark" aria-hidden="true"><span>س</span></span>
+    <span class="gate-name">soroush faraz — سروش فراز</span>
   </div>
-</header>
-
-<div class="hero">
-  <div class="wrap">
-    <h1>Hi, I'm Soroush 👋</h1>
-    <p class="tag">Software developer building <b>mobile apps with Flutter</b>, <b>web apps with Next.js / TypeScript</b>, and <b>systems tools in Go &amp; Python</b> — I like shipping things people can actually open.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://github.com/soroush83faraz">View my GitHub</a>
-      <a class="btn" href="mailto:soroush.faraz83@gmail.com">Email me</a>
-      <a class="btn" href="https://fmg-tech.ir">fmg-tech.ir</a>
-    </div>
-    <div class="chips">
-      <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">TypeScript</span><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Go</span><span class="chip">Python</span><span class="chip">C#</span><span class="chip">Unity</span><span class="chip">Docker</span><span class="chip">PostgreSQL</span><span class="chip">n8n</span><span class="chip">GitHub Actions</span>
-    </div>
+  <div class="doors">
+    <button class="door" id="door-work" lang="en" dir="ltr" data-go="work">
+      <span class="eyebrow">For employers</span>
+      <h2>Hiring an engineer?</h2>
+      <p>Live products, systems tools and compilers — most of them open right in your browser.</p>
+      <span class="go">See the work &rarr;</span>
+    </button>
+    <button class="door" id="door-client" lang="fa" dir="rtl" data-go="client">
+      <span class="eyebrow">برای کسب‌وکارها</span>
+      <h2>سایت می‌خواهید؟</h2>
+      <p>طراحی و ساخت سایت‌های فارسی — از صفحه‌ی فرود تا داشبورد مدیریت؛ نمونه‌کارها را زنده باز کنید.</p>
+      <span class="go">دیدن نمونه‌کارها &larr;</span>
+    </button>
   </div>
 </div>
 
-<section id="live">
+<!-- ================= TOPBAR ================= -->
+<header id="topbar">
   <div class="wrap">
-    <h2>🟢 Live in production</h2>
-    <p class="sub">Real products with real users, running right now.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Joino (Rehash)</h3>
-        <p>Outdoor-activities platform: find and join nearby events on a map — geospatial search with PostGIS, OTP signup, JWT refresh-token rotation, S3 avatar uploads, real-time group chat with Socket.IO, Dockerized deploy behind Caddy. Group project, live in production.</p>
-        <div class="tags"><span>Node.js</span><span>Next.js</span><span>PostGIS</span><span>Socket.IO</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/rehash-proj">GitHub</a><a class="live" href="https://joinoo.ir">joinoo.ir</a></div>
+    <button class="mark" id="to-gate" title="Two doors — دو در"><span>س</span></button>
+    <span class="who" id="who">Soroush Faraz</span>
+    <span class="spacer"></span>
+    <nav class="switch" aria-label="Language / path">
+      <button class="fa" data-go="client">فارسی</button>
+      <button class="en" data-go="work">EN</button>
+    </nav>
+    <a class="gh" href="https://github.com/soroush83faraz">github/soroush83faraz</a>
+  </div>
+</header>
+
+<!-- ================= CLIENT WORLD (فارسی) ================= -->
+<main id="client" lang="fa" dir="rtl">
+  <div class="intro wrap">
+    <h1>سایتی که واقعاً باز می‌شود.</h1>
+    <p class="lede">سلام، سروشم. سایت‌های فارسی طراحی می‌کنم و می‌سازم — <b>راست‌به‌چپِ واقعی</b>، <b>فونت فارسی درست</b> و <b>سریع</b>؛ بدون قالب آماده. پایین، همه‌ی نمونه‌کارها زنده‌اند: کلیک کنید و خودتان باز کنید.</p>
+    <div class="quick">
+      <a href="#fa-design">نمونه‌کارهای طراحی</a>
+      <a href="#fa-products">محصولات در حال کار</a>
+      <a href="#fa-archive">فهرست کامل</a>
+      <a href="mailto:soroush.faraz83@gmail.com">ایمیل</a>
+    </div>
+  </div>
+
+  <section id="fa-design">
+    <div class="wrap">
+      <span class="eyebrow">نمونه‌کار</span>
+      <h2>طراحی سایت فارسی</h2>
+      <p class="sub">چهار سایت با چهار شخصیت متفاوت — همه راست‌به‌چپ، همه زنده. روی «دموی زنده» بزنید و خودتان بگردید.</p>
+      <div class="gallery">
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/consult-center-design/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/consult-center-design</span></span>
+            <img src="assets/work/aram.webp" alt="صفحه‌ی اصلی کلینیک آرام — پالت سبز آرام و تایپوگرافی فارسی" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>کلینیک «آرام»</h3>
+          <p>کلینیک سلامت روان — صفحه‌ی معرفی به‌علاوه‌ی داشبورد کاملِ مدیریت: بیمار، مشاور، جلسه و گزارش‌های نموداری. ۵۰ صفحه‌ی استاتیک.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/consult-center-design/">دموی زنده</a><a href="https://github.com/soroush83faraz/consult-center-design">کد در گیت‌هاب</a></div>
+        </div>
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/interior-design-showcase/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/interior-design-showcase</span></span>
+            <img src="assets/work/noor.webp" alt="آتلیه نور — هیروی تمام‌صفحه با عکس اتاق نشیمن و تایپ فارسی" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>آتلیه نور</h3>
+          <p>استودیوی طراحی داخلی — اتاق همراهِ اسکرول شما چیده می‌شود: سکانس ۱۵۰ فریمی روی بوم با GSAP. پروژه‌ی گروهی.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/interior-design-showcase/">دموی زنده</a><a href="https://github.com/123100123/interior-design-showcase">کد در گیت‌هاب</a></div>
+        </div>
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/rehash-website/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/rehash-website</span></span>
+            <img src="assets/work/darkroom.webp" alt="سایت استودیوی ری‌هش — تم تاریک‌خانه‌ی عکاسی با تیتر بزرگ سفید" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>استودیوی ری‌هش — «تاریک‌خانه»</h3>
+          <p>سایت یک استودیوی طراحی وب — روایتِ چهار پرده‌ی تاریک‌خانه‌ی عکاسی، از ظهور تا چاپ، با کلید «چراغ‌ها». پروژه‌ی گروهی.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/rehash-website/">دموی زنده</a><a href="https://github.com/123100123/rehash-website">کد در گیت‌هاب</a></div>
+        </div>
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/moshavare-design-sample/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/moshavare-design-sample</span></span>
+            <img src="assets/work/moshavare.webp" alt="نمونه‌ی طراحی سایت مشاوره — زمینه‌ی روشن پاستلی با تایپ فارسی" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>نمونه‌ی سایت مشاوره</h3>
+          <p>صفحه‌ی فرود خدمات مشاوره — انیمیشن‌های ورود با Framer Motion روی Next.js و Tailwind.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">دموی زنده</a><a href="https://github.com/soroush83faraz/moshavare-design-sample">کد در گیت‌هاب</a></div>
+        </div>
       </div>
-      <div class="card">
-        <h3>FMG Tech</h3>
-        <p>Industrial-equipment company website — rebuilt the frontend with Next.js static export, automated SEO tooling and a CI preview/release pipeline with Telegram reporting. Client work, private repo.</p>
-        <div class="tags"><span>Next.js</span><span>SEO</span><span>CI/CD</span></div>
-        <div class="links"><a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></div>
+    </div>
+  </section>
+
+  <section id="fa-products">
+    <div class="wrap">
+      <span class="eyebrow">کارِ واقعی، مشتریِ واقعی</span>
+      <h2>محصولاتی که الان کار می‌کنند</h2>
+      <p class="sub">این‌ها نمونه‌کار نیستند؛ محصول‌اند — همین حالا بالا هستند و کاربر دارند.</p>
+      <div class="feature">
+        <div class="txt">
+          <h3>جوینو</h3>
+          <p>پلتفرم فعالیت‌های گروهی در فضای باز — رویدادهای نزدیکت را روی نقشه پیدا کن و بپیوند. ثبت‌نام با کد یک‌بارمصرف، گفت‌وگوی گروهی زنده، جست‌وجوی جغرافیایی. پروژه‌ی تیمی.</p>
+          <div class="meta">Next.js · Node.js · PostGIS · Socket.IO</div>
+          <div class="plinks"><a class="live" href="https://joinoo.ir">joinoo.ir</a><a href="https://github.com/soroush83faraz/rehash-proj">کد در گیت‌هاب</a></div>
+        </div>
+        <a class="frame" href="https://joinoo.ir">
+          <span class="bar"><i></i><i></i><i></i><span class="url">joinoo.ir</span></span>
+          <img src="assets/work/joino.webp" alt="صفحه‌ی خوشامد جوینو — زمینه‌ی سرمه‌ای با لوگو و دکمه‌ی زرد" width="1200" height="750" loading="lazy">
+        </a>
+      </div>
+      <div class="feature">
+        <div class="txt">
+          <h3>فن‌آوران مادون قرمز (FMG Tech)</h3>
+          <p>سایت شرکت تجهیزات صنعتی — بازسازی کامل فرانت‌اند: خروجی استاتیک Next.js، سئوی خودکار، و پایپ‌لاین انتشار با گزارش تلگرامی. کارِ سفارشیِ مشتری.</p>
+          <div class="meta">Next.js · SEO · CI/CD</div>
+          <div class="plinks"><a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></div>
+        </div>
+        <a class="frame" href="https://fmg-tech.ir">
+          <span class="bar"><i></i><i></i><i></i><span class="url">fmg-tech.ir</span></span>
+          <img src="assets/work/fmgtech-strip.webp" alt="نوار بالای سایت FMG Tech — لوگو و منوی فارسی روی زمینه‌ی تیره" width="1200" height="92" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="fa-archive">
+    <div class="wrap">
+      <span class="eyebrow">فهرست کامل</span>
+      <h2>همه‌ی پروژه‌ها</h2>
+      <p class="sub">هر چیزی که ساخته‌ام — از محصول زنده تا تمرین دانشگاهی. صادقانه و کامل.</p>
+      <div class="archive">
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/rehash-proj">جوینو (rehash)</a></span><span class="desc">پلتفرم فعالیت‌های فضای باز — <a class="live" href="https://joinoo.ir">joinoo.ir</a></span><span class="tag">Next.js · PostGIS</span></div>
+        <div class="arch-row"><span class="name"><a href="https://fmg-tech.ir">FMG Tech</a></span><span class="desc">سایت شرکت تجهیزات صنعتی — <a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></span><span class="tag">Next.js · SEO</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/consult-center-design">کلینیک آرام</a></span><span class="desc">سایت و داشبورد کلینیک سلامت روان — <a class="live" href="https://soroush83faraz.github.io/consult-center-design/">دمو</a></span><span class="tag">Next.js 15</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/123100123/interior-design-showcase">آتلیه نور</a></span><span class="desc">استودیوی طراحی داخلی، اسکرول‌استوری — <a class="live" href="https://soroush83faraz.github.io/interior-design-showcase/">دمو</a></span><span class="tag">GSAP · RTL</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/123100123/rehash-website">استودیوی ری‌هش</a></span><span class="desc">سایت استودیوی طراحی وب، تم تاریک‌خانه — <a class="live" href="https://soroush83faraz.github.io/rehash-website/">دمو</a></span><span class="tag">Next.js 15</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/moshavare-design-sample">نمونه‌ی مشاوره</a></span><span class="desc">صفحه‌ی فرود خدمات مشاوره — <a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">دمو</a></span><span class="tag">Framer Motion</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/LANLink">LANLink</a></span><span class="desc">انتقال فایل در شبکه‌ی محلی با Go — بدون کلود، بدون اکانت</span><span class="tag">Go</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/CPPiler">CPPiler</a></span><span class="desc">فرانت‌اند کامپایلر برای زیرمجموعه‌ای از ++C — <a class="live" href="https://soroush83faraz.github.io/CPPiler/">در مرورگر امتحان کنید</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/hospital-sim">hospital-sim</a></span><span class="desc">شبیه‌سازی تخصیص تخت بیمارستان — <a class="live" href="https://soroush83faraz.github.io/hospital-sim/">گزارش زنده</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/iustZ">iustZ</a></span><span class="desc">بازی نقش‌آفرینی متنی ++C روی وب‌اسمبلی — <a class="live" href="https://soroush83faraz.github.io/iustZ/">در مرورگر بازی کنید</a></span><span class="tag">C++ · WASM</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/L-system">L-system</a></span><span class="desc">فرکتال‌های بازگشتی — <a class="live" href="https://soroush83faraz.github.io/L-system/">کاوشگر تعاملی</a></span><span class="tag">Python · Canvas</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/mycalender">mycalender</a></span><span class="desc">تقویم جلالی با فلاتر — <a class="live" href="https://soroush83faraz.github.io/mycalender/">دموی وب</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/trellomize">trellomize</a></span><span class="desc">مدیر وظایف تیمی در ترمینال — <a class="live" href="https://soroush83faraz.github.io/trellomize/">دمو</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/flutter_persian_calendar">flutter_persian_calendar</a></span><span class="desc">پکیج تقویم جلالی برای فلاتر — <a class="live" href="https://pub.dev/packages/flutter_persian_calendar">pub.dev</a></span><span class="tag">Dart</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/zohal">زحل</a></span><span class="desc">مدیریت پذیرش خانه‌بازی کودکان، شمارش معکوس زنده — <a class="live" href="https://soroush83faraz.github.io/zohal/">دمو</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name">TE_Commerce</span><span class="desc">اپ فروشگاهی کامل با فلاتر — ریپوی خصوصی</span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/E-commerce">E-commerce</a></span><span class="desc">اپ فروشگاه بر پایه‌ی قالب FlutterShop — <a class="live" href="https://soroush83faraz.github.io/E-commerce/">دمو</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/Lonely-Boss">Lonely-Boss</a></span><span class="desc">باس‌فایت دوبعدی یونیتی — هوش مصنوعی چندفازی با ماشین حالت</span><span class="tag">Unity · C#</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/maze-maverick">maze-maverick</a></span><span class="desc">بازی مارپیچ ترمینالی — حل‌کننده‌ی خودکار، تایمر و جدول امتیاز</span><span class="tag">C++</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/CPP-compiler">CPP-compiler</a></span><span class="desc">خواهرِ تک‌فایلی CPPiler — از توکنایزر تا درخت پارس در یک فایل</span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/n8n-ffmpeg">n8n-ffmpeg</a></span><span class="desc">ایمیج داکر n8n با ffmpeg و yt-dlp برای ورک‌فلوهای مدیا</span><span class="tag">Docker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact">
+    <div class="wrap">
+      <h2>برای شروع، یک ایمیل کافی است.</h2>
+      <p class="sub" style="margin-bottom:0">درباره‌ی سایتی که در ذهن دارید بنویسید؛ معمولاً همان روز جواب می‌دهم.</p>
+      <div class="ways">
+        <a class="btn primary" href="mailto:soroush.faraz83@gmail.com">soroush.faraz83@gmail.com</a>
+        <a class="btn" href="https://github.com/soroush83faraz">گیت‌هاب</a>
+        <a class="btn" href="honors.html">افتخارات</a>
       </div>
     </div>
   </div>
-</section>
 
-<section id="design">
-  <div class="wrap">
-    <h2>🎨 Web design &amp; client sites</h2>
-    <p class="sub">Site design samples and studio sites — built with Next.js, most in Persian RTL.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>consult-center-design — "Aram"</h3>
-        <p>Mental-health clinic prototype: Persian RTL marketing page plus a full mock admin dashboard — patients, consultants, sessions, follow-ups and SVG-chart reports. 50 statically exported pages.</p>
-        <div class="tags"><span>Next.js 15</span><span>React 19</span><span>Tailwind</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/consult-center-design">GitHub</a><a class="live" href="https://soroush83faraz.github.io/consult-center-design/">Live demo</a></div>
+  <footer>
+    <div class="wrap">
+      <span>© ۲۰۲۶ سروش فراز</span>
+      <span>طراحی و ساخت خودم — بدون قالب آماده.</span>
+    </div>
+  </footer>
+</main>
+
+<!-- ================= WORK WORLD (English) ================= -->
+<main id="work" lang="en" dir="ltr">
+  <div class="intro wrap">
+    <h1>I build things people can actually open.</h1>
+    <p class="lede">Software developer — <b>Flutter</b> on mobile, <b>Next.js / TypeScript</b> on the web, <b>Go &amp; Python</b> underneath. Below: two products in production, a workshop of CS projects, and the complete archive. Most demos run right in your browser.</p>
+    <div class="quick">
+      <a href="#en-live">Live products</a>
+      <a href="#en-bench">Engineering</a>
+      <a href="#en-design">Design, in Persian</a>
+      <a href="#en-archive">Archive</a>
+      <a href="honors.html">Honors</a>
+    </div>
+  </div>
+
+  <section id="en-live">
+    <div class="wrap">
+      <span class="eyebrow">Live in production</span>
+      <h2>Real products, real users</h2>
+      <p class="sub">Running right now — click through and use them.</p>
+      <div class="feature">
+        <div class="txt">
+          <h3>Joino</h3>
+          <p>Outdoor-activities platform: find and join nearby events on a map. Geospatial search with PostGIS, OTP signup, JWT refresh-token rotation, real-time group chat over Socket.IO, Dockerized behind Caddy. Team project.</p>
+          <div class="meta">Node.js · Next.js · PostGIS · Socket.IO · Docker</div>
+          <div class="plinks"><a class="live" href="https://joinoo.ir">joinoo.ir</a><a href="https://github.com/soroush83faraz/rehash-proj">GitHub</a></div>
+        </div>
+        <a class="frame" href="https://joinoo.ir">
+          <span class="bar"><i></i><i></i><i></i><span class="url">joinoo.ir</span></span>
+          <img src="assets/work/joino.webp" alt="Joino welcome screen — navy background, logo and yellow call-to-action" width="1200" height="750" loading="lazy">
+        </a>
       </div>
-      <div class="card">
-        <h3>moshavare-design-sample</h3>
-        <p>Design sample for a counseling-services website — Persian RTL landing page built with Next.js, TypeScript, Tailwind CSS and Framer Motion.</p>
-        <div class="tags"><span>Next.js</span><span>TypeScript</span><span>Tailwind</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/moshavare-design-sample">GitHub</a><a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">Live demo</a></div>
+      <div class="feature">
+        <div class="txt">
+          <h3>FMG Tech</h3>
+          <p>Industrial-equipment company website — rebuilt the frontend as a Next.js static export, added automated SEO tooling and a CI preview/release pipeline that reports to Telegram. Client work, private repo.</p>
+          <div class="meta">Next.js · SEO · CI/CD · GitHub Actions</div>
+          <div class="plinks"><a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></div>
+        </div>
+        <a class="frame" href="https://fmg-tech.ir">
+          <span class="bar"><i></i><i></i><i></i><span class="url">fmg-tech.ir</span></span>
+          <img src="assets/work/fmgtech-strip.webp" alt="FMG Tech site header — logo and Persian navigation on dark ground" width="1200" height="92" loading="lazy">
+        </a>
       </div>
-      <div class="card">
-        <h3>Atelier Noor — interior design studio</h3>
-        <p>Persian RTL homepage where the room designs itself as you scroll — a scroll-controlled 150-frame canvas image sequence driven by GSAP ScrollTrigger + Lenis, self-hosted Estedad type and logical-CSS RTL throughout. Group project.</p>
-        <div class="tags"><span>Next.js 15</span><span>Tailwind v4</span><span>GSAP</span><span>RTL</span></div>
-        <div class="links"><a href="https://github.com/123100123/interior-design-showcase">GitHub</a><a class="live" href="https://soroush83faraz.github.io/interior-design-showcase/">Live demo</a></div>
+    </div>
+  </section>
+
+  <section id="en-bench">
+    <div class="wrap">
+      <span class="eyebrow">The workbench</span>
+      <h2>Engineering &amp; CS projects</h2>
+      <p class="sub">Systems, compilers, simulation — the ones marked <span class="live">live</span> open in your browser.</p>
+      <div class="bench">
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/LANLink">LANLink</a></span><span class="desc">Local-network file transfer &amp; messaging — trusted devices pair over LAN or hotspot; WebSocket control plane, HTTP data plane. No cloud, no accounts.</span><span class="tag">Go · networking</span></div>
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/CPPiler">CPPiler</a></span><span class="desc">Compiler front-end for a C++ subset — lexer, LL(1) predictive parser, parse-tree construction. <a class="live" href="https://soroush83faraz.github.io/CPPiler/">Try in browser</a></span><span class="tag">Python · compilers</span></div>
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/hospital-sim">hospital-sim</a></span><span class="desc">Discrete-event simulation of hospital bed allocation — four ward policies, 35 replications, 95% confidence intervals. <a class="live" href="https://soroush83faraz.github.io/hospital-sim/">Live report</a></span><span class="tag">Python · simulation</span></div>
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/iustZ">iustZ</a></span><span class="desc">Text-based post-apocalyptic RPG — 4-player hot-seat, compiled unmodified to WebAssembly. <a class="live" href="https://soroush83faraz.github.io/iustZ/">Play in browser</a></span><span class="tag">C++ · WASM</span></div>
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/L-system">L-system</a></span><span class="desc">Recursive fractals — dragon curve, Koch, Sierpiński — with an animated canvas explorer. <a class="live" href="https://soroush83faraz.github.io/L-system/">Live explorer</a></span><span class="tag">Python · canvas</span></div>
+        <div class="bench-row"><span class="name"><a href="https://github.com/soroush83faraz/mycalender">mycalender</a></span><span class="desc">Persian (Jalali) calendar in Flutter — Gregorian⇄Jalali conversion, Persian numerals. <a class="live" href="https://soroush83faraz.github.io/mycalender/">Web demo</a></span><span class="tag">Flutter · Dart</span></div>
       </div>
-      <div class="card">
-        <h3>Rehash studio — "The Darkroom"</h3>
-        <p>Showcase site for a web design &amp; build studio. Dark-first photographic-darkroom concept: a pinned four-beat scroll story (expose → develop → fix → print), a "lights on" theme toggle, and a single motion verb — develop. Group project.</p>
-        <div class="tags"><span>Next.js 15</span><span>TypeScript</span><span>Tailwind v4</span><span>Motion</span></div>
-        <div class="links"><a href="https://github.com/123100123/rehash-website">GitHub</a><a class="live" href="https://soroush83faraz.github.io/rehash-website/">Live demo</a></div>
+    </div>
+  </section>
+
+  <section id="en-design">
+    <div class="wrap">
+      <span class="eyebrow">Design, in Persian</span>
+      <h2>I also design &amp; ship RTL sites</h2>
+      <p class="sub">Persian right-to-left sites with self-hosted type, logical CSS and scroll-driven storytelling — <a href="#" data-go="client" style="color:var(--accent);font-weight:500">switch to the Persian side</a> for the full gallery.</p>
+      <div class="gallery">
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/interior-design-showcase/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">…/interior-design-showcase</span></span>
+            <img src="assets/work/noor.webp" alt="Atelier Noor — full-bleed living-room hero with Persian display type" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>Atelier Noor</h3>
+          <p>Interior-design studio — the room composes itself as you scroll: a 150-frame canvas sequence on GSAP ScrollTrigger. Group project.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/interior-design-showcase/">Live</a><a href="https://github.com/123100123/interior-design-showcase">GitHub</a></div>
+        </div>
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/consult-center-design/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">…/consult-center-design</span></span>
+            <img src="assets/work/aram.webp" alt="Aram clinic homepage — calm green palette, Persian typography" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>"Aram" clinic</h3>
+          <p>Mental-health clinic — marketing page plus a full mock admin dashboard and SVG-chart reports. 50 statically exported pages.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/consult-center-design/">Live</a><a href="https://github.com/soroush83faraz/consult-center-design">GitHub</a></div>
+        </div>
+        <div class="shot-card">
+          <a class="frame" href="https://soroush83faraz.github.io/rehash-website/">
+            <span class="bar"><i></i><i></i><i></i><span class="url">…/rehash-website</span></span>
+            <img src="assets/work/darkroom.webp" alt="Rehash studio site — photographic-darkroom dark theme with bold white headline" width="1200" height="750" loading="lazy">
+          </a>
+          <h3>Rehash — "The Darkroom"</h3>
+          <p>Web-studio site as a four-beat darkroom story (expose → develop → fix → print) with a "lights on" toggle. Group project.</p>
+          <div class="plinks"><a class="live" href="https://soroush83faraz.github.io/rehash-website/">Live</a><a href="https://github.com/123100123/rehash-website">GitHub</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="en-archive">
+    <div class="wrap">
+      <span class="eyebrow">The complete index</span>
+      <h2>Everything, honestly</h2>
+      <p class="sub">All of it — from live products to course exercises.</p>
+      <div class="archive">
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/rehash-proj">Joino (rehash)</a></span><span class="desc">Outdoor-activities platform — <a class="live" href="https://joinoo.ir">joinoo.ir</a></span><span class="tag">Next.js · PostGIS</span></div>
+        <div class="arch-row"><span class="name"><a href="https://fmg-tech.ir">FMG Tech</a></span><span class="desc">Industrial-equipment company site — <a class="live" href="https://fmg-tech.ir">fmg-tech.ir</a></span><span class="tag">Next.js · SEO</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/consult-center-design">consult-center-design</a></span><span class="desc">Clinic site + mock admin dashboard — <a class="live" href="https://soroush83faraz.github.io/consult-center-design/">demo</a></span><span class="tag">Next.js 15</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/123100123/interior-design-showcase">Atelier Noor</a></span><span class="desc">Scroll-driven interior-design studio site — <a class="live" href="https://soroush83faraz.github.io/interior-design-showcase/">demo</a></span><span class="tag">GSAP · RTL</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/123100123/rehash-website">Rehash studio</a></span><span class="desc">Web-studio site, darkroom concept — <a class="live" href="https://soroush83faraz.github.io/rehash-website/">demo</a></span><span class="tag">Next.js 15</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/moshavare-design-sample">moshavare-design-sample</a></span><span class="desc">Counseling-services landing page — <a class="live" href="https://soroush83faraz.github.io/moshavare-design-sample/">demo</a></span><span class="tag">Framer Motion</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/LANLink">LANLink</a></span><span class="desc">LAN file transfer &amp; messaging in Go — no cloud, no accounts</span><span class="tag">Go</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/CPPiler">CPPiler</a></span><span class="desc">Compiler front-end for a C++ subset — <a class="live" href="https://soroush83faraz.github.io/CPPiler/">try in browser</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/hospital-sim">hospital-sim</a></span><span class="desc">Hospital bed-allocation simulation — <a class="live" href="https://soroush83faraz.github.io/hospital-sim/">live report</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/iustZ">iustZ</a></span><span class="desc">C++ text RPG compiled to WebAssembly — <a class="live" href="https://soroush83faraz.github.io/iustZ/">play in browser</a></span><span class="tag">C++ · WASM</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/L-system">L-system</a></span><span class="desc">Recursive fractal scripts — <a class="live" href="https://soroush83faraz.github.io/L-system/">interactive explorer</a></span><span class="tag">Python · Canvas</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/mycalender">mycalender</a></span><span class="desc">Persian (Jalali) calendar in Flutter — <a class="live" href="https://soroush83faraz.github.io/mycalender/">web demo</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/trellomize">trellomize</a></span><span class="desc">Trello-style team task manager, terminal UI — <a class="live" href="https://soroush83faraz.github.io/trellomize/">demo</a></span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/flutter_persian_calendar">flutter_persian_calendar</a></span><span class="desc">Jalali calendar package for Flutter — <a class="live" href="https://pub.dev/packages/flutter_persian_calendar">pub.dev</a></span><span class="tag">Dart</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/zohal">zohal</a></span><span class="desc">Front-desk timer for a kids' playhouse, live countdown cards — <a class="live" href="https://soroush83faraz.github.io/zohal/">demo</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name">TE_Commerce</span><span class="desc">Full e-commerce mobile app — private repo</span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/E-commerce">E-commerce</a></span><span class="desc">Shop app on the FlutterShop template — study &amp; adaptation — <a class="live" href="https://soroush83faraz.github.io/E-commerce/">demo</a></span><span class="tag">Flutter</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/Lonely-Boss">Lonely-Boss</a></span><span class="desc">2D boss-fight prototype — FSM-driven multi-phase boss AI</span><span class="tag">Unity · C#</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/maze-maverick">maze-maverick</a></span><span class="desc">Terminal maze game — auto-solver, timer, leaderboard</span><span class="tag">C++</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/CPP-compiler">CPP-compiler</a></span><span class="desc">CPPiler's compact single-file sibling — tokenizer to parse-tree</span><span class="tag">Python</span></div>
+        <div class="arch-row"><span class="name"><a href="https://github.com/soroush83faraz/n8n-ffmpeg">n8n-ffmpeg</a></span><span class="desc">n8n Docker image with ffmpeg &amp; yt-dlp preinstalled</span><span class="tag">Docker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact">
+    <div class="wrap">
+      <h2>One email away.</h2>
+      <p class="sub" style="margin-bottom:0">Tell me what you're building — I usually reply the same day.</p>
+      <div class="ways">
+        <a class="btn primary" href="mailto:soroush.faraz83@gmail.com">soroush.faraz83@gmail.com</a>
+        <a class="btn" href="https://github.com/soroush83faraz">GitHub</a>
+        <a class="btn" href="honors.html">Honors</a>
       </div>
     </div>
   </div>
-</section>
 
-<section id="engineering">
-  <div class="wrap">
-    <h2>⚙️ Engineering &amp; CS projects</h2>
-    <p class="sub">Systems, compilers, simulation and tools — most open right in the browser.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>LANLink</h3>
-        <p>Local-network file transfer &amp; communication system. Trusted devices pair and transfer files over LAN, Wi-Fi or hotspot — WebSocket control plane, HTTP data plane. No cloud, no accounts.</p>
-        <div class="tags"><span>Go</span><span>WebSocket</span><span>Networking</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/LANLink">GitHub</a></div>
-      </div>
-      <div class="card">
-        <h3>CPPiler</h3>
-        <p>Compiler front-end for a C++ subset written in Python — lexical analyzer, LL(1) non-recursive predictive parser and parse-tree construction with declaration search.</p>
-        <div class="tags"><span>Python</span><span>Compilers</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/CPPiler">GitHub</a><a class="live" href="https://soroush83faraz.github.io/CPPiler/">Try in browser</a></div>
-      </div>
-      <div class="card">
-        <h3>hospital-sim</h3>
-        <p>Discrete-event simulation of hospital bed allocation and patient flow — four ward policies compared over 35 replications with 95% confidence intervals. All 39 tests passing.</p>
-        <div class="tags"><span>Python</span><span>Simulation</span><span>Statistics</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/hospital-sim">GitHub</a><a class="live" href="https://soroush83faraz.github.io/hospital-sim/">Live report</a></div>
-      </div>
-      <div class="card">
-        <h3>L-system</h3>
-        <p>L-system fractals — Python turtle scripts plus an interactive browser explorer: dragon curve, Koch, Sierpiński, fractal plant &amp; tree with animated progressive drawing.</p>
-        <div class="tags"><span>Python</span><span>Canvas</span><span>Generative</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/L-system">GitHub</a><a class="live" href="https://soroush83faraz.github.io/L-system/">Live explorer</a></div>
-      </div>
-      <div class="card">
-        <h3>mycalender</h3>
-        <p>Persian (Jalali) calendar app built with Flutter — Gregorian⇄Jalali conversion, month navigation, day selection, Persian numerals. Runs on the web too.</p>
-        <div class="tags"><span>Flutter</span><span>Dart</span></div>
-        <div class="links"><a href="https://github.com/soroush83faraz/mycalender">GitHub</a><a class="live" href="https://soroush83faraz.github.io/mycalender/">Live demo</a></div>
-      </div>
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Soroush Faraz</span>
+      <span>Designed &amp; built by hand — no template.</span>
     </div>
-  </div>
-</section>
+  </footer>
+</main>
 
-<section id="more">
-  <div class="wrap">
-    <h2>🗂 More projects</h2>
-    <p class="sub">Games, apps, packages and experiments.</p>
-    <div class="rows">
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/trellomize">trellomize</a></span><span class="desc">Trello-style team task manager in Python — bcrypt auth, projects and boards, leader/member roles, comments, per-task history, logging. <a class="live" href="https://soroush83faraz.github.io/trellomize/">Live demo</a></span><span class="lang">Python</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/iustZ">iustZ</a></span><span class="desc">Text-based post-apocalyptic RPG in C++ — 4-player hot-seat, six weapon classes, scaling enemies, JSON saves. Group university project, compiled to WebAssembly. <a class="live" href="https://soroush83faraz.github.io/iustZ/">Play in browser</a></span><span class="lang">C++ / WASM</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/flutter_persian_calendar">flutter_persian_calendar</a></span><span class="desc">Flutter package for Persian (Jalali) calendar integration — customizable appearance, date filtering. <a class="live" href="https://pub.dev/packages/flutter_persian_calendar">pub.dev</a></span><span class="lang">Dart</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/zohal">zohal</a></span><span class="desc">Front-desk time manager for a kids' playhouse — Persian RTL UI, live countdown cards. Group project. <a class="live" href="https://soroush83faraz.github.io/zohal/">Live demo</a></span><span class="lang">Flutter</span></div>
-      <div class="row"><span class="name">TE_Commerce</span><span class="desc">Full e-commerce mobile app built with Flutter. Private repo.</span><span class="lang">Flutter</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/E-commerce">E-commerce</a></span><span class="desc">Flutter shop app built on the FlutterShop template — study and adaptation. <a class="live" href="https://soroush83faraz.github.io/E-commerce/">Live demo</a></span><span class="lang">Flutter</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/Lonely-Boss">Lonely-Boss</a></span><span class="desc">2D boss-fight prototype in Unity — FSM-driven boss AI with multi-phase attacks.</span><span class="lang">Unity / C#</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/maze-maverick">maze-maverick</a></span><span class="desc">Terminal maze game — maze creation, auto-solver, playground mode with timer, stats and leaderboard.</span><span class="lang">C++</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/CPP-compiler">CPP-compiler</a></span><span class="desc">The compact single-file sibling of CPPiler — tokenizer to parse-tree in one Python file.</span><span class="lang">Python</span></div>
-      <div class="row"><span class="name"><a href="https://github.com/soroush83faraz/n8n-ffmpeg">n8n-ffmpeg</a></span><span class="desc">n8n Docker image with ffmpeg and yt-dlp preinstalled for media-processing workflows.</span><span class="lang">Docker</span></div>
-    </div>
-  </div>
-</section>
+<script>
+(function(){
+  var root=document.documentElement, gate=document.getElementById('gate'),
+      who=document.getElementById('who'),
+      reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 Soroush Faraz</span>
-    <span><a href="https://github.com/soroush83faraz">GitHub</a> · <a href="mailto:soroush.faraz83@gmail.com">soroush.faraz83@gmail.com</a></span>
-  </div>
-</footer>
+  function apply(path){
+    root.setAttribute('data-path',path);
+    if(path==='client'){ root.setAttribute('dir','rtl'); root.setAttribute('lang','fa'); who.textContent='سروش فراز'; }
+    else { root.setAttribute('dir','ltr'); root.setAttribute('lang','en'); who.textContent='Soroush Faraz'; }
+    if(path!=='gate'){ try{localStorage.setItem('path',path);}catch(e){} }
+    window.scrollTo(0,0);
+  }
 
+  function go(path,fromGate){
+    if(fromGate && !reduced){
+      gate.classList.add('leaving');
+      setTimeout(function(){ apply(path); gate.classList.remove('leaving'); },620);
+    } else { apply(path); }
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click',function(ev){
+      ev.preventDefault();
+      go(el.getAttribute('data-go'), root.getAttribute('data-path')==='gate');
+    });
+  });
+
+  document.getElementById('to-gate').addEventListener('click',function(){
+    try{localStorage.removeItem('path');}catch(e){}
+    root.setAttribute('dir','ltr'); root.setAttribute('lang','en');
+    root.setAttribute('data-path','gate');
+    window.scrollTo(0,0);
+  });
+
+  var h=(location.hash||'').replace('#','');
+  if(h==='client'||h==='work'){ apply(h); }
+  else if(h && document.getElementById(h)){
+    apply(h.indexOf('fa-')===0?'client':'work');
+    requestAnimationFrame(function(){ var t=document.getElementById(h); if(t) t.scrollIntoView(); });
+  }
+  else{
+    try{
+      var saved=localStorage.getItem('path');
+      if(saved==='client'||saved==='work') apply(saved);
+    }catch(e){}
+  }
+})();
+</script>
 </body>
 </html>
