@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" data-path="gate">
+<html lang="en" data-path="work">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soroush Faraz — سروش فراز</title>
 <meta name="description" content="Portfolio of Soroush Faraz — live products (Joino, FMG Tech), Persian RTL web design, and engineering projects in Go, Python, Flutter and Next.js.">
 <meta property="og:title" content="Soroush Faraz — سروش فراز">
-<meta property="og:description" content="Two doors: Persian web design for clients, engineering & live products for employers.">
+<meta property="og:description" content="Persian web design for clients, engineering & live products for employers — most demos open right in the browser.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://soroush83faraz.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232D4F9E'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23FBFAF7' font-family='sans-serif'%3E%D8%B3%3C/text%3E%3C/svg%3E">
@@ -55,40 +55,10 @@ img{max-width:100%;display:block}
 .mark{display:inline-grid;place-items:center;inline-size:2.4rem;block-size:2.4rem;border:1.5px solid currentColor;border-radius:8px;font-family:var(--fa);font-weight:800;font-size:1.35rem;line-height:1;user-select:none}
 .mark span{transform:translateY(-.12em)}
 
-/* ---------- gate ---------- */
-#gate{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;background:var(--bg);transition:transform .65s cubic-bezier(.7,0,.25,1),opacity .65s ease}
-#gate .gate-top{display:flex;align-items:center;justify-content:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--line)}
-#gate .gate-top .mark{color:var(--ink)}
-.gate-name{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;color:var(--muted)}
-.doors{flex:1;display:flex;min-height:0}
-.door{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:8vh 6vw;cursor:pointer;border:0;background:none;text-align:start;color:var(--ink);transition:flex .55s cubic-bezier(.6,0,.3,1);position:relative}
-.door + .door{border-inline-start:1px solid var(--line)}
-.door:hover,.door:focus-visible{flex:1.45}
-.door .eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono)}
-.door[lang="fa"] .eyebrow{font-family:var(--fa);letter-spacing:0;font-weight:600;font-size:.9rem;text-transform:none}
-.door h2{font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
-#door-work h2{font-family:var(--serif);font-weight:600}
-#door-client h2{font-weight:800}
-.door p{color:var(--muted);max-width:44ch;font-size:1.02rem}
-.door .go{font-weight:500;display:inline-flex;align-items:center;gap:8px;margin-top:6px}
-#door-client .eyebrow,#door-client .go{color:var(--turquoise)}
-#door-work .eyebrow,#door-work .go{color:var(--lapis)}
-.door:hover h2{color:var(--turquoise)}
-#door-work:hover h2{color:var(--lapis)}
-#gate.leaving{transform:translateY(-100%);opacity:.4}
-html[data-path="client"] #gate,html[data-path="work"] #gate{display:none}
-html[data-path="gate"] body{overflow:hidden}
-@media (max-width:720px){
-  .doors{flex-direction:column}
-  .door + .door{border-inline-start:0;border-top:1px solid var(--line)}
-  .door{padding:7vh 8vw;gap:10px}
-}
-
 /* ---------- topbar ---------- */
 #topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-html[data-path="gate"] #topbar{display:none}
 #topbar .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px}
-#topbar .mark{inline-size:2rem;block-size:2rem;font-size:1.1rem;cursor:pointer;background:none;color:var(--ink)}
+#topbar .mark{inline-size:2rem;block-size:2rem;font-size:1.1rem;color:var(--ink)}
 #topbar .who{font-weight:500;font-size:.95rem}
 #topbar .spacer{flex:1}
 .switch{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -112,9 +82,9 @@ html[data-path="work"] #work{display:block}
 #client .intro h1{font-weight:800}
 .intro .lede{margin-top:20px;color:var(--muted);font-size:1.12rem;max-width:62ch}
 .intro .lede b{color:var(--ink);font-weight:500}
-.intro .quick{margin-top:28px;display:flex;gap:20px;flex-wrap:wrap;font-size:.95rem;font-weight:500}
-.intro .quick a{color:var(--accent)}
-.intro .quick a:hover{text-decoration:underline}
+.intro .cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.intro .chips{margin-top:28px;display:flex;gap:8px;flex-wrap:wrap}
+.intro .chips span{font-family:var(--mono);font-size:.74rem;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);direction:ltr}
 
 section{padding:56px 0;border-top:1px solid var(--line)}
 .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
@@ -198,45 +168,21 @@ footer{padding:26px 0 46px;color:var(--muted);font-size:.86rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
 
 @media (prefers-reduced-motion: reduce){
-  #gate,.door,.shot-card .frame,.btn{transition:none}
+  .shot-card .frame,.btn{transition:none}
 }
 </style>
 <noscript><style>
-  #gate{display:none}
   main{display:block !important}
-  #topbar{display:block !important}
   #topbar .switch{display:none}
   #work{border-top:6px solid var(--lapis)}
 </style></noscript>
 </head>
 <body>
 
-<!-- ================= GATE ================= -->
-<div id="gate">
-  <div class="gate-top">
-    <span class="mark" aria-hidden="true"><span>س</span></span>
-    <span class="gate-name">soroush faraz — سروش فراز</span>
-  </div>
-  <div class="doors">
-    <button class="door" id="door-work" lang="en" dir="ltr" data-go="work">
-      <span class="eyebrow">For employers</span>
-      <h2>Hiring an engineer?</h2>
-      <p>Live products, systems tools and compilers — most of them open right in your browser.</p>
-      <span class="go">See the work &rarr;</span>
-    </button>
-    <button class="door" id="door-client" lang="fa" dir="rtl" data-go="client">
-      <span class="eyebrow">برای کسب‌وکارها</span>
-      <h2>سایت می‌خواهید؟</h2>
-      <p>طراحی و ساخت سایت‌های فارسی — از صفحه‌ی فرود تا داشبورد مدیریت؛ نمونه‌کارها را زنده باز کنید.</p>
-      <span class="go">دیدن نمونه‌کارها &larr;</span>
-    </button>
-  </div>
-</div>
-
 <!-- ================= TOPBAR ================= -->
 <header id="topbar">
   <div class="wrap">
-    <button class="mark" id="to-gate" title="Two doors — دو در"><span>س</span></button>
+    <span class="mark" aria-hidden="true"><span>س</span></span>
     <span class="who" id="who">Soroush Faraz</span>
     <span class="spacer"></span>
     <nav class="switch" aria-label="Language / path">
@@ -250,14 +196,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <!-- ================= CLIENT WORLD (فارسی) ================= -->
 <main id="client" lang="fa" dir="rtl">
   <div class="intro wrap">
-    <h1>سایتی که واقعاً باز می‌شود.</h1>
-    <p class="lede">سلام، سروشم. سایت‌های فارسی طراحی می‌کنم و می‌سازم — <b>راست‌به‌چپِ واقعی</b>، <b>فونت فارسی درست</b> و <b>سریع</b>؛ بدون قالب آماده. پایین، همه‌ی نمونه‌کارها زنده‌اند: کلیک کنید و خودتان باز کنید.</p>
-    <div class="quick">
-      <a href="#fa-design">نمونه‌کارهای طراحی</a>
-      <a href="#fa-products">محصولات در حال کار</a>
-      <a href="#fa-archive">فهرست کامل</a>
-      <a href="mailto:soroush.faraz83@gmail.com">ایمیل</a>
+    <h1>سلام، سروشم 👋</h1>
+    <p class="lede">سایت‌های فارسیِ <b>راست‌به‌چپِ واقعی</b> طراحی می‌کنم و می‌سازم — از صفحه‌ی فرود تا داشبورد مدیریت؛ <b>بدون قالب آماده</b> و <b>سریع</b>. پایین، همه‌ی نمونه‌کارها زنده‌اند: کلیک کنید و خودتان باز کنید.</p>
+    <div class="cta">
+      <a class="btn primary" href="#fa-design">دیدن نمونه‌کارها</a>
+      <a class="btn" href="mailto:soroush.faraz83@gmail.com">ایمیل بدهید</a>
+      <a class="btn" href="https://github.com/soroush83faraz">گیت‌هاب</a>
     </div>
+    <div class="chips"><span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span><span>Flutter</span><span>RTL</span><span>SEO</span><span>GSAP</span></div>
   </div>
 
   <section id="fa-design">
@@ -392,15 +338,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <!-- ================= WORK WORLD (English) ================= -->
 <main id="work" lang="en" dir="ltr">
   <div class="intro wrap">
-    <h1>I build things people can actually open.</h1>
-    <p class="lede">Software developer — <b>Flutter</b> on mobile, <b>Next.js / TypeScript</b> on the web, <b>Go &amp; Python</b> underneath. Below: two products in production, a workshop of CS projects, and the complete archive. Most demos run right in your browser.</p>
-    <div class="quick">
-      <a href="#en-live">Live products</a>
-      <a href="#en-bench">Engineering</a>
-      <a href="#en-design">Design, in Persian</a>
-      <a href="#en-archive">Archive</a>
-      <a href="honors.html">Honors</a>
+    <h1>Hi, I'm Soroush 👋</h1>
+    <p class="lede">Software developer building <b>mobile apps with Flutter</b>, <b>web apps with Next.js / TypeScript</b>, and <b>systems tools in Go &amp; Python</b> — I like shipping things people can actually open.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/soroush83faraz">View my GitHub</a>
+      <a class="btn" href="mailto:soroush.faraz83@gmail.com">Email me</a>
+      <a class="btn" href="https://fmg-tech.ir">fmg-tech.ir</a>
     </div>
+    <div class="chips"><span>Flutter</span><span>Dart</span><span>TypeScript</span><span>Next.js</span><span>React</span><span>Go</span><span>Python</span><span>C#</span><span>Unity</span><span>Docker</span><span>PostgreSQL</span><span>n8n</span><span>GitHub Actions</span></div>
   </div>
 
   <section id="en-live">
@@ -541,37 +486,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <script>
 (function(){
-  var root=document.documentElement, gate=document.getElementById('gate'),
-      who=document.getElementById('who'),
-      reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root=document.documentElement, who=document.getElementById('who');
 
   function apply(path){
     root.setAttribute('data-path',path);
     if(path==='client'){ root.setAttribute('dir','rtl'); root.setAttribute('lang','fa'); who.textContent='سروش فراز'; }
     else { root.setAttribute('dir','ltr'); root.setAttribute('lang','en'); who.textContent='Soroush Faraz'; }
-    if(path!=='gate'){ try{localStorage.setItem('path',path);}catch(e){} }
+    try{localStorage.setItem('path',path);}catch(e){}
     window.scrollTo(0,0);
-  }
-
-  function go(path,fromGate){
-    if(fromGate && !reduced){
-      gate.classList.add('leaving');
-      setTimeout(function(){ apply(path); gate.classList.remove('leaving'); },620);
-    } else { apply(path); }
   }
 
   document.querySelectorAll('[data-go]').forEach(function(el){
     el.addEventListener('click',function(ev){
       ev.preventDefault();
-      go(el.getAttribute('data-go'), root.getAttribute('data-path')==='gate');
+      apply(el.getAttribute('data-go'));
     });
-  });
-
-  document.getElementById('to-gate').addEventListener('click',function(){
-    try{localStorage.removeItem('path');}catch(e){}
-    root.setAttribute('dir','ltr'); root.setAttribute('lang','en');
-    root.setAttribute('data-path','gate');
-    window.scrollTo(0,0);
   });
 
   var h=(location.hash||'').replace('#','');
