@@ -103,7 +103,7 @@ section h2{font-size:1.7rem;letter-spacing:-.01em;text-wrap:balance}
 .frame .bar{direction:ltr;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--frame-bar);border-bottom:1px solid var(--line)}
 .frame .bar i{inline-size:8px;block-size:8px;border-radius:50%;background:var(--line);flex:none}
 .frame .bar .url{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-inline-start:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.frame img{width:100%;height:auto}
+.frame img,.frame video{width:100%;height:auto;display:block}
 
 /* ---------- featured cards ---------- */
 .feature{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:26px 0}
@@ -242,7 +242,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <div class="shot-card">
           <a class="frame" href="https://soroush83faraz.github.io/consult-center-design/">
             <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/consult-center-design</span></span>
-            <img src="assets/work/aram.webp" alt="صفحه‌ی اصلی کلینیک آرام — پالت سبز آرام و تایپوگرافی فارسی" width="1200" height="750" loading="lazy">
+            <img src="assets/work/aram.webp" alt="کلینیک آرام — بخش «با مشاوران ما آشنا شوید»: کارت شش مشاور با تخصص و امتیاز" width="1200" height="750" loading="lazy">
           </a>
           <h3>کلینیک «آرام»</h3>
           <p>کلینیک سلامت روان — صفحه‌ی معرفی به‌علاوه‌ی داشبورد کاملِ مدیریت: بیمار، مشاور، جلسه و گزارش‌های نموداری. ۵۰ صفحه‌ی استاتیک.</p>
@@ -251,7 +251,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <div class="shot-card">
           <a class="frame" href="https://soroush83faraz.github.io/interior-design-showcase/">
             <span class="bar"><i></i><i></i><i></i><span class="url">soroush83faraz.github.io/interior-design-showcase</span></span>
-            <img src="assets/work/noor.webp" alt="آتلیه نور — هیروی تمام‌صفحه با عکس اتاق نشیمن و تایپ فارسی" width="1200" height="750" loading="lazy">
+            <video class="frame-vid" autoplay muted loop playsinline preload="metadata" poster="assets/work/noor.webp" width="1200" height="674" aria-label="ویدیوی هیروی آتلیه نور — چیده‌شدن تدریجی اتاق نشیمن"><source src="assets/work/noor.mp4" type="video/mp4"></video>
           </a>
           <h3>آتلیه نور</h3>
           <p>استودیوی طراحی داخلی — اتاق همراهِ اسکرول شما چیده می‌شود: سکانس ۱۵۰ فریمی روی بوم با GSAP. پروژه‌ی گروهی.</p>
@@ -453,7 +453,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <div class="shot-card">
           <a class="frame" href="https://soroush83faraz.github.io/interior-design-showcase/">
             <span class="bar"><i></i><i></i><i></i><span class="url">…/interior-design-showcase</span></span>
-            <img src="assets/work/noor.webp" alt="Atelier Noor — full-bleed living-room hero with Persian display type" width="1200" height="750" loading="lazy">
+            <video class="frame-vid" autoplay muted loop playsinline preload="metadata" poster="assets/work/noor.webp" width="1200" height="674" aria-label="Atelier Noor hero — the living room composing itself"><source src="assets/work/noor.mp4" type="video/mp4"></video>
           </a>
           <h3>Atelier Noor</h3>
           <p>Interior-design studio — the room composes itself as you scroll: a 150-frame canvas sequence on GSAP ScrollTrigger. Group project.</p>
@@ -462,7 +462,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <div class="shot-card">
           <a class="frame" href="https://soroush83faraz.github.io/consult-center-design/">
             <span class="bar"><i></i><i></i><i></i><span class="url">…/consult-center-design</span></span>
-            <img src="assets/work/aram.webp" alt="Aram clinic homepage — calm green palette, Persian typography" width="1200" height="750" loading="lazy">
+            <img src="assets/work/aram.webp" alt="Aram clinic — the “Meet our counselors” section: six therapist cards with specialties and ratings" width="1200" height="750" loading="lazy">
           </a>
           <h3>"Aram" clinic</h3>
           <p>Mental-health clinic — marketing page plus a full mock admin dashboard and SVG-chart reports. 50 statically exported pages.</p>
