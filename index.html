@@ -170,6 +170,49 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 @media (prefers-reduced-motion: reduce){
   .shot-card .frame,.btn{transition:none}
 }
+
+/* ---------- lead hero (minimal dark intro) ---------- */
+.lead-hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;padding:0;border-top:0;
+  display:flex;flex-direction:column;justify-content:flex-start;isolation:isolate;
+  background:#0a0e15;
+  background-image:radial-gradient(1100px 560px at 50% -8%,#172333 0%,rgba(23,35,51,0) 62%),linear-gradient(180deg,#0b1019 0%,#090c12 100%)}
+.lead-hero .particles{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
+.lead-inner{position:relative;z-index:1;width:100%;max-width:1080px;margin:0 auto;padding:clamp(22vh,25vh,29vh) 24px 0;text-align:center}
+.lead-kicker{font-family:var(--mono);font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:#43c6c9;margin-bottom:16px}
+[lang="fa"] .lead-kicker{font-family:var(--fa);letter-spacing:0;text-transform:none;font-size:.98rem;font-weight:600}
+.lead-name{font-size:clamp(2.6rem,7vw,5rem);line-height:1.06;letter-spacing:-.02em;color:#f3f6fb;font-weight:800}
+#work .lead-name{font-family:var(--serif);font-weight:600}
+.lead-role{margin:20px auto 0;max-width:52ch;color:#9fb0c4;font-size:clamp(1rem,2vw,1.16rem);line-height:1.7}
+.lead-cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.lead-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:999px;font-weight:600;font-size:.98rem;
+  border:1px solid rgba(255,255,255,.18);color:#eaf0f8;background:rgba(255,255,255,.04);transition:transform .15s ease,background .2s ease,border-color .2s ease}
+.lead-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);text-decoration:none}
+.lead-btn.primary{background:linear-gradient(100deg,#1aa7ab,#2f6fd0);border-color:transparent;color:#fff}
+.lead-btn.primary:hover{background:linear-gradient(100deg,#1fb9bd,#3a7ee0)}
+.lead-scroll{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;z-index:1;display:flex;flex-direction:column;align-items:center;gap:9px;
+  color:rgba(220,230,242,.6);font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+[lang="fa"] .lead-scroll{font-family:var(--fa);letter-spacing:0;text-transform:none;font-size:.85rem}
+.lead-scroll:hover{color:#cfe7ea;text-decoration:none}
+.lead-scroll .chev{width:18px;height:18px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;animation:leadbob 1.8s ease-in-out infinite}
+@keyframes leadbob{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.5}50%{transform:rotate(45deg) translate(4px,4px);opacity:1}}
+/* transparent topbar while over the dark hero */
+#topbar,#topbar .who,#topbar .mark,#topbar a.gh,#topbar .switch,#topbar .switch button{transition:background .3s ease,border-color .3s ease,color .3s ease}
+html.at-top #topbar{background:transparent;backdrop-filter:none;border-bottom-color:transparent}
+html.at-top #topbar .who{color:#eef2f8}
+html.at-top #topbar .mark{color:#eef2f8;border-color:rgba(255,255,255,.45)}
+html.at-top #topbar a.gh{color:rgba(238,242,248,.72)}
+html.at-top #topbar a.gh:hover{color:#fff}
+html.at-top #topbar .switch{border-color:rgba(255,255,255,.32)}
+html.at-top #topbar .switch button{color:rgba(238,242,248,.82)}
+html.at-top[data-path="client"] #topbar .switch button.fa,
+html.at-top[data-path="work"] #topbar .switch button.en{background:#eef2f8;color:#0b0f16}
+/* scroll reveal for sections below the hero */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .lead-scroll .chev{animation:none}
+  .reveal{opacity:1 !important;transform:none !important;transition:none}
+}
 </style>
 <noscript><style>
   main{display:block !important}
@@ -195,16 +238,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <!-- ================= CLIENT WORLD (فارسی) ================= -->
 <main id="client" lang="fa" dir="rtl">
-  <div class="intro wrap">
-    <h1>سلام، سروشم 👋</h1>
-    <p class="lede">سایت‌های فارسیِ <b>راست‌به‌چپِ واقعی</b> طراحی می‌کنم و می‌سازم — از صفحه‌ی فرود تا داشبورد مدیریت؛ <b>بدون قالب آماده</b> و <b>سریع</b>. پایین، همه‌ی نمونه‌کارها زنده‌اند: کلیک کنید و خودتان باز کنید.</p>
-    <div class="cta">
-      <a class="btn primary" href="#fa-design">دیدن نمونه‌کارها</a>
-      <a class="btn" href="mailto:soroush.faraz83@gmail.com">ایمیل بدهید</a>
-      <a class="btn" href="https://github.com/soroush83faraz">گیت‌هاب</a>
+  <section class="lead-hero" aria-label="معرفی">
+    <canvas class="particles" aria-hidden="true"></canvas>
+    <div class="lead-inner">
+      <p class="lead-kicker">توسعه‌دهنده‌ی نرم‌افزار</p>
+      <h1 class="lead-name">سروش فراز</h1>
+      <p class="lead-role">وب، موبایل و ابزارهای سیستمی — چیزهایی می‌سازم که واقعاً باز می‌شوند و کار می‌کنند.</p>
+      <div class="lead-cta">
+        <a class="lead-btn primary" href="#fa-design">دیدن پروژه‌ها</a>
+        <a class="lead-btn" href="https://github.com/soroush83faraz">گیت‌هاب</a>
+      </div>
     </div>
-    <div class="chips"><span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span><span>Flutter</span><span>RTL</span><span>SEO</span><span>GSAP</span></div>
-  </div>
+    <a class="lead-scroll" href="#fa-design" aria-label="اسکرول به پایین"><span>اسکرول کنید</span><i class="chev"></i></a>
+  </section>
 
   <section id="fa-design">
     <div class="wrap">
@@ -358,16 +404,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <!-- ================= WORK WORLD (English) ================= -->
 <main id="work" lang="en" dir="ltr">
-  <div class="intro wrap">
-    <h1>Hi, I'm Soroush 👋</h1>
-    <p class="lede">Software developer building <b>mobile apps with Flutter</b>, <b>web apps with Next.js / TypeScript</b>, and <b>systems tools in Go &amp; Python</b> — I like shipping things people can actually open.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://github.com/soroush83faraz">View my GitHub</a>
-      <a class="btn" href="mailto:soroush.faraz83@gmail.com">Email me</a>
-      <a class="btn" href="https://fmg-tech.ir">fmg-tech.ir</a>
+  <section class="lead-hero" aria-label="Intro">
+    <canvas class="particles" aria-hidden="true"></canvas>
+    <div class="lead-inner">
+      <p class="lead-kicker">Software developer</p>
+      <h1 class="lead-name">Soroush Faraz</h1>
+      <p class="lead-role">Web, mobile &amp; systems tools — I build things people can actually open and use.</p>
+      <div class="lead-cta">
+        <a class="lead-btn primary" href="#en-live">See projects</a>
+        <a class="lead-btn" href="https://github.com/soroush83faraz">GitHub</a>
+      </div>
     </div>
-    <div class="chips"><span>Flutter</span><span>Dart</span><span>TypeScript</span><span>Next.js</span><span>React</span><span>Go</span><span>Python</span><span>C#</span><span>Unity</span><span>Docker</span><span>PostgreSQL</span><span>n8n</span><span>GitHub Actions</span></div>
-  </div>
+    <a class="lead-scroll" href="#en-live" aria-label="Scroll down"><span>Scroll</span><i class="chev"></i></a>
+  </section>
 
   <section id="en-live">
     <div class="wrap">
@@ -566,6 +615,58 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       if(saved==='client'||saved==='work') apply(saved);
     }catch(e){}
   }
+
+  // ---- lead hero: particles bg, scroll reveal, transparent topbar over hero ----
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function atTop(){ root.classList.toggle('at-top', (window.pageYOffset||0) < 40); }
+    atTop(); window.addEventListener('scroll', atTop, {passive:true});
+
+    var targets=[].slice.call(document.querySelectorAll('main > section:not(.lead-hero), main > .contact, main > footer'));
+    targets.forEach(function(el){ el.classList.add('reveal'); });
+    if('IntersectionObserver' in window && !reduce){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {rootMargin:'0px 0px -8% 0px', threshold:0.05});
+      targets.forEach(function(el){ io.observe(el); });
+    } else { targets.forEach(function(el){ el.classList.add('in'); }); }
+
+    var canvases=[].slice.call(document.querySelectorAll('.lead-hero canvas.particles'));
+    if(canvases.length){
+      var DPR=Math.min(window.devicePixelRatio||1,2);
+      var cur=null, ctx=null, parts=[], W=0, H=0, mouse={x:-9999,y:-9999,on:false}, raf;
+      function setup(cv){
+        cur=cv; ctx=cv.getContext('2d'); if(!ctx) return;
+        W=cv.clientWidth; H=cv.clientHeight;
+        cv.width=Math.max(1,W*DPR); cv.height=Math.max(1,H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
+        var n=Math.max(22, Math.min(64, Math.round(W*H/20000)));
+        parts=[]; for(var i=0;i<n;i++){ parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,r:Math.random()*1.7+0.7}); }
+      }
+      function vis(){ for(var i=0;i<canvases.length;i++){ var c=canvases[i]; if(c.offsetParent!==null && c.clientWidth>0) return c; } return null; }
+      function draw(){
+        var v=vis();
+        if(v && (v!==cur || v.clientWidth!==W || v.clientHeight!==H)) setup(v);
+        if(ctx && W>0){
+          ctx.clearRect(0,0,W,H);
+          var i,j,p,a,b,dx,dy,dd,d;
+          for(i=0;i<parts.length;i++){ p=parts[i]; p.x+=p.vx; p.y+=p.vy;
+            if(p.x<-12)p.x=W+12; else if(p.x>W+12)p.x=-12;
+            if(p.y<-12)p.y=H+12; else if(p.y>H+12)p.y=-12;
+            if(mouse.on){ dx=p.x-mouse.x; dy=p.y-mouse.y; d=Math.sqrt(dx*dx+dy*dy); if(d>0&&d<110){ p.x+=dx/d*0.7; p.y+=dy/d*0.7; } }
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.2832); ctx.fillStyle='rgba(190,224,232,0.55)'; ctx.fill();
+          }
+          for(i=0;i<parts.length;i++){ for(j=i+1;j<parts.length;j++){ a=parts[i]; b=parts[j]; dx=a.x-b.x; dy=a.y-b.y; dd=dx*dx+dy*dy; if(dd<13924){ ctx.globalAlpha=(1-dd/13924)*0.16; ctx.strokeStyle='#8fdfe2'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
+          ctx.globalAlpha=1;
+        }
+        if(!reduce) raf=window.requestAnimationFrame(draw);
+      }
+      canvases.forEach(function(c){
+        var hero=c.parentNode;
+        hero.addEventListener('mousemove',function(e){ var v=vis(); if(!v) return; var r=v.getBoundingClientRect(); mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; mouse.on=true; });
+        hero.addEventListener('mouseleave',function(){ mouse.on=false; });
+      });
+      window.addEventListener('resize',function(){ W=-1; });
+      draw();
+    }
+  })();
 })();
 </script>
 </body>
