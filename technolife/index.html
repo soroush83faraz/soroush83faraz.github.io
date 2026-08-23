@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-path="lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمایشگاه جست‌وجوی تکنولایف</title>
+<meta name="description" content="دموی زندهٔ یک دستیار RAG فارسی روی کاتالوگ واقعی گوشی تکنولایف — جملهٔ فارسی می‌نویسید، سیستم فیلترها را می‌فهمد، از میان ۲٬۶۸۱ گوشی کرال‌شده رتبه‌بندی می‌کند و شواهد ارسالی به مدل زبانی را نشان می‌دهد.">
+<meta property="og:title" content="آزمایشگاه جست‌وجوی تکنولایف">
+<meta property="og:description" content="جملهٔ فارسی بنویسید؛ ببینید بازیابی هیبریدی روی ۲٬۶۸۱ گوشی واقعی چطور کار می‌کند.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://soroush83faraz.github.io/technolife/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23157F82'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%23FBFAF7' font-family='sans-serif'%3E%D8%AC%3C/text%3E%3C/svg%3E">
+
+<style>
+/* ---------- fonts (shared with the portfolio) ---------- */
+@font-face{font-family:"Estedad";src:url("../assets/fonts/Estedad-VF.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("../assets/fonts/PlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("../assets/fonts/PlexSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url("../assets/fonts/PlexMono-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+
+/* ---------- tokens ---------- */
+:root{
+  --bg:#FBFAF7; --panel:#FFFFFF; --sunk:#F4F2EC; --ink:#14181D; --muted:#5A6472; --line:#E5E2DA;
+  --turquoise:#157F82; --lapis:#2D4F9E; --saffron:#B9800A;
+  --ok:#157F82; --ok-soft:rgba(21,127,130,.10);
+  --warn-soft:rgba(185,128,10,.12);
+  --bar:#157F82; --bar-track:#EAE7DE;
+  --shadow:0 1px 2px rgba(20,24,29,.05),0 14px 34px -18px rgba(20,24,29,.22);
+  --fa:"Estedad","Plex Sans",system-ui,sans-serif;
+  --serif:"Plex Serif",Georgia,serif;
+  --mono:"Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151B; --panel:#171E26; --sunk:#131A22; --ink:#E8E6DF; --muted:#9AA3AD; --line:#242D38;
+    --turquoise:#3DB8BA; --lapis:#7D9FE8; --saffron:#E0AA4E;
+    --ok:#3DB8BA; --ok-soft:rgba(61,184,186,.13);
+    --warn-soft:rgba(224,170,78,.14);
+    --bar:#3DB8BA; --bar-track:#212B36;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 36px -18px rgba(0,0,0,.65);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151B; --panel:#171E26; --sunk:#131A22; --ink:#E8E6DF; --muted:#9AA3AD; --line:#242D38;
+  --turquoise:#3DB8BA; --lapis:#7D9FE8; --saffron:#E0AA4E;
+  --ok:#3DB8BA; --ok-soft:rgba(61,184,186,.13);
+  --warn-soft:rgba(224,170,78,.14);
+  --bar:#3DB8BA; --bar-track:#212B36;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 36px -18px rgba(0,0,0,.65);
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{animation-duration:.001ms !important;transition-duration:.001ms !important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--fa);line-height:1.7;font-size:1rem;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--turquoise);outline-offset:3px;border-radius:4px}
+::selection{background:var(--turquoise);color:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.ltr{direction:ltr;text-align:left}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- topbar ---------- */
+#top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+#top .wrap{display:flex;align-items:center;gap:14px;padding-block:11px}
+.mark{display:inline-grid;place-items:center;inline-size:2.2rem;block-size:2.2rem;border:1.5px solid currentColor;border-radius:8px;font-weight:800;font-size:1.1rem;line-height:1;color:var(--turquoise)}
+#top .name{font-weight:700;letter-spacing:-.01em}
+#top .spacer{flex:1}
+.tlink{font-size:.86rem;color:var(--muted);padding:6px 10px;border-radius:8px}
+.tlink:hover{color:var(--ink);background:var(--sunk)}
+#themeBtn{font-size:.86rem;color:var(--muted);padding:6px 10px;border-radius:8px;border:1px solid var(--line)}
+#themeBtn:hover{color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{padding:52px 0 26px}
+.eyebrow{display:inline-block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--turquoise);font-family:var(--mono);margin-bottom:14px}
+h1{font-family:var(--serif);font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.25;font-weight:600;text-wrap:balance;letter-spacing:-.01em}
+.lede{margin-top:14px;max-width:62ch;color:var(--muted);font-size:1.06rem}
+.lede b{color:var(--ink);font-weight:600}
+
+/* ---------- stat band ---------- */
+.stats{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stat{background:var(--panel);padding:16px 18px}
+.stat .v{font-family:var(--mono);font-size:1.5rem;font-weight:600;line-height:1.2;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat .k{font-size:.8rem;color:var(--muted);margin-top:3px}
+
+/* ---------- sections ---------- */
+section{padding:46px 0}
+section+section{border-top:1px solid var(--line)}
+h2{font-family:var(--serif);font-size:clamp(1.35rem,2.6vw,1.75rem);font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin-top:8px;max-width:62ch}
+
+/* ---------- lab ---------- */
+.searchbox{margin-top:22px;position:relative;display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:6px 6px 6px 6px;box-shadow:var(--shadow);transition:border-color .18s}
+.searchbox:focus-within{border-color:var(--turquoise)}
+.searchbox input{flex:1;background:none;border:none;outline:none;font:inherit;font-size:1.05rem;color:var(--ink);padding:12px 12px}
+.searchbox input::placeholder{color:var(--muted);opacity:.85}
+.searchbox .go{background:var(--turquoise);color:#fff;padding:11px 20px;border-radius:10px;font-weight:600;font-size:.95rem}
+:root[data-theme="dark"] .searchbox .go,
+:root:not([data-theme="light"]) .searchbox .go{color:#0B1116}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .searchbox .go{color:#fff}}
+.searchbox .go:hover{filter:brightness(1.06)}
+
+.samples{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.samples span{font-size:.82rem;color:var(--muted);align-self:center;margin-inline-end:2px}
+.chipbtn{font-size:.85rem;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 13px;color:var(--muted);transition:.16s}
+.chipbtn:hover{border-color:var(--turquoise);color:var(--ink)}
+
+.parsed{margin-top:20px;background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.parsed .ptitle{font-size:.8rem;color:var(--muted);margin-bottom:9px}
+.pchips{display:flex;flex-wrap:wrap;gap:7px}
+.pchip{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 10px}
+.pchip .lab{color:var(--muted);font-size:.78rem}
+.pchip .val{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pchip.route{border-color:var(--lapis);color:var(--lapis)}
+.pchip.none{color:var(--muted);border-style:dashed}
+
+.panes{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:24px;align-items:start}
+@media (max-width:900px){.panes{grid-template-columns:1fr}}
+.pane-h{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.pane-h h3{font-size:.95rem;font-weight:700}
+.pane-h .meta{font-size:.8rem;color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 16px;transition:border-color .16s,transform .16s}
+.card:hover{border-color:color-mix(in srgb,var(--turquoise) 45%,var(--line))}
+.card .rank{font-family:var(--mono);font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.card .head{display:flex;align-items:flex-start;gap:9px}
+.card h4{font-size:1rem;font-weight:600;line-height:1.55;flex:1}
+.card h4 a:hover{color:var(--turquoise)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.badge{font-size:.78rem;border-radius:7px;padding:3px 9px;border:1px solid var(--line);color:var(--muted);background:var(--bg)}
+.badge.price{color:var(--ink);border-color:color-mix(in srgb,var(--saffron) 45%,var(--line));background:var(--warn-soft);font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+.badge.avail{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,var(--line));background:var(--ok-soft)}
+.badge.spec{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.card .why{margin-top:10px;font-size:.79rem;color:var(--muted);font-family:var(--mono);display:flex;flex-wrap:wrap;gap:10px;font-variant-numeric:tabular-nums}
+.card .why i{font-style:normal;color:color-mix(in srgb,var(--turquoise) 80%,var(--muted))}
+
+.evidence{background:var(--sunk);border:1px solid var(--line);border-radius:13px;padding:0;overflow:hidden;position:sticky;top:70px}
+.evidence .eh{padding:12px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;justify-content:space-between}
+.evidence .eh b{font-size:.9rem}
+.evidence .eh span{font-size:.76rem;color:var(--muted);font-family:var(--mono)}
+.evidence pre{margin:0;padding:15px;max-height:520px;overflow:auto;font-family:var(--mono);font-size:.78rem;line-height:1.85;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.evidence pre::-webkit-scrollbar{width:9px}
+.evidence pre::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+.empty{color:var(--muted);font-size:.9rem;padding:22px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+
+/* ---------- comparison table ---------- */
+.cmp{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:13px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:10px 13px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-weight:700;background:var(--sunk);position:sticky;top:0}
+tbody tr:last-child td{border-bottom:none}
+td.k{color:var(--muted);white-space:nowrap}
+td.v{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- pipeline ---------- */
+.flow{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:16px}
+.step .n{font-family:var(--mono);font-size:.74rem;color:var(--turquoise);letter-spacing:.1em}
+.step h4{margin-top:7px;font-size:.98rem;font-weight:700}
+.step p{margin-top:6px;font-size:.87rem;color:var(--muted);line-height:1.75}
+
+/* ---------- brand bars ---------- */
+.bars{margin-top:20px;display:flex;flex-direction:column;gap:9px;max-width:620px}
+.brow{display:grid;grid-template-columns:104px 1fr 92px;align-items:center;gap:12px;font-size:.86rem}
+.brow .bname{color:var(--ink)}
+.brow .btrack{background:var(--bar-track);border-radius:4px;height:11px;position:relative;overflow:hidden}
+.brow .bfill{position:absolute;inset-block:0;inset-inline-start:0;background:var(--bar);border-start-end-radius:4px;border-end-end-radius:4px}
+.brow .bval{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--muted);font-size:.8rem;text-align:left;direction:ltr}
+
+/* ---------- notes ---------- */
+.note{margin-top:22px;border-inline-start:3px solid var(--saffron);background:var(--warn-soft);border-radius:0 10px 10px 0;padding:14px 16px;font-size:.9rem;color:var(--ink)}
+.note b{font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px}
+.mini h4{font-size:.96rem;font-weight:700;margin-bottom:8px}
+.mini ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.mini li{font-size:.88rem;color:var(--muted);display:flex;gap:8px}
+.mini li::before{content:"—";color:var(--turquoise)}
+.mini li b{color:var(--ink);font-weight:600}
+
+footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--muted);font-size:.86rem}
+footer a{color:var(--turquoise)}
+footer p+p{margin-top:8px}
+.loading{padding:40px;text-align:center;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <span class="mark">ت</span>
+    <span class="name">آزمایشگاه جست‌وجوی تکنولایف</span>
+    <span class="spacer"></span>
+    <a class="tlink" href="../">← نمونه‌کارها</a>
+    <button id="themeBtn" type="button" aria-label="تغییر تم">تم</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">RAG · Persian retrieval</span>
+    <h1>یک جملهٔ فارسی بنویسید، ببینید دستیار فروشگاه چطور به آن می‌رسد.</h1>
+    <p class="lede">
+      این صفحه دموی زندهٔ یک دستیار پرسش‌وپاسخ است که روی <b>کاتالوگ واقعی گوشی‌های تکنولایف</b> کار می‌کند.
+      کاتالوگ در ۱ شهریور ۱۴۰۵ کرال شده و همین‌جا داخل مرورگر شما جست‌وجو می‌شود:
+      جمله پارس می‌شود، فیلترهای سخت اعمال می‌شوند، نتایج با ترکیب امتیاز واژگانی و مفهومی رتبه می‌گیرند،
+      و دقیقاً همان <b>شواهدی که به مدل زبانی فرستاده می‌شود</b> کنار نتیجه نمایش داده می‌شود.
+    </p>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section id="lab">
+    <h2>آزمایشگاه پرسش</h2>
+    <p class="sub">فارسی محاوره‌ای بنویسید — «تا ۴۰ میلیون»، «رم ۸»، «سامسونگ»، «مقایسه کن»، یا یک سؤال دربارهٔ گارانتی و مرجوعی.</p>
+
+    <form class="searchbox" id="form" role="search">
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="مثلاً: گوشی سامسونگ موجود تا ۴۵ میلیون با رم ۶ گیگ" aria-label="پرسش شما">
+      <button class="go" type="submit">جست‌وجو</button>
+    </form>
+
+    <div class="samples" id="samples"><span>نمونه:</span></div>
+
+    <div class="parsed" id="parsed" hidden>
+      <div class="ptitle">چیزی که سیستم از جملهٔ شما فهمید — این‌ها به فیلتر SQL تبدیل می‌شوند، نه به حدس مدل:</div>
+      <div class="pchips" id="pchips"></div>
+    </div>
+
+    <div class="panes">
+      <div>
+        <div class="pane-h"><h3>نتایج رتبه‌بندی‌شده</h3><span class="meta" id="resmeta"></span></div>
+        <div id="results"><div class="loading">در حال بارگذاری کاتالوگ…</div></div>
+      </div>
+      <div>
+        <div class="pane-h"><h3>شواهد ارسالی به مدل</h3><span class="meta">context window</span></div>
+        <div class="evidence">
+          <div class="eh"><b>پرامپت زمینه</b><span id="evmeta">—</span></div>
+          <pre id="evidence" dir="rtl">پرسشی بنویسید تا شواهد ساخته‌شده را ببینید.</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>مسیر یک پرسش</h2>
+    <p class="sub">همان معماری‌ای که در نسخهٔ کامل روی PostgreSQL و pgvector اجرا می‌شود؛ این صفحه نسخهٔ سبک و مرورگری‌اش است.</p>
+    <div class="flow">
+      <div class="step"><div class="n">۰۱ کرال</div><h4>کشف از سایت‌مپ</h4><p>۱۳ فایل سایت‌مپ محصولات خوانده شد و ۲٬۶۹۰ آدرس گوشی جدا شد؛ با تأخیر ۹۰۰ میلی‌ثانیه و بدون آدرس‌های ممنوع در robots.</p></div>
+      <div class="step"><div class="n">۰۲ استخراج</div><h4>پارس ساختاریافته</h4><p>قیمت، فروشنده، گارانتی، رنگ و مشخصات فنی از پیلود واقعی صفحه استخراج و به شکل جدولی ذخیره می‌شود.</p></div>
+      <div class="step"><div class="n">۰۳ فیلتر</div><h4>محدودیت‌های سخت</h4><p>برند، بودجه، رم، حافظه و موجودی قبل از رتبه‌بندی اعمال می‌شوند؛ چیزی که شرط را رد کند اصلاً به مدل نمی‌رسد.</p></div>
+      <div class="step"><div class="n">۰۴ رتبه</div><h4>ترکیب واژگانی و معنایی</h4><p>دو فهرست رتبه با فرمول RRF ترکیب می‌شوند و تطبیق دقیق مدل، اولویت مطلق می‌گیرد.</p></div>
+      <div class="step"><div class="n">۰۵ پاسخ</div><h4>پاسخ مستند</h4><p>فقط همین شواهد به مدل زبانی می‌رود؛ پاسخ باید به منابع ارجاع دهد و قیمت را «ثبت‌شده در آخرین دریافت اطلاعات» بنامد.</p></div>
+    </div>
+  </section>
+
+  <section id="data">
+    <h2>کاتالوگ پشت این دمو</h2>
+    <p class="sub">اعداد، خروجی واقعی همان کرال هستند — نه نمونهٔ ساختگی.</p>
+
+    <div class="grid2">
+      <div>
+        <h4 style="font-size:.95rem;font-weight:700">پراکندگی برندها</h4>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="mini">
+        <h4>صداقت دربارهٔ داده</h4>
+        <ul>
+          <li><b>اسنپ‌شات است، نه قیمت زنده.</b> همه‌چیز تاریخ‌دار است و دستیار هرگز آن را قیمت لحظه‌ای معرفی نمی‌کند.</li>
+          <li id="availLi"></li>
+          <li><b>یک آگهی حذف‌شده</b> در فهرست سایت‌مپ بود که به صفحهٔ دسته‌بندی می‌رفت؛ به‌جای جعل داده، به‌عنوان خطا ثبت شد.</li>
+          <li><b>نظرات کاربران کرال نشد</b> — فقط امتیاز عددی که خود صفحه منتشر می‌کند.</li>
+          <li>ارقام و لینک هر گوشی به صفحهٔ اصلی همان محصول در تکنولایف وصل است.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>چرا نسخهٔ مرورگری؟</b> نسخهٔ کامل روی PostgreSQL + pgvector اجرا می‌شود و بردارهای معنایی را با مدل چندزبانهٔ محلی می‌سازد؛
+      این صفحه برای آنکه بدون سرور و بدون کلید API قابل امتحان باشد، همان منطق پارس و فیلتر و ترکیب رتبه را در جاوااسکریپت بازسازی می‌کند.
+      لایهٔ معنایی اینجا سبک‌شده است و برای همین در پرسش‌های کاملاً مفهومی، دقت نسخهٔ کامل را ندارد.
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2>جعبه‌ابزار</h2>
+    <div class="grid2">
+      <div class="mini">
+        <h4>نسخهٔ کامل</h4>
+        <ul>
+          <li><b>PostgreSQL ۱۶ + pgvector</b> — واقعیت‌های ساختاریافته و بردارها در یک پایگاه‌داده</li>
+          <li><b>امبدینگ چندزبانهٔ محلی</b> — بدون ارسال متن به سرویس بیرونی</li>
+          <li><b>بازیابی هیبریدی</b> — فیلتر SQL + جست‌وجوی واژگانی + برداری، ترکیب با RRF</li>
+          <li><b>Gemini</b> پشت یک لایهٔ ایزوله، با دوقلوی جعلی برای تست بدون کلید</li>
+          <li><b>۲۱۶ تست خودکار</b> و ارزیابی بازیابی روی کیس‌های فارسی</li>
+        </ul>
+      </div>
+      <div class="mini">
+        <h4>همین صفحه</h4>
+        <ul>
+          <li>یک فایل HTML، بدون فریم‌ورک و بدون وابستگی بیرونی</li>
+          <li>نرمال‌سازی فارسی: یکسان‌سازی ی/ک، حذف نیم‌فاصله، ارقام فارسی</li>
+          <li>پارس بودجه به‌صورت عددی و حروفی («تا پنجاه میلیون»)</li>
+          <li>ترکیب رتبه با همان فرمول RRF نسخهٔ اصلی</li>
+          <li>کل کاتالوگ حدود ۱۳۰ کیلوبایت فشرده منتقل می‌شود</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>ساختهٔ <a href="../">سروش فراز</a> — دموی فنی. دادهٔ محصولات، اسنپ‌شات عمومی از <a href="https://www.technolife.com" rel="nofollow noopener">technolife.com</a> در ۱ شهریور ۱۴۰۵ است و تمام حقوق آن متعلق به همان فروشگاه است؛ قیمت‌ها از آن تاریخ تغییر کرده‌اند.</p>
+    <p>کد کامل پروژه در یک مخزن خصوصی گیت‌هاب نگهداری می‌شود.</p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+(function () {
+  /* ---------------- theme ---------------- */
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem("tl-theme");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    var isDark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = isDark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("tl-theme", next); } catch (e) {}
+  });
+
+  /* ---------------- persian helpers ---------------- */
+  var FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹", AR_DIGITS = "٠١٢٣٤٥٦٧٨٩";
+  function toEnDigits(s) {
+    return s.replace(/[۰-۹]/g, function (d) { return FA_DIGITS.indexOf(d); })
+            .replace(/[٠-٩]/g, function (d) { return AR_DIGITS.indexOf(d); });
+  }
+  function faNum(n) {
+    try { return new Intl.NumberFormat("fa-IR").format(n); } catch (e) { return String(n); }
+  }
+  function fold(s) {
+    return toEnDigits(String(s || "").toLowerCase())
+      .replace(/[يى]/g, "ی")
+      .replace(/ك/g, "ک")
+      .replace(/[‌​‎‏‪-‮]/g, " ")
+      .replace(/[أإآ]/g, "ا")
+      .replace(/[ةۀ]/g, "ه")
+      .replace(/[ً-ْ]/g, "")
+      .replace(/[^0-9a-z؀-ۿ]+/g, " ")
+      .trim();
+  }
+  function tokens(s) { return fold(s).split(" ").filter(function (t) { return t.length > 1; }); }
+
+  /* ---------------- data ---------------- */
+  var DATA = null, INDEX = null;
+  var BRAND_ALIASES = {
+    samsung: ["سامسونگ", "samsung", "گلکسی", "galaxy"],
+    xiaomi: ["شیایومی", "شیائومی", "xiaomi", "ردمی", "redmi", "پوکو", "poco", "mi"],
+    apple: ["اپل", "apple", "ایفون", "آیفون", "iphone"],
+    nokia: ["نوکیا", "nokia"],
+    honor: ["انر", "آنر", "honor"],
+    realme: ["ریلمی", "realme"],
+    huawei: ["هواوی", "huawei", "nova"],
+    motorola: ["موتورولا", "motorola", "moto"],
+    infinix: ["اینفینیکس", "infinix"],
+    google: ["گوگل", "google", "pixel", "پیکسل"],
+    tecno: ["تکنو", "tecno"],
+    glx: ["جی ال ایکس", "glx"],
+    doogee: ["دوجی", "doogee"],
+    nothing: ["ناتینگ", "nothing"],
+    blackview: ["بلک ویو", "blackview"],
+    oneplus: ["وان پلاس", "oneplus"],
+    gplus: ["جی پلاس", "gplus"],
+    sony: ["سونی", "sony", "xperia"],
+    vivo: ["ویوو", "vivo"],
+    lg: ["ال جی", "lg"],
+    alcatel: ["الکاتل", "آلکاتل", "alcatel"],
+    oppo: ["اوپو", "oppo"],
+    cat: ["کت", "cat"]
+  };
+  var WORD_NUM = {
+    "یک": 1, "دو": 2, "سه": 3, "چهار": 4, "پنج": 5, "شش": 6, "هفت": 7, "هشت": 8, "نه": 9, "ده": 10,
+    "یازده": 11, "دوازده": 12, "سیزده": 13, "چهارده": 14, "پانزده": 15, "شانزده": 16, "هفده": 17,
+    "هجده": 18, "نوزده": 19, "بیست": 20, "سی": 30, "چهل": 40, "پنجاه": 50, "شصت": 60, "هفتاد": 70,
+    "هشتاد": 80, "نود": 90, "صد": 100, "دویست": 200
+  };
+  var POLICY_WORDS = ["گارانتی", "ضمانت", "مرجوع", "مرجوعی", "بازگرداندن", "پس دادن", "ارسال", "هزینه ارسال",
+    "اقساط", "قسطی", "رجیستری", "قوانین", "حریم خصوصی", "تماس", "شعبه", "فاکتور", "بیمه", "سفارش", "تعویض", "هفت روزه"];
+
+  /* ---------------- query parser ---------------- */
+  var WORD_ALT = Object.keys(WORD_NUM).sort(function (a, b) { return b.length - a.length; }).join("|");
+  var AMT = "(?:\\d+(?:[.,]\\d+)?|" + WORD_ALT + ")(?:\\s*(?:میلیون|ملیون|میلیارد|تومان|هزار))?";
+
+  function parseAmount(str) {
+    var f = fold(str), v = null;
+    var m = f.match(/\d+(?:[.,]\d+)?/);
+    if (m) v = parseFloat(m[0].replace(",", "."));
+    else {
+      var keys = Object.keys(WORD_NUM).sort(function (a, b) { return b.length - a.length; });
+      for (var i = 0; i < keys.length; i++) {
+        if (new RegExp("(^|\\s)" + keys[i] + "(\\s|$)").test(f)) { v = WORD_NUM[keys[i]]; break; }
+      }
+    }
+    if (v == null) return null;
+    if (/میلیارد/.test(f)) return v * 1e9;
+    if (/میلیون|ملیون/.test(f)) return v * 1e6;
+    if (/هزار/.test(f)) return v * 1e3;
+    if (v < 1000) return v * 1e6;
+    return v;
+  }
+
+  function parseQuery(raw) {
+    var f = fold(raw);
+    var p = { raw: raw, folded: f, brand: null, priceMax: null, priceMin: null, ram: null,
+              storage: null, wants5g: false, onlyAvailable: false, route: "products", concepts: [], terms: [] };
+
+    for (var slug in BRAND_ALIASES) {
+      var al = BRAND_ALIASES[slug];
+      for (var i = 0; i < al.length; i++) {
+        var a = fold(al[i]);
+        if (a && (f === a || f.indexOf(" " + a + " ") >= 0 || f.indexOf(a + " ") === 0 || f.lastIndexOf(" " + a) === f.length - a.length - 1)) {
+          p.brand = slug; break;
+        }
+      }
+      if (p.brand) break;
+    }
+
+    var range = f.match(new RegExp("(?:بین|از)\\s+(" + AMT + ")\\s+تا\\s+(" + AMT + ")"));
+    if (range) {
+      var unit = /میلیون|ملیون|میلیارد|هزار/.test(range[2]) ? " میلیون" : "";
+      var lo = parseAmount(range[1] + (/(میلیون|ملیون|میلیارد|هزار)/.test(range[1]) ? "" : unit));
+      var hi = parseAmount(range[2]);
+      if (lo) p.priceMin = lo;
+      if (hi) p.priceMax = hi;
+    } else {
+      var mx = f.match(new RegExp("(?:تا|زیر|کمتر از|حداکثر|پایین تر از|ارزان تر از)\\s+(" + AMT + ")"));
+      if (mx) { var v = parseAmount(mx[1]); if (v) p.priceMax = v; }
+      var mn = f.match(new RegExp("(?:بالای|بیشتر از|حداقل|گران تر از)\\s+(" + AMT + ")"));
+      if (mn && !mx) { var v2 = parseAmount(mn[1]); if (v2) p.priceMin = v2; }
+    }
+
+    var ram = f.match(/رم\s*(\d+)|(\d+)\s*(?:گیگ|گیگابایت)?\s*رم/);
+    if (ram) p.ram = parseInt(ram[1] || ram[2], 10);
+    var st = f.match(/(?:حافظه|ظرفیت|استوریج)\s*(?:داخلی\s*)?(\d+)/);
+    if (st) { var sv = parseInt(st[1], 10); if (sv >= 8) p.storage = sv; }
+    if (/\b5g\b|۵g|پنج جی/.test(f)) p.wants5g = true;
+    if (/موجود|فوری|الان بخرم|قابل خرید/.test(f) && !/ناموجود/.test(f)) p.onlyAvailable = true;
+
+    if (/مقایسه|فرق|تفاوت|بهتره یا|کدوم بهتر/.test(f)) p.route = "compare";
+    for (var k = 0; k < POLICY_WORDS.length; k++) {
+      if (f.indexOf(fold(POLICY_WORDS[k])) >= 0) { p.route = "policy"; break; }
+    }
+    if (p.route === "policy" && (p.brand || p.priceMax || p.ram)) p.route = "products";
+
+    if (/بازی|گیم|gaming|game/.test(f)) p.concepts.push("gaming");
+    if (/عکاس|دوربین|سلفی|camera/.test(f)) p.concepts.push("camera");
+    if (/باتری|شارژ|battery/.test(f)) p.concepts.push("battery");
+    if (/ارزان|اقتصادی|کم قیمت|بودجه کم/.test(f)) p.concepts.push("cheap");
+    if (/پرچمدار|قوی|فلگ|flagship/.test(f)) p.concepts.push("flagship");
+    if (/سبک|کوچک|جمع و جور/.test(f)) p.concepts.push("compact");
+
+    p.terms = tokens(raw).filter(function (t) {
+      return !/^(گوشی|موبایل|میخوام|می‌خوام|میخام|بده|معرفی|کن|یه|یک|برای|با|تا|از|زیر|بالای|بین|قیمت|تومان|میلیون|رم|حافظه|ظرفیت|گیگ|گیگابایت|موجود|چیه|چنده|چطوره|مقایسه|و)$/.test(t);
+    });
+    return p;
+  }
+
+  /* ---------------- scoring ---------------- */
+  function lexicalScore(p, terms) {
+    if (!terms.length) return 0;
+    var hay = p._f, score = 0;
+    for (var i = 0; i < terms.length; i++) {
+      var t = terms[i];
+      if (hay.indexOf(" " + t + " ") >= 0) score += 3;
+      else if (hay.indexOf(t) >= 0) score += 2;
+      else if (t.length >= 4 && hay.indexOf(t.slice(0, Math.max(3, t.length - 1))) >= 0) score += 0.7;
+    }
+    if (p._m && terms.length) {
+      var joined = terms.join(" ");
+      if (p._m.indexOf(joined) >= 0) score += 6;
+    }
+    return score / terms.length;
+  }
+
+  function conceptScore(p, concepts) {
+    if (!concepts.length) return 0;
+    var s = p.s || {}, v = 0;
+    for (var i = 0; i < concepts.length; i++) {
+      var c = concepts[i];
+      if (c === "gaming") {
+        if (!s.ram) continue;                       // no RAM on record → no claim to make
+        v += Math.min(s.ram / 12, 1) * 2;
+        if (s.hz) v += Math.min(s.hz / 144, 1) * 1.5;
+        if (/snapdragon|dimensity|helio g|gaming/i.test(s.cpu || "")) v += 1.2;
+      } else if (c === "camera") {
+        var mp = parseInt((toEnDigits(s.cam || "").match(/(\d{2,3})/) || [0, 0])[1], 10) || 0;
+        v += Math.min(mp / 108, 1) * 3;
+      } else if (c === "battery") {
+        v += Math.min((s.bat || 0) / 6000, 1) * 3;
+      } else if (c === "cheap") {
+        v += p.p ? Math.max(0, 3 - p.p / 2e7) : 0;
+      } else if (c === "flagship") {
+        v += p.p ? Math.min(p.p / 8e7, 1) * 2 : 0;
+        v += Math.min((s.ram || 0) / 12, 1);
+      } else if (c === "compact") {
+        v += s.scr ? Math.max(0, 3 - Math.max(0, s.scr - 5.5)) : 0;
+      }
+    }
+    return v / concepts.length;
+  }
+
+  function passesFilters(p, q) {
+    if (q.brand && p.b !== q.brand) return false;
+    if (q.onlyAvailable && !p.a) return false;
+    if (q.priceMax != null && (p.p == null || p.p > q.priceMax)) return false;
+    if (q.priceMin != null && (p.p == null || p.p < q.priceMin)) return false;
+    var s = p.s || {};
+    if (q.ram != null && (s.ram == null || s.ram < q.ram)) return false;
+    if (q.storage != null && (s.st == null || s.st < q.storage)) return false;
+    if (q.wants5g && !/5g/i.test(s.net || "")) return false;
+    return true;
+  }
+
+  function rrf(rankA, rankB) {
+    var k = 60, v = 0;
+    if (rankA > 0) v += 1 / (k + rankA);
+    if (rankB > 0) v += 1 / (k + rankB);
+    return v;
+  }
+
+  function retrieve(q, limit) {
+    limit = limit || 6;
+    var pool = [], i, p;
+    for (i = 0; i < INDEX.length; i++) {
+      p = INDEX[i];
+      if (passesFilters(p, q)) pool.push(p);
+    }
+    var filteredCount = pool.length;
+    if (!pool.length) return { hits: [], filtered: 0, exact: false };
+
+    var lex = [], sem = [], exactHit = false;
+    // "exact" means the user named a model, not merely that words overlapped —
+    // only then do we stop pushing in-stock phones to the top.
+    var joined = q.terms.join(" ");
+    var modelish = joined.length >= 3 && /[a-z0-9]/.test(joined);
+    for (i = 0; i < pool.length; i++) {
+      p = pool[i];
+      var ls = lexicalScore(p, q.terms);
+      var cs = conceptScore(p, q.concepts);
+      if (modelish && p._m && p._m.indexOf(joined) >= 0) exactHit = true;
+      lex.push({ p: p, s: ls });
+      sem.push({ p: p, s: cs });
+    }
+    lex.sort(function (a, b) { return b.s - a.s; });
+    sem.sort(function (a, b) { return b.s - a.s; });
+
+    var lexRank = new Map(), semRank = new Map();
+    for (i = 0; i < Math.min(lex.length, 40); i++) if (lex[i].s > 0) lexRank.set(lex[i].p.i, i + 1);
+    for (i = 0; i < Math.min(sem.length, 40); i++) if (sem[i].s > 0) semRank.set(sem[i].p.i, i + 1);
+
+    var scored = pool.map(function (pp) {
+      var lr = lexRank.get(pp.i) || 0, sr = semRank.get(pp.i) || 0;
+      return { p: pp, lr: lr, sr: sr, rrf: rrf(lr, sr) };
+    });
+
+    var anyRanked = scored.some(function (x) { return x.rrf > 0; });
+    scored.sort(function (a, b) {
+      // 1) anything the ranker actually scored beats anything it did not
+      var as = a.rrf > 0 ? 1 : 0, bs = b.rrf > 0 ? 1 : 0;
+      if (as !== bs) return bs - as;
+      // 2) for browse-style queries (no exact model pinned) purchasable comes first;
+      //    an exact model lookup keeps its order so a sold-out model is still findable
+      if (!exactHit && !!a.p.a !== !!b.p.a) return (b.p.a ? 1 : 0) - (a.p.a ? 1 : 0);
+      if (b.rrf !== a.rrf) return b.rrf - a.rrf;
+      var ap = a.p.p == null ? Infinity : a.p.p, bp = b.p.p == null ? Infinity : b.p.p;
+      return ap - bp;
+    });
+    return { hits: scored.slice(0, limit), filtered: filteredCount, exact: exactHit, ranked: anyRanked };
+  }
+
+  /* ---------------- rendering ---------------- */
+  var elResults = document.getElementById("results");
+  var elEvidence = document.getElementById("evidence");
+  var elEvMeta = document.getElementById("evmeta");
+  var elParsed = document.getElementById("parsed");
+  var elChips = document.getElementById("pchips");
+  var elResMeta = document.getElementById("resmeta");
+
+  function productUrl(p) { return "https://www.technolife.com/product-" + p.i + "/p"; }
+
+  function chip(lab, val, cls) {
+    var d = document.createElement("span");
+    d.className = "pchip" + (cls ? " " + cls : "");
+    d.innerHTML = '<span class="lab">' + lab + "</span>" + (val ? '<span class="val">' + val + "</span>" : "");
+    return d;
+  }
+
+  function renderChips(q, res) {
+    elChips.textContent = "";
+    var any = false;
+    if (q.route === "policy") { elChips.appendChild(chip("مسیر", "پرسش سیاست فروشگاه", "route")); any = true; }
+    else if (q.route === "compare") { elChips.appendChild(chip("مسیر", "مقایسهٔ محصول", "route")); any = true; }
+    if (q.brand) {
+      var b = DATA.brands.filter(function (x) { return x.slug === q.brand; })[0];
+      elChips.appendChild(chip("برند", b ? b.fa : q.brand)); any = true;
+    }
+    if (q.priceMax != null) { elChips.appendChild(chip("قیمت حداکثر", faNum(q.priceMax) + " تومان")); any = true; }
+    if (q.priceMin != null) { elChips.appendChild(chip("قیمت حداقل", faNum(q.priceMin) + " تومان")); any = true; }
+    if (q.ram != null) { elChips.appendChild(chip("رم حداقل", faNum(q.ram) + " گیگ")); any = true; }
+    if (q.storage != null) { elChips.appendChild(chip("حافظه حداقل", faNum(q.storage) + " گیگ")); any = true; }
+    if (q.wants5g) { elChips.appendChild(chip("شبکه", "5G")); any = true; }
+    if (q.onlyAvailable) { elChips.appendChild(chip("وضعیت", "فقط موجود")); any = true; }
+    if (q.concepts.length) {
+      var map = { gaming: "بازی", camera: "عکاسی", battery: "باتری", cheap: "اقتصادی", flagship: "پرچمدار", compact: "جمع‌وجور" };
+      elChips.appendChild(chip("نیاز معنایی", q.concepts.map(function (c) { return map[c] || c; }).join("، ")));
+      any = true;
+    }
+    if (q.route === "compare") {
+      elChips.appendChild(chip("فیلترهای برند و قیمت", "در مسیر مقایسه اعمال نمی‌شوند", "none"));
+    }
+    if (res && res.filtered != null && q.route === "products" && res.filtered < INDEX.length) {
+      elChips.appendChild(chip("کاندیدا پس از فیلتر", faNum(res.filtered) + " از " + faNum(INDEX.length)));
+      any = true;
+    }
+    if (!any) elChips.appendChild(chip("فیلتر ساختاریافته‌ای پیدا نشد — فقط رتبه‌بندی متنی", "", "none"));
+    elParsed.hidden = false;
+  }
+
+  function specBadges(p) {
+    var s = p.s || {}, out = [];
+    if (s.ram) out.push("رم " + faNum(s.ram) + " گیگ");
+    if (s.st) out.push("حافظه " + faNum(s.st) + " گیگ");
+    if (s.scr) out.push(faNum(s.scr) + " اینچ");
+    if (s.bat) out.push("باتری " + faNum(s.bat));
+    if (s.net) out.push(s.net);
+    if (s.hz) out.push(faNum(s.hz) + " هرتز");
+    return out.slice(0, 5);
+  }
+
+  function card(entry, rank) {
+    var p = entry.p, el = document.createElement("article");
+    el.className = "card";
+    var head = document.createElement("div");
+    head.className = "head";
+    head.innerHTML = '<span class="rank">' + faNum(rank) + '</span><h4><a href="' + productUrl(p) +
+      '" target="_blank" rel="noopener nofollow">' + escapeHtml(p.t) + "</a></h4>";
+    el.appendChild(head);
+
+    var badges = document.createElement("div");
+    badges.className = "badges";
+    if (p.p != null) badges.innerHTML += '<span class="badge price">' + faNum(p.p) + " تومان</span>";
+    badges.innerHTML += p.a
+      ? '<span class="badge avail">موجود' + (p.sl ? " · " + escapeHtml(p.sl) : "") + "</span>"
+      : '<span class="badge">در آخرین دریافت اطلاعات ناموجود</span>';
+    if (p.w) badges.innerHTML += '<span class="badge">' + escapeHtml(p.w) + "</span>";
+    specBadges(p).forEach(function (b) { badges.innerHTML += '<span class="badge spec">' + escapeHtml(b) + "</span>"; });
+    if (p.r) badges.innerHTML += '<span class="badge spec">★ ' + faNum(p.r) + (p.rc ? " (" + faNum(p.rc) + ")" : "") + "</span>";
+    el.appendChild(badges);
+
+    var why = document.createElement("div");
+    why.className = "why";
+    var parts = [];
+    if (entry.lr) parts.push("<i>رتبهٔ واژگانی</i> " + faNum(entry.lr));
+    if (entry.sr) parts.push("<i>رتبهٔ معنایی</i> " + faNum(entry.sr));
+    parts.push("<i>RRF</i> " + entry.rrf.toFixed(4));
+    why.innerHTML = parts.join("");
+    el.appendChild(why);
+    return el;
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function buildEvidence(hits) {
+    var lines = [];
+    hits.forEach(function (entry, idx) {
+      var p = entry.p, s = p.s || {};
+      lines.push("## منبع " + (idx + 1) + ": " + p.t);
+      lines.push("لینک: " + productUrl(p));
+      var b = DATA.brands.filter(function (x) { return x.slug === p.b; })[0];
+      if (b) lines.push("برند: " + b.fa);
+      if (p.m) lines.push("مدل: " + p.m);
+      if (p.r) lines.push("امتیاز کاربران: " + p.r + " از " + (p.rc || 0) + " نظر");
+      lines.push("پیشنهادهای فروش (ثبت‌شده در " + DATA.meta.crawled_at + "):");
+      if (p.p != null) {
+        lines.push("- فروشنده " + (p.sl || "—") + "، قیمت " + p.p.toLocaleString("en-US") + " تومان" +
+          (p.w ? "، گارانتی: " + p.w : "") + (p.c ? "، رنگ: " + p.c : "") + (p.a ? "، موجود" : "، ناموجود"));
+        if (p.n > 1) lines.push("- (" + p.n + " پیشنهاد فروش ثبت شده است؛ ارزان‌ترین مورد بالا آمد)");
+      } else {
+        lines.push("- در آخرین دریافت اطلاعات، پیشنهاد فروش فعالی ثبت نشده بود.");
+      }
+      var sp = [];
+      if (s.ram) sp.push("حافظه RAM: " + s.ram + " گیگابایت");
+      if (s.st) sp.push("حافظه داخلی: " + s.st + " گیگابایت");
+      if (s.scr) sp.push("سایز صفحه نمایش: " + s.scr + " اینچ");
+      if (s.bat) sp.push("ظرفیت باتری: " + s.bat + " میلی‌آمپر ساعت");
+      if (s.net) sp.push("شبکه: " + s.net);
+      if (s.cpu) sp.push("پردازنده: " + s.cpu);
+      if (s.cam) sp.push("دوربین اصلی: " + s.cam);
+      if (s.hz) sp.push("نرخ تازه‌سازی: " + s.hz + " هرتز");
+      if (sp.length) { lines.push("مشخصات:"); sp.forEach(function (x) { lines.push("- " + x); }); }
+      lines.push("");
+    });
+    return lines.join("\n").trim();
+  }
+
+  function docParagraphs(doc) {
+    return doc.x.split("\n").map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 40; });
+  }
+
+  function runPolicy(q) {
+    var terms = tokens(q.raw).filter(function (t) { return t.length > 2; });
+    var found = [];
+    DATA.docs.forEach(function (doc) {
+      docParagraphs(doc).forEach(function (par) {
+        var f = fold(par), sc = 0;
+        terms.forEach(function (t) { if (f.indexOf(t) >= 0) sc += 1; });
+        if (sc > 0) found.push({ doc: doc, par: par, sc: sc + Math.min(par.length / 900, 0.6) });
+      });
+    });
+    found.sort(function (a, b) { return b.sc - a.sc; });
+    var perDoc = {}, top = [];
+    for (var fi = 0; fi < found.length && top.length < 4; fi++) {
+      var key = found[fi].doc.u;
+      perDoc[key] = (perDoc[key] || 0) + 1;
+      if (perDoc[key] <= 2) top.push(found[fi]);
+    }
+
+    elResults.textContent = "";
+    if (!top.length) {
+      elResults.innerHTML = '<div class="empty">در اسناد فروشگاه چیزی مطابق این پرسش پیدا نشد. دستیار در این حالت پاسخ نمی‌سازد و صادقانه می‌گوید اطلاعاتی ندارد.</div>';
+      elEvidence.textContent = "شواهدی یافت نشد — پاسخ تولید نمی‌شود.";
+      elEvMeta.textContent = "۰ منبع";
+      elResMeta.textContent = "۰ بند از ۱۱ سند";
+      return;
+    }
+    top.forEach(function (h, i) {
+      var el = document.createElement("article");
+      el.className = "card";
+      el.innerHTML = '<div class="head"><span class="rank">' + faNum(i + 1) + '</span><h4>' + escapeHtml(h.doc.t) + "</h4></div>" +
+        '<p style="margin-top:9px;font-size:.92rem;line-height:1.85">' + escapeHtml(h.par.slice(0, 320)) + (h.par.length > 320 ? "…" : "") + "</p>" +
+        '<div class="badges"><a class="badge" href="' + h.doc.u + '" target="_blank" rel="noopener nofollow">صفحهٔ رسمی</a>' +
+        '<span class="badge">' + (h.doc.k === "faq" ? "پرسش‌های متداول" : h.doc.k === "landing" ? "صفحهٔ خدمات" : "سند سیاست") + "</span></div>";
+      elResults.appendChild(el);
+    });
+    var lines = top.map(function (h, i) {
+      return "## منبع " + (i + 1) + ": " + h.doc.t + " (صفحهٔ اطلاع‌رسانی تکنولایف)\nلینک: " + h.doc.u + "\n" + h.par;
+    });
+    elEvidence.textContent = lines.join("\n\n");
+    elEvMeta.textContent = faNum(top.length) + " منبع · " + faNum(lines.join("").length) + " نویسه";
+    elResMeta.textContent = faNum(top.length) + " بند مرتبط از ۱۱ سند فروشگاه";
+  }
+
+  function runCompare(q) {
+    var raw = q.raw.replace(/مقایسه|کن|را|رو|بین|فرق|تفاوت/g, " ");
+    var sides = raw.split(/\s+و\s+|\s+با\s+|,|،/).map(function (s) { return s.trim(); }).filter(function (s) { return fold(s).length > 1; });
+    if (sides.length < 2) { runProducts(q); return; }
+    var picked = [];
+    sides.slice(0, 3).forEach(function (side) {
+      var terms = tokens(side);
+      var best = null, bestScore = 0;
+      for (var i = 0; i < INDEX.length; i++) {
+        var sc = lexicalScore(INDEX[i], terms);
+        if (INDEX[i].a) sc += 0.25;
+        if (sc > bestScore) { bestScore = sc; best = INDEX[i]; }
+      }
+      if (best && bestScore > 0.8 && picked.indexOf(best) < 0) picked.push(best);
+    });
+    if (picked.length < 2) { runProducts(q); return; }
+
+    var rows = [
+      ["قیمت ثبت‌شده", function (p) { return p.p != null ? faNum(p.p) + " تومان" : "—"; }],
+      ["وضعیت", function (p) { return p.a ? "موجود" : "ناموجود"; }],
+      ["فروشنده", function (p) { return p.sl || "—"; }],
+      ["گارانتی", function (p) { return p.w || "—"; }],
+      ["رم", function (p) { return (p.s && p.s.ram) ? faNum(p.s.ram) + " گیگ" : "—"; }],
+      ["حافظهٔ داخلی", function (p) { return (p.s && p.s.st) ? faNum(p.s.st) + " گیگ" : "—"; }],
+      ["صفحه‌نمایش", function (p) { return (p.s && p.s.scr) ? faNum(p.s.scr) + " اینچ" : "—"; }],
+      ["نرخ تازه‌سازی", function (p) { return (p.s && p.s.hz) ? faNum(p.s.hz) + " هرتز" : "—"; }],
+      ["باتری", function (p) { return (p.s && p.s.bat) ? faNum(p.s.bat) : "—"; }],
+      ["پردازنده", function (p) { return (p.s && p.s.cpu) || "—"; }],
+      ["دوربین اصلی", function (p) { return (p.s && p.s.cam) || "—"; }],
+      ["شبکه", function (p) { return (p.s && p.s.net) || "—"; }],
+      ["امتیاز کاربران", function (p) { return p.r ? faNum(p.r) : "—"; }]
+    ];
+    var html = '<div class="cmp"><table><thead><tr><th>ویژگی</th>';
+    picked.forEach(function (p) { html += "<th>" + escapeHtml(p.t.slice(0, 52)) + "</th>"; });
+    html += "</tr></thead><tbody>";
+    rows.forEach(function (r) {
+      html += '<tr><td class="k">' + r[0] + "</td>";
+      picked.forEach(function (p) { html += '<td class="v">' + escapeHtml(r[1](p)) + "</td>"; });
+      html += "</tr>";
+    });
+    html += "</tbody></table></div>";
+    elResults.innerHTML = html;
+    elResMeta.textContent = faNum(picked.length) + " محصول برای مقایسه";
+    var ev = buildEvidence(picked.map(function (p) { return { p: p, lr: 1, sr: 0, rrf: 0 }; }));
+    elEvidence.textContent = ev;
+    elEvMeta.textContent = faNum(picked.length) + " منبع · " + faNum(ev.length) + " نویسه";
+  }
+
+  function runProducts(q) {
+    var res = retrieve(q, 6);
+    renderChips(q, res);
+    elResults.textContent = "";
+    if (!res.hits.length) {
+      elResults.innerHTML = '<div class="empty">هیچ گوشی‌ای همهٔ شرط‌ها را برآورده نکرد. در نسخهٔ کامل هم دستیار در این حالت چیزی از خودش نمی‌سازد و می‌گوید موردی پیدا نشد.</div>';
+      elEvidence.textContent = "شواهدی یافت نشد — پاسخ تولید نمی‌شود.";
+      elEvMeta.textContent = "۰ منبع";
+      elResMeta.textContent = "۰ نتیجه";
+      return;
+    }
+    res.hits.forEach(function (h, i) { elResults.appendChild(card(h, i + 1)); });
+    elResMeta.textContent = faNum(res.hits.length) + " نتیجهٔ برتر از " + faNum(res.filtered) + " کاندیدا";
+    var ev = buildEvidence(res.hits);
+    elEvidence.textContent = ev;
+    elEvMeta.textContent = faNum(res.hits.length) + " منبع · " + faNum(ev.length) + " نویسه";
+  }
+
+  function run(raw) {
+    if (!INDEX) return;
+    var q = parseQuery(raw);
+    if (q.route === "policy") { renderChips(q, null); runPolicy(q); }
+    else if (q.route === "compare") { renderChips(q, null); runCompare(q); }
+    else runProducts(q);
+  }
+
+  /* ---------------- boot ---------------- */
+  var SAMPLES = [
+    "گوشی سامسونگ موجود تا ۴۵ میلیون",
+    "شیائومی با رم ۸ و حافظه ۲۵۶",
+    "یه گوشی خوب برای بازی",
+    "ارزان‌ترین گوشی موجود",
+    "Galaxy A17 و Redmi Note 15 رو مقایسه کن",
+    "شرایط مرجوعی چیه؟",
+    "گارانتی رجیستری یعنی چی؟"
+  ];
+
+  function boot(data) {
+    DATA = data;
+    INDEX = data.products.map(function (p) {
+      var brand = data.brands.filter(function (b) { return b.slug === p.b; })[0];
+      p._f = " " + fold([p.t, p.m, brand ? brand.fa : "", brand ? brand.en : ""].join(" ")) + " ";
+      p._m = fold(p.m || "");
+      // feature phones publish RAM/storage in megabytes; the title says so.
+      // keeping those numbers would let a 32 MB handset outrank a 12 GB flagship.
+      if (p.s) {
+        var mbTitle = /مگابایت|مگا\s*بایت/.test(p.t);
+        var tooCheapForThatRam = p.p != null && p.p < 6e6 && (p.s.ram || 0) >= 8;
+        if (mbTitle || tooCheapForThatRam || (p.s.ram != null && p.s.ram > 24)) delete p.s.ram;
+        if (mbTitle || (p.s.st != null && p.s.st < 4)) delete p.s.st;
+      }
+      return p;
+    });
+
+    var m = data.meta;
+    var stats = [
+      [faNum(m.products), "گوشی در کاتالوگ"],
+      [faNum(m.offers), "پیشنهاد فروش"],
+      [faNum(m.specs_total), "مشخصهٔ فنی"],
+      [faNum(m.docs), "سند سیاست و راهنما"],
+      [faNum(m.chunks), "قطعهٔ برداری‌شده"],
+      [faNum(m.tests), "تست خودکار"]
+    ];
+    var elStats = document.getElementById("stats");
+    stats.forEach(function (s) {
+      var d = document.createElement("div");
+      d.className = "stat";
+      d.innerHTML = '<div class="v">' + s[0] + '</div><div class="k">' + s[1] + "</div>";
+      elStats.appendChild(d);
+    });
+
+    var elSamples = document.getElementById("samples");
+    SAMPLES.forEach(function (s) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chipbtn"; b.textContent = s;
+      b.addEventListener("click", function () { document.getElementById("q").value = s; run(s); });
+      elSamples.appendChild(b);
+    });
+
+    var top = data.brands.slice(0, 10), max = top[0].n;
+    var elBars = document.getElementById("bars");
+    top.forEach(function (b) {
+      var row = document.createElement("div");
+      row.className = "brow";
+      row.innerHTML = '<span class="bname">' + escapeHtml(b.fa) + '</span>' +
+        '<span class="btrack"><span class="bfill" style="width:' + (b.n / max * 100).toFixed(1) + '%"></span></span>' +
+        '<span class="bval">' + faNum(b.n) + (b.av ? " · " + faNum(b.av) + " موجود" : "") + "</span>";
+      elBars.appendChild(row);
+    });
+
+    document.getElementById("availLi").innerHTML =
+      "<b>" + faNum(m.available) + " گوشی</b> در لحظهٔ کرال فروشندهٔ فعال داشت؛ بقیه آرشیو ناموجودند و عمداً حذف نشدند تا جست‌وجوی مدل‌های قدیمی هم جواب بدهد.";
+
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = document.getElementById("q").value.trim();
+      if (v) run(v);
+    });
+    var t = null;
+    document.getElementById("q").addEventListener("input", function (e) {
+      clearTimeout(t);
+      var v = e.target.value.trim();
+      if (v.length < 2) return;
+      t = setTimeout(function () { run(v); }, 320);
+    });
+
+    run(SAMPLES[0]);
+    document.getElementById("q").value = SAMPLES[0];
+  }
+
+  fetch("data.json")
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(boot)
+    .catch(function (err) {
+      elResults.innerHTML = '<div class="empty">بارگذاری کاتالوگ ناموفق بود: ' + escapeHtml(err.message) + "</div>";
+    });
+})();
+</script>
+</body>
+</html>
