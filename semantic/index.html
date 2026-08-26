@@ -465,7 +465,7 @@ function render(){
   const t = q.timings_ms || {};
   const total = Object.values(t).reduce((a,b)=>a+b,0);
   const maxT = Math.max(...Object.values(t), 0.0001);
-  out.push(stage(9, 'هزینه و زمان', 'صفر فراخوانی مدل در مسیر بازیابی — و این یک ادعای غیرقابل‌نقض نیست: <span class="mono">SelectionResult</span> هزینهٔ خودش را گزارش می‌کند، و اگر بازچینش با مدل روشن شود، مرحلهٔ هزینه در ارزیابی از ۴۷ مورد از ۴۷ به ۱ مورد از ۴۷ سقوط می‌کند.',
+  out.push(stage(9, 'هزینه و زمان', 'صفر فراخوانی مدل در مسیر بازیابی — و این یک ادعای غیرقابل‌نقض نیست: <span class="mono">SelectionResult</span> هزینهٔ خودش را گزارش می‌کند، و اگر بازچینش با مدل روشن شود، مرحلهٔ هزینه در ارزیابی از ۵۲ مورد از ۵۲ به ۳ مورد از ۵۲ سقوط می‌کند.',
     `<div class="chips" style="margin-bottom:10px">
        <span class="chip on">فراخوانی مدل: <span class="num">${fa(q.llm_calls)}</span></span>
        <span class="chip">مجموع: <span class="num">${faD(total.toFixed(1))}</span> میلی‌ثانیه</span>
@@ -601,11 +601,13 @@ function renderEval(){
   document.getElementById('knownFail').innerHTML = kf.length ? `
     <div style="height:12px"></div>
     <div class="panel pad">
-      <div style="font-weight:600;margin-bottom:6px">یک پرسش عمداً مردود مانده است</div>
+      <div style="font-weight:600;margin-bottom:6px">${fa(kf.length)} پرسش عمداً مردود مانده‌اند</div>
       <p class="sub" style="margin-bottom:10px">
-        شل‌کردن انتظار، یک یافتهٔ واقعی دربارهٔ کیفیت داده را پنهان می‌کرد. پرسش‌هایی که برچسب
+        شل‌کردن انتظار، یافته‌های واقعی را پنهان می‌کرد. پرسش‌هایی که برچسب
         <span class="mono">known_failure</span> دارند گزارش می‌شوند ولی اجرا را مردود نمی‌کنند —
-        و اگر روزی قبول شوند، گزارش می‌گوید «برچسب را بردار».
+        و اگر روزی قبول شوند، گزارش می‌گوید «برچسب را بردار». این سازوکار یک‌بار هزینه‌اش را
+        پس داده است: شکست مستندشدهٔ قبلی («قاب گوشی» در کاتالوگ) سه اجرا نگه داشته شد، بعد در
+        منبع رفع شد و گزارش خودش گفت که برچسب باید برداشته شود.
       </p>
       ${kf.map(f => `<div class="note bad" dir="auto"><b>«${esc(f.query)}»</b><br><span style="font-size:.93em">${esc(f.why)}</span></div>`).join('')}
     </div>` : '';
