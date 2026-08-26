@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-path="lab">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لایهٔ معنایی تکنولایف — از جملهٔ فارسی تا معیار سنجش‌پذیر</title>
+<meta name="description" content="یک جملهٔ فارسی («یه گوشی خوب برای بازی و عکاسی که باتریش هم قوی باشه تا ۶۰ میلیون») چطور به فیلتر SQL و رتبه‌بندی قابل‌خواندن تبدیل می‌شود — با ردّ کامل هر مرحله روی کاتالوگ واقعی ۲٬۶۸۱ گوشی.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232D4F9E'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%23FBFAF7' font-family='sans-serif'%3E%D9%85%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Estedad";src:url("../assets/fonts/Estedad-VF.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("../assets/fonts/PlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("../assets/fonts/PlexSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url("../assets/fonts/PlexMono-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --bg:#FBFAF7; --panel:#FFFFFF; --sunk:#F4F2EC; --ink:#14181D; --muted:#5A6472; --line:#E5E2DA;
+  --turquoise:#157F82; --lapis:#2D4F9E; --saffron:#B9800A; --rose:#9E2D46;
+  --ok:#157F82; --ok-soft:rgba(21,127,130,.10);
+  --warn-soft:rgba(185,128,10,.12); --bad-soft:rgba(158,45,70,.10);
+  --lapis-soft:rgba(45,79,158,.10);
+  --bar:#157F82; --bar-track:#EAE7DE;
+  --shadow:0 1px 2px rgba(20,24,29,.05),0 14px 34px -18px rgba(20,24,29,.22);
+  --fa:"Estedad","Plex Sans",system-ui,sans-serif;
+  --serif:"Plex Serif",Georgia,serif;
+  --mono:"Plex Mono",ui-monospace,Consolas,monospace;
+}
+/* the sibling pages share one theme key on this origin — a page that ignored it
+   would flash white in the middle of a dark portfolio */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+  --bg:#10151B; --panel:#171E26; --sunk:#131A22; --ink:#E8E6DF; --muted:#9AA3AD; --line:#242D38;
+    --turquoise:#3DB8BA; --lapis:#7D9FE8; --saffron:#E0AA4E; --rose:#E07A8E;
+    --ok:#3DB8BA; --ok-soft:rgba(61,184,186,.13);
+    --warn-soft:rgba(224,170,78,.14); --bad-soft:rgba(224,122,142,.13);
+    --lapis-soft:rgba(125,159,232,.13);
+    --bar:#3DB8BA; --bar-track:#212B36;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 36px -18px rgba(0,0,0,.65);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151B; --panel:#171E26; --sunk:#131A22; --ink:#E8E6DF; --muted:#9AA3AD; --line:#242D38;
+    --turquoise:#3DB8BA; --lapis:#7D9FE8; --saffron:#E0AA4E; --rose:#E07A8E;
+    --ok:#3DB8BA; --ok-soft:rgba(61,184,186,.13);
+    --warn-soft:rgba(224,170,78,.14); --bad-soft:rgba(224,122,142,.13);
+    --lapis-soft:rgba(125,159,232,.13);
+    --bar:#3DB8BA; --bar-track:#212B36;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 36px -18px rgba(0,0,0,.65);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fa);line-height:1.75;font-size:1rem;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono);direction:ltr;unicode-bidi:isolate;font-size:.84em}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- header ---------- */
+header{border-bottom:1px solid var(--line);background:var(--panel)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;flex-wrap:wrap}
+.back{font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.back:hover{color:var(--turquoise)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks a{font-size:.83rem;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:99px;background:var(--bg)}
+.navlinks a:hover{border-color:var(--turquoise);color:var(--turquoise)}
+#themeBtn{font-family:var(--fa);font-size:.83rem;color:var(--muted);background:var(--bg);
+  border:1px solid var(--line);padding:5px 11px;border-radius:99px;cursor:pointer}
+#themeBtn:hover{color:var(--turquoise);border-color:var(--turquoise)}
+
+.hero{padding:44px 0 34px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--bg))}
+.kicker{font-size:.78rem;letter-spacing:.14em;color:var(--lapis);text-transform:uppercase;font-family:var(--mono);direction:ltr;unicode-bidi:isolate}
+h1{font-family:var(--serif);font-size:clamp(1.7rem,4.2vw,2.5rem);line-height:1.32;margin:.35em 0 .28em;font-weight:600;letter-spacing:-.01em}
+.lede{font-size:1.06rem;color:var(--muted);max-width:66ch;margin:0}
+.lede b{color:var(--ink);font-weight:600}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px}
+.stat{min-width:96px}
+.stat .v{font-family:var(--mono);font-size:1.32rem;font-weight:600;color:var(--turquoise);font-variant-numeric:tabular-nums}
+.stat .k{font-size:.79rem;color:var(--muted)}
+
+/* ---------- sections ---------- */
+section{padding:40px 0;border-bottom:1px solid var(--line)}
+h2{font-family:var(--serif);font-size:1.34rem;margin:0 0 6px;font-weight:600}
+.sub{color:var(--muted);font-size:.94rem;margin:0 0 20px;max-width:74ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.pad{padding:18px}
+
+/* ---------- query picker ---------- */
+.picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.qbtn{font-family:var(--fa);font-size:.86rem;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  padding:7px 13px;border-radius:99px;cursor:pointer;transition:.14s;line-height:1.5;max-width:100%}
+.qbtn:hover{border-color:var(--lapis);color:var(--lapis)}
+.qbtn[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:#fff}
+.qbtn .cat{font-size:.72rem;opacity:.6;margin-inline-start:7px;padding-inline-start:7px;border-inline-start:1px solid currentColor}
+
+.qhead{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;
+  padding:16px 18px;background:var(--sunk);border:1px solid var(--line);border-radius:14px;margin-bottom:6px}
+.qtext{font-family:var(--serif);font-size:1.16rem;line-height:1.6;margin:0;flex:1 1 340px}
+.qnote{font-size:.85rem;color:var(--muted);margin:6px 0 0;max-width:70ch}
+
+/* ---------- stage layout ---------- */
+.stage{border-top:1px solid var(--line);padding:20px 0 6px}
+.stage:first-of-type{border-top:0}
+.stagehead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.stagenum{font-family:var(--mono);font-size:.76rem;color:var(--bg);background:var(--ink);border-radius:6px;padding:2px 7px;direction:ltr}
+.stagetitle{font-weight:600;font-size:1.02rem}
+.stagenote{font-size:.83rem;color:var(--muted)}
+.empty{font-size:.88rem;color:var(--muted);font-style:italic}
+
+/* ---------- generic rows ---------- */
+.rows{display:flex;flex-direction:column;gap:7px}
+.row{display:grid;grid-template-columns:minmax(120px,1.3fr) 1fr auto;gap:12px;align-items:center;
+  padding:9px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:.9rem}
+.row .lab{font-weight:600}
+.row .meta{font-size:.79rem;color:var(--muted)}
+.track{height:6px;background:var(--bar-track);border-radius:99px;overflow:hidden;min-width:60px}
+.fill{height:100%;background:var(--bar);border-radius:99px}
+.fill.lapis{background:var(--lapis)}
+.fill.saffron{background:var(--saffron)}
+.fill.rose{background:var(--rose)}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-size:.79rem;border:1px solid var(--line);border-radius:99px;padding:3px 10px;background:var(--panel);color:var(--muted)}
+.chip.on{border-color:var(--turquoise);color:var(--turquoise);background:var(--ok-soft)}
+.chip.user{border-color:var(--lapis);color:var(--lapis);background:var(--lapis-soft)}
+.chip.pol{border-color:var(--saffron);color:var(--saffron);background:var(--warn-soft)}
+.chip.neg{border-color:var(--rose);color:var(--rose);background:var(--bad-soft)}
+
+.note{font-size:.87rem;padding:9px 12px;border-radius:10px;margin-bottom:6px;border:1px solid transparent}
+.note.warn{background:var(--warn-soft);border-color:rgba(185,128,10,.28)}
+.note.bad{background:var(--bad-soft);border-color:rgba(158,45,70,.26)}
+.note.info{background:var(--ok-soft);border-color:rgba(21,127,130,.24)}
+
+/* ---------- products ---------- */
+.prod{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin-bottom:9px;overflow:hidden}
+.prodhead{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:11px 13px;cursor:pointer}
+.rank{font-family:var(--mono);font-size:.86rem;color:var(--muted);min-width:20px}
+.ptitle{font-size:.93rem;line-height:1.5}
+.pmeta{display:flex;gap:9px;align-items:center;font-size:.82rem;white-space:nowrap}
+.score{font-family:var(--mono);font-weight:600;color:var(--turquoise);font-variant-numeric:tabular-nums}
+.avail{font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+.avail.no{background:var(--bad-soft);color:var(--rose)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;padding:0 13px 10px;font-size:.79rem}
+.tag{padding:2px 9px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+.tag.w{background:var(--warn-soft);color:var(--saffron)}
+.tag.m{background:var(--sunk);color:var(--muted)}
+.calc{display:none;padding:0 13px 13px;font-size:.84rem}
+.prod.open .calc{display:block}
+.calcrow{display:grid;grid-template-columns:minmax(90px,1fr) auto auto auto auto;gap:10px;align-items:center;
+  padding:5px 0;border-top:1px dashed var(--line);font-family:var(--mono);direction:ltr;text-align:left;font-variant-numeric:tabular-nums}
+.calcrow .cl{font-family:var(--fa);direction:rtl;text-align:right}
+.calcrow .plus{color:var(--turquoise);font-weight:600}
+.calcrow .zero{color:var(--muted)}
+
+/* ---------- svg graph ---------- */
+.gwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:6px}
+svg.graph{display:block;min-width:640px}
+svg.graph text{font-family:var(--fa);font-size:11.5px;fill:var(--ink)}
+svg.graph text.small{font-size:10px;fill:var(--muted)}
+svg.graph .lane{font-family:var(--mono);font-size:10px;fill:var(--muted);letter-spacing:.06em}
+
+/* ---------- scoreboard ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card .t{font-size:.82rem;color:var(--muted);margin-bottom:3px}
+.card .v{font-family:var(--mono);font-size:1.24rem;font-weight:600;font-variant-numeric:tabular-nums}
+.cov{display:grid;grid-template-columns:minmax(120px,1fr) 1fr auto;gap:10px;align-items:center;font-size:.85rem;padding:4px 0}
+.cov .m{font-family:var(--mono);direction:ltr;unicode-bidi:isolate;font-size:.82em}
+.cov.uns{opacity:.62}
+
+footer{padding:30px 0 48px;color:var(--muted);font-size:.87rem}
+footer a{color:var(--turquoise)}
+@media (max-width:620px){
+  .qbtn{font-size:.8rem;padding:6px 11px}
+  .picker{max-height:210px;overflow-y:auto;padding:2px;
+    -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent);
+    mask-image:linear-gradient(180deg,#000 88%,transparent)}
+  .row{grid-template-columns:1fr auto}
+  .row .track{display:none}
+  .prodhead{grid-template-columns:auto 1fr}
+  .pmeta{grid-column:1/-1;justify-content:flex-start}
+  .calcrow{grid-template-columns:1fr auto auto}
+  .calcrow .hide-s{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="back" href="../">→ بازگشت به صفحهٔ اصلی</a>
+    <nav class="navlinks">
+      <a href="../technolife/">آزمایشگاه جست‌وجو</a>
+      <a href="#eval">ارزیابی</a>
+      <a href="#graph">گراف دانش</a>
+      <a href="#coverage">پوشش داده</a>
+      <button id="themeBtn" type="button" aria-label="تغییر تم">تم</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">semantic layer · technolife rag</div>
+    <h1>از «یه گوشی خوب برای بازی» تا یک <span style="color:var(--lapis)">معیار سنجش‌پذیر</span></h1>
+    <p class="lede">
+      این جمله دقیقاً <b>یک</b> چیز دارد که یک parser می‌تواند رویش کار کند — «۶۰ میلیون» — و
+      <b>سه</b> چیز که نمی‌تواند: یک فعالیت، یک فعالیت دوم، و یک آرزو. در کاتالوگ هیچ ستونی به نام
+      «بازی» وجود ندارد. این صفحه نشان می‌دهد فاصلهٔ بین آن جمله و آن ستون‌ها چطور پر می‌شود —
+      و مهم‌تر از آن، اینکه هر عدد را می‌شود <b>خط به خط خواند</b>.
+    </p>
+    <div class="stats" id="heroStats"></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>یک پرسش را انتخاب کن، و مرحله‌به‌مرحله دنبالش کن</h2>
+    <p class="sub">
+      هجده پرسش واقعی از مجموعهٔ ارزیابی. هیچ‌کدام از این خروجی‌ها شبیه‌سازی نیست: همه با اجرای
+      واقعی خط لوله روی همان پایگاه دادهٔ ۲٬۶۸۱ گوشی تولید شده‌اند، و ردّ کامل هر مرحله ذخیره شده است.
+    </p>
+    <div class="picker" id="picker"></div>
+    <div id="stageRoot"></div>
+  </div>
+</section>
+
+<section id="eval">
+  <div class="wrap">
+    <h2>تابلوی ارزیابی</h2>
+    <p class="sub">
+      یک عدد قبول/رد برای کل خط لوله بی‌فایده است: وقتی «یه گوشی خوب برای بازی زیر ۶۰ تومن» یک
+      گوشی ساده برمی‌گرداند، سؤال این است که <em>کدام مرحله</em> خراب شده. پس هر پرسش در هر مرحله
+      جداگانه نمره می‌گیرد و <em>اولین</em> مرحله‌ای که شکسته گزارش می‌شود.
+    </p>
+    <div class="grid" id="evalCards"></div>
+    <div style="height:14px"></div>
+    <div class="panel pad">
+      <div style="font-weight:600;margin-bottom:10px">نمرهٔ هر مرحله</div>
+      <div class="rows" id="evalStages"></div>
+    </div>
+    <div style="height:12px"></div>
+    <div class="panel pad">
+      <div style="font-weight:600;margin-bottom:10px">نمرهٔ هر دستهٔ پرسش</div>
+      <div class="chips" id="evalCats"></div>
+    </div>
+    <div id="knownFail"></div>
+  </div>
+</section>
+
+<section id="graph">
+  <div class="wrap">
+    <h2>گراف دانش دامنه</h2>
+    <p class="sub">
+      دانش دامنه در YAML نسخه‌دار نشسته، نه در prompt: یک prompt را نمی‌شود diff گرفت، تست کرد یا
+      اعتبارسنجی کرد؛ یک گراف را می‌شود. سه لایه عمداً از هم جدا مانده‌اند، چون هرکدام جور دیگری
+      می‌شکنند: کاربر <b>ترجیح</b> می‌گوید، فروشگاه روی <b>کیفیت</b> می‌فروشد، پایگاه داده
+      <b>متریک</b> ذخیره می‌کند.
+    </p>
+    <div class="grid" id="graphCards"></div>
+    <div style="height:14px"></div>
+    <div class="panel pad">
+      <div style="font-weight:600;margin-bottom:4px">شش متریکی که عمداً هیچ‌چیز را نمی‌سنجند</div>
+      <p class="sub" style="margin-bottom:12px">
+        این‌ها وجود دارند تا یک خواسته بتواند <em>فهمیده و بعد صادقانه رد</em> شود. بدون آن‌ها
+        سیستم فقط دو انتخاب دارد: «گرم نکنه» را بی‌صدا نادیده بگیرد، یا با یک جانشین ضعیف تظاهر
+        کند که سنجیده است. هر دو بدتر از گفتنِ حقیقت‌اند.
+      </p>
+      <div class="rows" id="unsupportedList"></div>
+    </div>
+  </div>
+</section>
+
+<section id="coverage">
+  <div class="wrap">
+    <h2>هر متریک واقعاً چقدر از کاتالوگ را جواب می‌دهد</h2>
+    <p class="sub">
+      این سنجه است که مدل دامنه را صادق نگه می‌دارد: متریکی که صفر ردیف دارد، وعده‌ای است که خط
+      لوله نمی‌تواند به آن عمل کند و باید <span class="mono">unsupported</span> علامت بخورد.
+    </p>
+    <div class="panel pad" id="covList"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0 0 6px">
+      کد کامل، مستندات ۱۷ بخشی و مجموعهٔ ارزیابی:
+      <a href="https://github.com/soroush83faraz/technolife-rag">github.com/soroush83faraz/technolife-rag</a>
+      · دموی بازیابی هیبریدی: <a href="../technolife/">آزمایشگاه جست‌وجو</a>
+    </p>
+    <p style="margin:0;font-size:.83rem">
+      قیمت‌ها «قیمت ثبت‌شده در آخرین دریافت اطلاعات» هستند، نه قیمت لحظه‌ای. اندازه‌گیری‌ها با
+      امبدینگ آفلاین (هشِ سه‌نویسه‌ای) گرفته شده‌اند — آزمونی سخت‌گیرانه‌تر از مدل چندزبانهٔ اصلی،
+      نه ساده‌تر: تطبیق واژگانی و پیمایش گراف تمام بار را می‌کشند.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem("tl-theme");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var dark = getComputedStyle(root).getPropertyValue("--bg").trim().toLowerCase().indexOf("#10") === 0;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("tl-theme", next); } catch (e) {}
+  });
+})();
+
+const STAGE_LABEL = {
+  explicit:"قیدهای صریح", concept_retrieval:"بازیابی مفهوم", selection:"انتخاب",
+  traversal:"پیمایش گراف", planning:"ساخت نقشه", sql_filter:"فیلتر SQL",
+  load_metrics:"خواندن متریک‌ها", ranking:"رتبه‌بندی", fetch_shown_rows:"واکشی سطرهای نمایشی"
+};
+const EVAL_STAGE = {
+  explicit:"قیدهای صریح", concept:"بازیابی مفهوم", selection:"انتخاب", traversal:"پیمایش گراف",
+  plan:"نقشهٔ جست‌وجو", retrieval:"بازیابی ساخت‌یافته", ranking:"رتبه‌بندی", cost:"هزینهٔ مدل"
+};
+const CAT = {
+  exact_numeric:"عدد صریح", vague:"مبهم", implicit:"ضمنی", multi_intent:"چندنیتی",
+  competing:"متضاد", persona:"پرسونا", negation:"نفی", comparison:"مقایسه",
+  contradiction:"ناسازگار", slang:"محاوره", incomplete:"ناقص", unsatisfiable:"غیرقابل‌ارضا",
+  policy:"سیاست فروشگاه", adversarial:"خصمانه"
+};
+const NODE_KIND = {
+  use_case:"کاربرد", persona:"پرسونا", context:"موقعیت", preference:"ترجیح",
+  quality:"کیفیت", metric:"متریک", policy:"سیاست"
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa = n => Number(n).toLocaleString('fa-IR');
+// Persian prose with Latin digits is where bidi goes wrong: «… (۰٫۳۰ در برابر ۰٫۲۳)»
+// keeps its parentheses, «… (0.30 … 0.23)» throws the closing one to the far side.
+const faD = s => String(s ?? '').replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).replace(/\./g, '٫');
+const pc = (v, max) => Math.max(0, Math.min(100, (v / (max || 1)) * 100));
+
+let DATA = null, current = 0;
+
+fetch('./data.json').then(r => r.json()).then(d => { DATA = d; boot(); })
+  .catch(e => { document.getElementById('stageRoot').innerHTML =
+    '<div class="note bad">دادهٔ دمو بارگذاری نشد: ' + esc(e.message) + '</div>'; });
+
+function boot(){
+  const m = DATA.meta;
+  document.getElementById('heroStats').innerHTML = [
+    [fa(m.catalog.products), 'گوشی فعال در کاتالوگ'],
+    [fa(m.graph.nodes), 'گره در گراف دانش'],
+    [fa(m.eval.passed) + ' از ' + fa(m.eval.cases), 'پرسش سخت قبول‌شده'],
+    ['۰', 'فراخوانی مدل در بازیابی'],
+    [fa(m.graph.aliases), 'نام مستعار فارسی']
+  ].map(([v,k]) => `<div class="stat"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
+
+  document.getElementById('picker').innerHTML = DATA.queries.map((q,i) =>
+    `<button class="qbtn" data-i="${i}" aria-pressed="${i===0}">${esc(q.raw_query.length>52?q.raw_query.slice(0,50)+'…':q.raw_query)}<span class="cat">${esc(CAT[q.category]||'')}</span></button>`
+  ).join('');
+  document.getElementById('picker').addEventListener('click', e => {
+    const b = e.target.closest('.qbtn'); if(!b) return;
+    current = +b.dataset.i;
+    document.querySelectorAll('.qbtn').forEach(x => x.setAttribute('aria-pressed', x === b));
+    render();
+  });
+
+  renderEval(); renderGraph(); renderCoverage(); render();
+}
+
+/* ============================ stage renderer ============================ */
+function render(){
+  const q = DATA.queries[current];
+  const ctx = q.semantic_context || {selected:[],rejected:[],requirements:[],conflicts:[],unresolved_phrases:[]};
+  const plan = q.search_plan || {hard_filters:[],soft_criteria:[],notes:[]};
+  const out = [];
+
+  out.push(`<div class="qhead">
+    <div><p class="qtext" dir="auto">«${esc(q.raw_query)}»</p>
+    ${q.note ? `<p class="qnote" dir="auto">${esc(q.note)}</p>` : ''}</div>
+    <div class="chips"><span class="chip on">${esc(CAT[q.category]||'—')}</span></div>
+  </div>`);
+
+  /* 1 — explicit */
+  const ex = Object.entries(q.explicit_constraints||{}).filter(([k,v]) => v !== null && v !== false && !(Array.isArray(v)&&!v.length));
+  out.push(stage(1, 'قیدهای صریح', 'یک parser قطعی. عددهای کاربر قانون‌اند و هیچ مرحلهٔ بعدی حق تغییرشان را ندارد.',
+    ex.length ? `<div class="chips">${ex.map(([k,v]) =>
+      `<span class="chip user">${esc(exLabel(k))}: <span class="num">${esc(exVal(k,v))}</span></span>`).join('')}</div>`
+      : `<div class="empty">هیچ قید عددی یا برندی در جمله نبود.</div>`));
+
+  /* 2 — concept retrieval */
+  const cands = (q.concept_candidates||[]).slice(0, 9);
+  const maxF = Math.max(...cands.map(c => c.fused_score), 0.0001);
+  out.push(stage(2, 'بازیابی مفهوم', 'دو سیگنال مستقل که جور متفاوتی می‌شکنند — تطبیق واژگانی روی توکن‌های فارسیِ تاشده و بدون واکه‌ی چسبان، و شباهت برداری روی جملاتی که مردم واقعاً تایپ می‌کنند — با RRF ترکیب می‌شوند.',
+    `<div class="rows">${cands.map(c => `
+      <div class="row">
+        <div><span class="lab">${esc(c.label_fa)}</span>
+          <div class="meta mono">${esc(c.node_id)}${c.matched_terms.length ? ' · ' + esc(c.matched_terms.join('، ')) : ''}</div></div>
+        <div class="track"><div class="fill lapis" style="width:${pc(c.fused_score, maxF)}%"></div></div>
+        <div class="meta num" dir="ltr">lex ${c.lexical_score.toFixed(2)} · vec ${c.vector_score.toFixed(2)}${c.polarity<0?' · نفی':''}</div>
+      </div>`).join('')}</div>`));
+
+  /* 3 — selection */
+  const rej = (ctx.rejected||[]).slice(0,4);
+  out.push(stage(3, 'انتخاب', 'بازیابی عمداً سخاوتمند است؛ دقت اینجا خریده می‌شود — با قاعده، نه با مدل. یک مفهومِ ورودی همیشه بر کیفیتی که خودش ایجاب می‌کند مقدم است.',
+    `${ctx.selected.length ? `<div class="chips" style="margin-bottom:10px">${ctx.selected.map(c =>
+        `<span class="chip ${c.polarity<0?'neg':'on'}">${esc(c.label_fa)} <span class="num">${c.confidence.toFixed(2)}</span></span>`).join('')}</div>`
+      : `<div class="empty">هیچ مفهومی به آستانهٔ شواهد نرسید — این پرسش کاملاً با قیدهای صریح جواب می‌گیرد.</div>`}
+     ${rej.length ? `<div class="rows">${rej.map(r =>
+        `<div class="row" style="grid-template-columns:minmax(110px,.9fr) 1fr">
+           <div><span class="lab" style="opacity:.7">${esc(r.label_fa)}</span>
+             <div class="meta mono">${esc(r.node_id)}</div></div>
+           <div class="meta">${esc(faD(r.reason))}</div></div>`).join('')}</div>` : ''}`));
+
+  /* 4 — traversal */
+  const reqs = ctx.requirements || [];
+  const maxW = Math.max(...reqs.map(r => r.weight), 0.0001);
+  out.push(stage(4, 'پیمایش گراف', 'از هر مفهوم انتخاب‌شده روی یال‌های implies و refines راه می‌رود و <em>به‌محض رسیدن به چیزی سنجش‌پذیر می‌ایستد</em>. وقتی دو خواستهٔ متفاوت به یک متریک می‌رسند، وزن‌ها با noisy-or ترکیب می‌شوند تا توافق دیده شود، نه اینکه بی‌صدا دور ریخته شود.',
+    reqs.length ? `${graphSvg(q)}<div style="height:10px"></div><div class="rows">${reqs.slice(0,9).map(r => `
+      <div class="row">
+        <div><span class="lab">${esc(r.quality_label_fa)}</span>
+          ${r.reinforced ? '<span class="chip on" style="margin-inline-start:6px;font-size:.72rem">تقویت‌شده</span>':''}
+          <div class="meta">${esc((r.paths||[])[0]||'')}</div></div>
+        <div class="track"><div class="fill ${r.polarity<0?'rose':(r.kind==='soft_metric'?'':'saffron')}" style="width:${pc(r.weight,maxW)}%"></div></div>
+        <div class="meta num" dir="ltr">${esc(r.metric_key||r.metric_id)} · ${r.weight.toFixed(2)}${r.polarity<0?' · −':''}</div>
+      </div>`).join('')}</div>` : `<div class="empty">هیچ مسیری از آستانهٔ وزن رد نشد.</div>`));
+
+  /* 5 — plan */
+  out.push(stage(5, 'نقشهٔ جست‌وجو', 'اینجا مرز تبدیل معنا به SQL است، پس عمداً باریک ساخته شده: هر فیلتر یک شیء اعتبارسنجی‌شده با فیلدی از فهرست سفید ۲۴تایی است. هیچ مؤلفه‌ای — از جمله هیچ مدلی — نمی‌تواند با رشته‌ای که خودش ساخته به پایگاه داده برسد.',
+    `${plan.hard_filters.length ? `<div class="chips" style="margin-bottom:10px">${plan.hard_filters.map(f =>
+        `<span class="chip ${f.origin==='policy'?'pol':'user'}">${f.origin==='policy'?'سیاست':'کاربر'} · ${esc(f.label_fa || (f.field+' '+f.op))}</span>`).join('')}</div>`
+      : `<div class="empty" style="margin-bottom:10px">هیچ فیلتر سختی — کل کاتالوگ کاندیدا است.</div>`}
+     ${plan.soft_criteria.length ? `<div class="rows">${plan.soft_criteria.map(c => `
+        <div class="row">
+          <div><span class="lab">${esc(c.label_fa)}</span>
+            <div class="meta mono">${esc(c.metric_key)} · ${esc(c.direction==='lower_better'?'کمتر بهتر':c.direction==='true_better'?'بولی':'بیشتر بهتر')}</div></div>
+          <div class="track"><div class="fill ${c.polarity<0?'rose':''}" style="width:${pc(c.weight, Math.max(...plan.soft_criteria.map(x=>x.weight)))}%"></div></div>
+          <div class="meta num" dir="ltr">${c.weight.toFixed(2)}${c.polarity<0?' (منفی)':''}</div>
+        </div>`).join('')}</div>` : ''}`));
+
+  /* 6 — structured retrieval */
+  const relax = q.relaxations || [];
+  out.push(stage(6, 'بازیابی ساخت‌یافته', 'واقعیت‌های ساخت‌یافته همیشه از انبارهٔ ساخت‌یافته خوانده می‌شوند. جست‌وجوی برداری هیچ‌وقت به سؤال «چقدر رم دارد» جواب نمی‌دهد.',
+    `<div class="chips" style="margin-bottom:${relax.length?'10px':'0'}">
+       <span class="chip ${q.candidate_count?'on':'neg'}"><span class="num">${fa(q.candidate_count)}</span> کاندیدا از <span class="num">${fa(q.catalog_size)}</span> گوشی</span>
+     </div>
+     ${relax.length ? `<div class="note warn"><b>هیچ محصولی همهٔ فیلترها را برآورده نکرد.</b> به‌جای حذف بی‌صدای یکی از شرط‌ها، هر شرط جداگانه برداشته می‌شود تا فقط <em>شمرده</em> شود:
+        <div style="margin-top:6px">${relax.map(r => `<div>· ${esc(faD(r))}</div>`).join('')}</div></div>` : ''}`));
+
+  /* 7 — ranking */
+  out.push(stage(7, 'رتبه‌بندی', 'حساب و کتاب، نه قضاوت. هیچ مدلی هیچ‌وقت پرسیده نمی‌شود «کدام بهتر است». روی همین استخر کاندیدا نرمال می‌شود، دادهٔ نبوده صفر می‌گیرد <em>و گزارش می‌شود</em>، و خواستهٔ نفی‌شده کم می‌کند نه اینکه حذف کند.',
+    (q.ranked||[]).length ? (q.ranked||[]).map((p,i) => productCard(p,i)).join('')
+      : `<div class="empty">نتیجه‌ای برنگشت — و این پاسخ درست است، نه یک شکست.</div>`));
+
+  /* 8 — honesty */
+  const uns = [...new Set((reqs.filter(r => r.kind==='unsupported')).map(r => r.quality_label_fa))];
+  const notes = [...(plan.notes||[]), ...(q.notes||[]).filter(n => !relax.includes(n))]
+    .filter(n => !(uns.length && n.includes('دادهٔ سنجش‌پذیری')));
+  out.push(stage(8, 'یادداشت‌های صادقانه', 'چهار جور «نمی‌دانم» وجود دارد و هرکدام خروجی متفاوتی می‌گیرد: فهمیده ولی غیرقابل‌سنجش، فیلترها همه‌چیز را حذف کردند، خواسته‌ها متعارض‌اند، و بخشی از جمله به هیچ مفهومی نگاشته نشد.',
+    `${uns.length ? `<div class="note warn">فهمیده شد ولی دادهٔ سنجش‌پذیری ندارد: <b>${uns.map(esc).join('، ')}</b></div>`:''}
+     ${(ctx.conflicts||[]).length ? `<div class="note bad">${ctx.conflicts.map(c =>
+        `تعارض: «${esc(c.left_label_fa)}» و «${esc(c.right_label_fa)}» هم‌زمان کامل به‌دست نمی‌آیند`).join('<br>')}</div>`:''}
+     ${notes.length ? `<div class="rows">${notes.map(n => `<div class="row" style="grid-template-columns:1fr"><div class="meta">${esc(faD(n))}</div></div>`).join('')}</div>`:''}
+     ${(ctx.unresolved_phrases||[]).length ? `<div class="note info" style="margin-top:6px">واژه‌هایی که به مفهوم شناخته‌شده‌ای نگاشته نشدند: <span class="mono">${ctx.unresolved_phrases.map(esc).join(' · ')}</span> — این‌ها در ردّ اجرا می‌مانند و صف رشد گراف را می‌سازند.</div>`:''}
+     ${!uns.length && !(ctx.conflicts||[]).length && !notes.length && !(ctx.unresolved_phrases||[]).length ? '<div class="empty">هیچ ابهام یا تعارضی گزارش نشد.</div>':''}`));
+
+  /* 9 — cost */
+  const t = q.timings_ms || {};
+  const total = Object.values(t).reduce((a,b)=>a+b,0);
+  const maxT = Math.max(...Object.values(t), 0.0001);
+  out.push(stage(9, 'هزینه و زمان', 'صفر فراخوانی مدل در مسیر بازیابی — و این یک ادعای غیرقابل‌نقض نیست: <span class="mono">SelectionResult</span> هزینهٔ خودش را گزارش می‌کند، و اگر بازچینش با مدل روشن شود، مرحلهٔ هزینه در ارزیابی از ۴۷ مورد از ۴۷ به ۱ مورد از ۴۷ سقوط می‌کند.',
+    `<div class="chips" style="margin-bottom:10px">
+       <span class="chip on">فراخوانی مدل: <span class="num">${fa(q.llm_calls)}</span></span>
+       <span class="chip">مجموع: <span class="num">${faD(total.toFixed(1))}</span> میلی‌ثانیه</span>
+     </div>
+     <div class="rows">${Object.entries(t).map(([k,v]) => `
+       <div class="row">
+         <div><span class="lab">${esc(STAGE_LABEL[k]||k)}</span></div>
+         <div class="track"><div class="fill saffron" style="width:${pc(v,maxT)}%"></div></div>
+         <div class="meta num">${faD(v.toFixed(1))} میلی‌ثانیه</div>
+       </div>`).join('')}</div>`));
+
+  document.getElementById('stageRoot').innerHTML = out.join('');
+  document.querySelectorAll('.prodhead').forEach(h =>
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open')));
+}
+
+function stage(n, title, note, body){
+  return `<div class="stage">
+    <div class="stagehead"><span class="stagenum">${n}</span><span class="stagetitle">${title}</span></div>
+    <p class="sub" style="margin:-6px 0 12px">${note}</p>
+    ${body}
+  </div>`;
+}
+function exLabel(k){
+  return {brand:'برند', price_min:'حداقل قیمت', price_max:'حداکثر قیمت', ram_min_gb:'حداقل رم',
+          storage_min_gb:'حداقل حافظه', only_available:'فقط موجود', wants_5g:'پشتیبانی 5G',
+          model_terms:'مدل'}[k] || k;
+}
+function exVal(k,v){
+  if (v === true) return 'بله';
+  if (Array.isArray(v)) return v.join('، ');
+  if (k.startsWith('price')) return fa(v) + ' تومان';
+  if (k.endsWith('_gb')) return fa(v) + ' گیگ';
+  return String(v);
+}
+function productCard(p, i){
+  const price = p.price_toman ? fa(p.price_toman) + ' تومان' : 'بدون قیمت ثبت‌شده';
+  return `<div class="prod">
+    <div class="prodhead">
+      <span class="rank num">${i+1}.</span>
+      <span class="ptitle" dir="auto">${esc(p.title)}</span>
+      <span class="pmeta"><span class="score">${p.score.toFixed(3)}</span>
+        <span class="num">${price}</span>
+        <span class="avail ${p.is_available?'':'no'}">${p.is_available?'موجود':'ناموجود'}</span></span>
+    </div>
+    <div class="tags">
+      ${(p.strengths||[]).map(s => `<span class="tag">${esc(s)}</span>`).join('')}
+      ${(p.weaknesses||[]).map(s => `<span class="tag w">ضعف: ${esc(s)}</span>`).join('')}
+      ${(p.missing_data||[]).map(s => `<span class="tag m">بدون داده: ${esc(s)}</span>`).join('')}
+    </div>
+    <div class="calc">
+      ${(p.criteria||[]).map(c => `<div class="calcrow">
+        <span class="cl">${esc(c.label_fa)} <span class="mono" style="opacity:.55;font-size:.9em">${esc(c.metric_key)}</span></span>
+        <span class="hide-s">${c.raw_value === null ? '—' : (c.raw_value >= 1000 ? Math.round(c.raw_value) : c.raw_value)}</span>
+        <span class="hide-s">×${c.normalized.toFixed(2)}</span>
+        <span>w ${c.weight.toFixed(2)}</span>
+        <span class="${c.contribution > 0 ? 'plus' : 'zero'}">${c.contribution >= 0 ? '+' : ''}${c.contribution.toFixed(3)}</span>
+      </div>`).join('')}
+      <div class="calcrow" style="border-top:1px solid var(--line);font-weight:600">
+        <span class="cl">امتیاز نهایی</span><span class="hide-s"></span><span class="hide-s"></span><span></span>
+        <span class="plus">${p.score.toFixed(3)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============================ traversal svg ============================ */
+function graphSvg(q){
+  const ctx = q.semantic_context;
+  const reqs = (ctx.requirements||[]).slice(0, 7).filter(r => (r.paths||[]).length);
+  if (!reqs.length) return '';   // a negated-only query still has paths worth drawing
+  const lanes = [[], [], []];  // concepts, qualities, metrics
+  const seen = [new Set(), new Set(), new Set()];
+  const links = [];
+  reqs.forEach(r => {
+    const path = (r.paths||[])[0] || '';
+    const parts = path.split(' → ');
+    const c = parts[0], qy = parts.length > 2 ? parts[1] : r.quality_label_fa, m = parts[parts.length-1];
+    [ [0,c], [1,qy], [2,m] ].forEach(([i,v]) => { if(v && !seen[i].has(v)){ seen[i].add(v); lanes[i].push(v);} });
+    if (c && qy) links.push([0, lanes[0].indexOf(c), 1, lanes[1].indexOf(qy), r.polarity]);
+    if (qy && m) links.push([1, lanes[1].indexOf(qy), 2, lanes[2].indexOf(m), r.polarity]);
+  });
+  const rows = Math.max(lanes[0].length, lanes[1].length, lanes[2].length);
+  const H = Math.max(120, rows * 40 + 44), W = 700;
+  const laneX = [W-90, W/2, 90];   // RTL: concepts on the right
+  const yOf = (li, i) => 40 + (H - 56) * ((i + .5) / Math.max(1, lanes[li].length));
+  const boxes = [], edges = [];
+  const COLORS = ['var(--lapis)', 'var(--turquoise)', 'var(--saffron)'];
+  links.forEach(([a,ai,b,bi,pol]) => {
+    if (ai < 0 || bi < 0) return;
+    const x1 = laneX[a] - 62, y1 = yOf(a, ai), x2 = laneX[b] + 62, y2 = yOf(b, bi);
+    const mx = (x1 + x2) / 2;
+    edges.push(`<path d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}" fill="none"
+      stroke="${pol < 0 ? 'var(--rose)' : 'var(--line)'}" stroke-width="${pol<0?1.6:1.4}" ${pol<0?'stroke-dasharray="4 3"':''}/>`);
+  });
+  lanes.forEach((lane, li) => lane.forEach((label, i) => {
+    const x = laneX[li], y = yOf(li, i);
+    const w = Math.min(124, Math.max(64, label.length * 8 + 18));
+    boxes.push(`<g><rect x="${x-w/2}" y="${y-14}" width="${w}" height="28" rx="8"
+      fill="var(--panel)" stroke="${COLORS[li]}" stroke-width="1.2"/>
+      <text x="${x}" y="${y+4.5}" text-anchor="middle">${esc(label.length>15?label.slice(0,14)+'…':label)}</text></g>`);
+  }));
+  const laneLabels = ['CONCEPT', 'QUALITY', 'METRIC'].map((t,i) =>
+    `<text class="lane" x="${laneX[i]}" y="18" text-anchor="middle">${t}</text>`).join('');
+  return `<div class="gwrap"><svg class="graph" viewBox="0 0 ${W} ${H}" width="100%" height="${H}">
+    ${laneLabels}${edges.join('')}${boxes.join('')}</svg></div>`;
+}
+
+/* ============================ eval / graph / coverage ============================ */
+function renderEval(){
+  const e = DATA.meta.eval;
+  document.getElementById('evalCards').innerHTML = [
+    ['پرسش سخت', fa(e.passed) + ' از ' + fa(e.cases)],
+    ['گزاره‌های درست', faD(e.assertions_passed)],
+    ['دستهٔ پرسش', fa(Object.keys(e.by_category).length)],
+    ['شکست مستند‌شده', fa(e.known_failures)]
+  ].map(([t,v]) => `<div class="card"><div class="t">${esc(t)}</div><div class="v" dir="ltr">${esc(v)}</div></div>`).join('');
+
+  document.getElementById('evalStages').innerHTML = Object.entries(e.by_stage).map(([k,v]) => {
+    const m = v.match(/(\d+)\/(\d+)/); const p = m ? (+m[1]/+m[2])*100 : 0;
+    return `<div class="row">
+      <div><span class="lab">${esc(EVAL_STAGE[k]||k)}</span><div class="meta mono">${esc(k)}</div></div>
+      <div class="track"><div class="fill" style="width:${p}%"></div></div>
+      <div class="meta num">${esc(v.replace(/(\d+)\/(\d+)/, (m,a,b)=>fa(a)+' از '+fa(b)))}</div></div>`;
+  }).join('');
+
+  document.getElementById('evalCats').innerHTML = Object.entries(e.by_category).map(([k,v]) => {
+    const m = v.match(/(\d+)\/(\d+)/); const full = m && m[1] === m[2];
+    return `<span class="chip ${full?'on':'pol'}">${esc(CAT[k]||k)} <span class="num">${esc(v.replace(/(\d+)\/(\d+)/, (m,a,b)=>fa(a)+' از '+fa(b)))}</span></span>`;
+  }).join('');
+
+  const kf = e.known_failures_detail || [];
+  document.getElementById('knownFail').innerHTML = kf.length ? `
+    <div style="height:12px"></div>
+    <div class="panel pad">
+      <div style="font-weight:600;margin-bottom:6px">یک پرسش عمداً مردود مانده است</div>
+      <p class="sub" style="margin-bottom:10px">
+        شل‌کردن انتظار، یک یافتهٔ واقعی دربارهٔ کیفیت داده را پنهان می‌کرد. پرسش‌هایی که برچسب
+        <span class="mono">known_failure</span> دارند گزارش می‌شوند ولی اجرا را مردود نمی‌کنند —
+        و اگر روزی قبول شوند، گزارش می‌گوید «برچسب را بردار».
+      </p>
+      ${kf.map(f => `<div class="note bad" dir="auto"><b>«${esc(f.query)}»</b><br><span style="font-size:.93em">${esc(f.why)}</span></div>`).join('')}
+    </div>` : '';
+}
+
+function renderGraph(){
+  const g = DATA.meta.graph;
+  const order = ['use_case','persona','context','preference','quality','metric','policy'];
+  document.getElementById('graphCards').innerHTML = order.map(k =>
+    `<div class="card"><div class="t">${esc(NODE_KIND[k]||k)}</div>
+      <div class="v">${fa(g.by_type[k]||0)}</div>
+      <div class="t mono" style="margin-top:2px">${esc(k)}</div></div>`).join('')
+    + `<div class="card"><div class="t">یال</div><div class="v">${fa(g.edges)}</div>
+        <div class="t" style="margin-top:2px">${Object.entries(g.edge_types).map(([k,v])=>`${k} ${fa(v)}`).join(' · ')}</div></div>`
+    + `<div class="card"><div class="t">اعتبارسنجی گراف</div><div class="v">${fa(g.errors)} خطا</div>
+        <div class="t" style="margin-top:2px">${fa(g.warnings)} هشدار نگارشی</div></div>`;
+
+  const uns = (DATA.meta.coverage||[]).filter(m => m.source === 'unsupported');
+  const byId = Object.fromEntries(DATA.graph_nodes.map(n => [n.id, n]));
+  document.getElementById('unsupportedList').innerHTML = uns.map(m => {
+    const n = byId[m.metric] || {};
+    return `<div class="row" style="grid-template-columns:minmax(120px,.8fr) 1fr">
+      <div><span class="lab">${esc(m.label || n.l || m.metric)}</span>
+        <div class="meta mono">${esc(m.metric)}</div></div>
+      <div class="meta">${esc(n.d || '')}</div></div>`;
+  }).join('');
+}
+
+function renderCoverage(){
+  const cov = (DATA.meta.coverage||[]).slice().sort((a,b) => (b.products||0) - (a.products||0));
+  const total = DATA.meta.catalog.products;
+  document.getElementById('covList').innerHTML = cov.map(m => {
+    const unsupported = m.source === 'unsupported';
+    const p = unsupported ? 0 : ((m.products||0) / total) * 100;
+    return `<div class="cov ${unsupported?'uns':''}">
+      <div><span>${esc(m.label || m.metric)}</span> <span class="m">${esc(m.metric)}</span></div>
+      <div class="track"><div class="fill ${p>60?'':'saffron'}" style="width:${p}%"></div></div>
+      <div class="num" dir="ltr">${unsupported ? 'unsupported' : fa(m.products||0)}</div>
+    </div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>
