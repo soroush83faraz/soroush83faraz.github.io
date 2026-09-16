@@ -465,7 +465,7 @@ function render(){
   const t = q.timings_ms || {};
   const total = Object.values(t).reduce((a,b)=>a+b,0);
   const maxT = Math.max(...Object.values(t), 0.0001);
-  out.push(stage(9, 'هزینه و زمان', 'صفر فراخوانی مدل در مسیر بازیابی — و این یک ادعای غیرقابل‌نقض نیست: <span class="mono">SelectionResult</span> هزینهٔ خودش را گزارش می‌کند، و اگر بازچینش با مدل روشن شود، مرحلهٔ هزینه در ارزیابی از ۵۲ مورد از ۵۲ به ۳ مورد از ۵۲ سقوط می‌کند.',
+  out.push(stage(9, 'هزینه و زمان', 'صفر فراخوانی مدل در مسیر بازیابی — و این یک ادعای غیرقابل‌نقض نیست: <span class="mono">SelectionResult</span> هزینهٔ خودش را گزارش می‌کند، و اگر بازچینش با مدل روشن شود، مرحلهٔ هزینه در ارزیابی از ۷۴ مورد از ۷۴ به ۲۱ مورد از ۷۴ سقوط می‌کند.',
     `<div class="chips" style="margin-bottom:10px">
        <span class="chip on">فراخوانی مدل: <span class="num">${fa(q.llm_calls)}</span></span>
        <span class="chip">مجموع: <span class="num">${faD(total.toFixed(1))}</span> میلی‌ثانیه</span>
