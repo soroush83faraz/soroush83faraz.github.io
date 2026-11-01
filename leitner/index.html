@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لایتنر آیلتس — اپ حفظ واژگان آیلتس | Leitner IELTS</title>
+<meta name="description" content="اپ فارسی و آفلاین برای حفظ واژگان آیلتس با جعبه‌های لایتنر. پیش‌نمایش زنده و دانلود APK اندروید.">
+<meta property="og:title" content="لایتنر آیلتس">
+<meta property="og:description" content="حفظ واژگان آیلتس با جعبه‌های لایتنر — آفلاین، فارسی، با هوش مصنوعی اختیاری با کلید خودتان.">
+<meta property="og:image" content="https://soroush83faraz.github.io/leitner/img/today.jpg">
+<meta property="og:url" content="https://soroush83faraz.github.io/leitner/">
+<link rel="icon" href="img/icon.png">
+<style>
+@font-face{font-family:"Estedad";src:url("../assets/fonts/Estedad-VF.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Plex Serif";src:url("../assets/fonts/PlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+:root{
+  --bg:#FBFAF7; --panel:#fff; --ink:#14181D; --muted:#4F5864; --line:#E5E2DA;
+  --teal:#0E4D57; --teal-ink:#FFF9EE; --accent:#B9800A; --soft:#E3EFEE;
+  --shadow:0 1px 2px rgba(20,24,29,.05),0 18px 40px -20px rgba(20,24,29,.3);
+  --fa:"Estedad",system-ui,sans-serif; --serif:"Plex Serif",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#10151B;--panel:#171E26;--ink:#E8E6DF;--muted:#A3ACB6;--line:#242D38;--teal:#5FC3CC;--teal-ink:#062428;--accent:#E0AA4E;--soft:#1B3B41}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--fa);line-height:1.8;font-size:1rem}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;padding-block:14px}
+header.top a.back{color:var(--muted);text-decoration:none;font-size:.95rem}
+header.top a.back:hover{color:var(--ink)}
+.hero{padding-block:56px 40px;display:grid;gap:40px;grid-template-columns:1.1fr .9fr;align-items:center}
+.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.25;font-weight:800;letter-spacing:-.01em}
+.hero p.lead{margin-top:16px;color:var(--muted);font-size:1.1rem;max-width:34em}
+.hero .en{margin-top:10px;color:var(--muted);font-family:var(--serif);direction:ltr;text-align:right;font-size:.98rem}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:10px 22px;border-radius:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--teal);transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn.primary{background:var(--teal);color:var(--teal-ink)}
+.btn.ghost{color:var(--teal)}
+.meta{margin-top:14px;color:var(--muted);font-size:.9rem}
+.meta code{direction:ltr;unicode-bidi:embed;font-size:.82rem}
+.phones{display:flex;gap:18px;justify-content:center}
+.phone{width:min(46%,210px);aspect-ratio:375/812;border-radius:28px;border:6px solid #1c2a2e;background:#1c2a2e;overflow:hidden;box-shadow:var(--shadow)}
+.phone img{width:100%;height:100%;object-fit:cover}
+.phones .phone:nth-child(2){transform:translateY(28px)}
+section{padding-block:40px;border-top:1px solid var(--line)}
+section h2{font-size:1.5rem;margin-bottom:6px}
+section p.sub{color:var(--muted);margin-bottom:24px}
+.strip{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 22px}
+.strip figure{flex:0 0 auto;scroll-snap-align:center;width:230px}
+.strip .phone{width:100%}
+.strip figcaption{margin-top:10px;color:var(--muted);font-size:.9rem;text-align:center}
+.live{display:grid;gap:16px;justify-items:center}
+.frame{width:min(100%,380px);height:min(72vh,720px);border-radius:28px;border:6px solid #1c2a2e;background:var(--panel);overflow:hidden;box-shadow:var(--shadow)}
+.frame iframe{width:100%;height:100%;border:0}
+.frame .placeholder{display:grid;place-items:center;height:100%;padding:24px;text-align:center;color:var(--muted)}
+.grid{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid h3{font-size:1.05rem;margin-bottom:4px}
+.grid p{color:var(--muted);font-size:.96rem}
+ol.steps{padding-inline-start:1.4em;display:grid;gap:8px}
+.note{margin-top:18px;padding:14px 18px;border-radius:14px;background:var(--soft);color:var(--ink);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:.9rem}
+@media (max-width:820px){.hero{grid-template-columns:1fr;padding-top:36px}.phones{order:-1}.phones .phone:nth-child(2){transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="back" href="../">← سروش فراز</a></div></header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <h1>لایتنر آیلتس</h1>
+    <p class="lead">اپ فارسی برای حفظ واژگان آیلتس با پنج جعبه‌ی لایتنر. هر واژه با جمله و معنی ذخیره می‌شود، به‌موقع برمی‌گردد، و همه‌چیز روی گوشی خودتان می‌ماند.</p>
+    <p class="en" lang="en">A Persian-first IELTS vocabulary app built around a five-box Leitner system. Offline, local-first, optional AI with your own key.</p>
+    <div class="actions">
+      <a class="btn primary" id="dl" href="https://github.com/soroush83faraz/leitner-ielts/releases/latest/download/leitner-ielts.apk" download>دانلود APK اندروید</a>
+      <a class="btn ghost" href="#live">پیش‌نمایش زنده</a>
+      <a class="btn ghost" href="https://github.com/soroush83faraz/leitner-ielts">کد در GitHub</a>
+    </div>
+    <p class="meta">اندروید ۷ به بالا · حدود ۴۸ مگابایت · امضاشده · <a href="https://github.com/soroush83faraz/leitner-ielts/releases/latest">نسخه‌ها و SHA-256</a></p>
+  </div>
+  <div class="phones" aria-hidden="true">
+    <div class="phone"><img src="img/today.jpg" alt="" width="375" height="812"></div>
+    <div class="phone"><img src="img/review-back.jpg" alt="" width="375" height="812"></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>نگاه کوتاه</h2>
+    <p class="sub">تصویرها از خود برنامه گرفته شده‌اند.</p>
+    <div class="strip" tabindex="0" aria-label="تصویرهای برنامه">
+      <figure><div class="phone"><img src="img/today.jpg" alt="صفحه‌ی امروز: کارت‌های منتظر مرور، هدف روزانه و پنج جعبه‌ی لایتنر" loading="lazy" width="375" height="812"></div><figcaption>امروز</figcaption></figure>
+      <figure><div class="phone"><img src="img/review-front.jpg" alt="مرور: واژه‌ی انگلیسی روی کارت و دکمه‌ی نمایش پاسخ" loading="lazy" width="375" height="812"></div><figcaption>اول فقط واژه</figcaption></figure>
+      <figure><div class="phone"><img src="img/review-back.jpg" alt="پشت کارت: معنی فارسی و دو دکمه‌ی می‌دانستم و نمی‌دانستم" loading="lazy" width="375" height="812"></div><figcaption>بعد معنی؛ نتیجه را خودتان ثبت می‌کنید</figcaption></figure>
+      <figure><div class="phone"><img src="img/vocabulary.jpg" alt="فهرست واژگان با جستجو، فیلتر و جعبه‌ها" loading="lazy" width="375" height="812"></div><figcaption>کتابخانه‌ی واژه‌ها</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="live">
+  <div class="wrap live">
+    <div style="text-align:center">
+      <h2>امتحانش کنید</h2>
+      <p class="sub" style="margin-bottom:0">همین‌جا در مرورگر اجرا می‌شود؛ داده‌هایتان فقط در همین مرورگر می‌ماند.</p>
+    </div>
+    <div class="frame" id="frame">
+      <div class="placeholder"><button class="btn primary" id="run" type="button">اجرای پیش‌نمایش زنده</button></div>
+    </div>
+    <p class="meta"><a href="https://soroush83faraz.github.io/leitner-ielts/">باز کردن در صفحه‌ی کامل</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>چه کار می‌کند</h2>
+    <p class="sub">کوچک و متمرکز؛ مرور روزانه، نه یک داشبورد شلوغ.</p>
+    <div class="grid">
+      <div><h3>پنج جعبه‌ی لایتنر</h3><p>پاسخ درست یک جعبه بالا می‌رود (۱، ۲، ۴، ۸، ۱۶ روز). پاسخ نادرست به جعبه‌ی ۱ برمی‌گردد. نتیجه فقط بعد از انتخاب خودتان ثبت می‌شود.</p></div>
+      <div><h3>آفلاین و محلی</h3><p>هر کاربر دیتابیس خودش را روی گوشی دارد. مرور و کتابخانه بدون اینترنت کار می‌کنند. پشتیبان JSON بگیرید و برگردانید.</p></div>
+      <div><h3>یادگیری در بافت</h3><p>جمله، تلفظ، هم‌نشین‌ها و خانواده‌ی واژه. افزودن دستی، فهرست چندتایی یا استخراج از متن انگلیسی.</p></div>
+      <div><h3>تمرین چهار مهارت</h3><p>خواندن، شنیدن (املا)، نوشتن و پاسخ گفتاری متنی؛ بازخورد نوشتن آموزشی است نه نمره‌ی رسمی آیلتس.</p></div>
+      <div><h3>هوش مصنوعی اختیاری</h3><p>در تنظیمات کلید API خودتان را وصل کنید (Anthropic یا سازگار با OpenAI). کلید فقط روی گوشی شما می‌ماند و مستقیم به همان ارائه‌دهنده می‌رود.</p></div>
+      <div><h3>راست‌چین واقعی</h3><p>رابط فارسی با متن انگلیسی چپ‌به‌راست درست کنارش، تم روشن و تیره.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>نصب روی اندروید</h2>
+    <ol class="steps">
+      <li>فایل <code dir="ltr">leitner-ielts.apk</code> را دانلود کنید.</li>
+      <li>اگر اندروید پرسید، نصب از «منبع ناشناس» را برای مرورگر یا فایل‌منیجر مجاز کنید.</li>
+      <li>فایل را باز کنید و نصب را بزنید.</li>
+    </ol>
+    <p class="note">این برنامه از فروشگاه نیست و با کلید اختصاصی خود پروژه امضا شده است. می‌توانید SHA-256 فایل را در صفحه‌ی نسخه‌ها با فایل دانلودشده مقایسه کنید. نسخه‌ی iOS ندارد؛ نسخه‌ی وب روی هر دستگاهی کار می‌کند.</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">ساخته‌شده با React Native، Expo و SQLite · <a href="https://github.com/soroush83faraz/leitner-ielts">GitHub</a></div></footer>
+
+<script>
+document.getElementById('run').addEventListener('click', function () {
+  // Loaded on demand so the page stays light and the embedded app opens its database only when asked.
+  var f = document.createElement('iframe');
+  f.src = 'https://soroush83faraz.github.io/leitner-ielts/';
+  f.title = 'پیش‌نمایش زنده‌ی لایتنر آیلتس';
+  document.getElementById('frame').replaceChildren(f);
+});
+</script>
+</body>
+</html>
